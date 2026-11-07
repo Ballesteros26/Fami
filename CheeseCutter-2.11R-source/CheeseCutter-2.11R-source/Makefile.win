@@ -1,0 +1,202 @@
+# Canonical native Windows x64 build owner.
+#
+# Run from the project root in an MSYS2 UCRT64 shell with the Microsoft x64
+# developer environment initialised. All generated output is under BUILD_ROOT.
+
+BUILD_ROOT ?= build/windows
+STATUS_PEER ?=
+PYTHON ?= python3
+ACME ?= acme
+
+WINDOWS_SUPPORT := scripts/windows_build_support.py
+WINDOWS_RESOURCE_TEMPLATE := arch/Windows/cheesecutter.rc
+WINDOWS_MANIFEST := arch/Windows/cheesecutter.manifest
+ICON_SOURCE := icons/cc2048.png
+ICON_SCRIPT := scripts/generate_desktop_icons.py
+
+OBJ_ROOT := $(BUILD_ROOT)/obj
+OBJ_D := $(OBJ_ROOT)/d
+OBJ_C := $(OBJ_ROOT)/c
+OBJ_CPP := $(OBJ_ROOT)/cpp
+OBJ_RESOURCES := $(OBJ_ROOT)/resources
+GENERATED := $(BUILD_ROOT)/generated
+LDC_IMPORTS := $(GENERATED)/ldc-imports
+LDC_CONFIG := $(GENERATED)/ldc-empty.conf
+LDC_STAGE_STATUS := $(GENERATED)/ldc-imports.status
+SDL_ROOT := $(GENERATED)/sdl
+SDL_IMPORT_LIBRARY := $(SDL_ROOT)/SDL2.lib
+SDL_SOURCE_DLL := $(SDL_ROOT)/SDL2.dll
+SDL_STATUS := $(SDL_ROOT)/SDL2.status
+ICON_ROOT := $(GENERATED)/icons
+WINDOWS_ICON := $(ICON_ROOT)/windows/cheesecutter.ico
+GENERATED_RC := $(GENERATED)/resources/cheesecutter.rc
+RESOURCE_OBJECT := $(OBJ_RESOURCES)/cheesecutter.res
+PLAYER_ROOT := $(GENERATED)/player
+PLAYER_BIN := $(PLAYER_ROOT)/player.bin
+BIN_ROOT := $(BUILD_ROOT)/bin
+GUI_EXE := $(BIN_ROOT)/ccutter.exe
+CT2UTIL_EXE := $(BIN_ROOT)/ct2util.exe
+BIN_SDL_DLL := $(BIN_ROOT)/SDL2.dll
+TEST_ROOT := $(BUILD_ROOT)/tests
+TEST_EXE := $(TEST_ROOT)/permanent-tests.exe
+TEST_SDL_DLL := $(TEST_ROOT)/SDL2.dll
+TEST_OUTPUT := $(TEST_ROOT)/permanent-suite.txt
+BUILD_INFO := $(BUILD_ROOT)/build-info
+PRIVACY_STATUS := $(BUILD_INFO)/privacy-summary.txt
+WINDOWS_STATUS := $(BUILD_INFO)/WINDOWS_BUILD_STATUS.txt
+
+include Makefile.objects.mk
+
+D_CANONICAL_OBJS := $(filter-out $(C_OBJS),$(OBJS))
+UTIL_D_CANONICAL_OBJS := $(filter-out $(C_OBJS),$(UTILOBJS))
+WIN_D_OBJS := $(addprefix $(OBJ_D)/,$(D_CANONICAL_OBJS))
+WIN_C_OBJS := $(addprefix $(OBJ_C)/,$(C_OBJS))
+WIN_CPP_OBJS := $(addprefix $(OBJ_CPP)/,$(CXX_OBJS))
+WIN_UTIL_D_OBJS := $(addprefix $(OBJ_D)/,$(UTIL_D_CANONICAL_OBJS))
+
+ROOT_WIN := $(shell cygpath -w "$(CURDIR)" 2>/dev/null || pwd -W)
+export MSYS2_ARG_CONV_EXCL := *
+
+LDC_COMMON := --conf=$(LDC_CONFIG) \
+	-d-version=DerelictSDL2_Static \
+	-I=$(LDC_IMPORTS) \
+	-I=src \
+	-J=$(PLAYER_ROOT) \
+	-J=. \
+	-J=src/c64 \
+	-J=src/font
+
+LDC_LOCAL_COMMON := --conf=generated/ldc-empty.conf \
+	-d-version=DerelictSDL2_Static \
+	-I=generated/ldc-imports \
+	-I=../../src \
+	-J=generated/player \
+	-J=../.. \
+	-J=../../src/c64 \
+	-J=../../src/font
+
+LOCAL_WIN_D_OBJS := $(patsubst $(BUILD_ROOT)/%,%,$(WIN_D_OBJS))
+LOCAL_WIN_C_OBJS := $(patsubst $(BUILD_ROOT)/%,%,$(WIN_C_OBJS))
+LOCAL_WIN_CPP_OBJS := $(patsubst $(BUILD_ROOT)/%,%,$(WIN_CPP_OBJS))
+LOCAL_WIN_UTIL_D_OBJS := $(patsubst $(BUILD_ROOT)/%,%,$(WIN_UTIL_D_OBJS))
+LOCAL_RESOURCE_OBJECT := $(patsubst $(BUILD_ROOT)/%,%,$(RESOURCE_OBJECT))
+LOCAL_SDL_IMPORT_LIBRARY := $(patsubst $(BUILD_ROOT)/%,%,$(SDL_IMPORT_LIBRARY))
+LOCAL_GUI_EXE := $(patsubst $(BUILD_ROOT)/%,%,$(GUI_EXE))
+LOCAL_CT2UTIL_EXE := $(patsubst $(BUILD_ROOT)/%,%,$(CT2UTIL_EXE))
+LOCAL_TEST_EXE := $(patsubst $(BUILD_ROOT)/%,%,$(TEST_EXE))
+
+MSVC_COMMON := /nologo /O2 /experimental:deterministic "/pathmap:$(ROOT_WIN)=." /I src
+MSVC_C_FLAGS := $(MSVC_COMMON) /TC /std:c11
+MSVC_CPP_FLAGS := $(MSVC_COMMON) /TP
+DETERMINISTIC_LINK := -L/Brepro
+GUI_LINK := $(DETERMINISTIC_LINK) -L/SUBSYSTEM:WINDOWS -L/ENTRY:wmainCRTStartup
+CONSOLE_LINK := $(DETERMINISTIC_LINK) -L/SUBSYSTEM:CONSOLE
+
+.PHONY: all gui ct2util test verify verify-privacy clean toolchain-info
+
+all: gui
+
+gui: $(GUI_EXE) $(BIN_SDL_DLL)
+
+ct2util: $(CT2UTIL_EXE) $(BIN_SDL_DLL)
+
+test: $(TEST_EXE) $(TEST_SDL_DLL)
+	@mkdir -p "$(TEST_ROOT)"
+	@AUDIT_PYTHON_EXE="$(PYTHON)" "$(TEST_EXE)" > "$(TEST_OUTPUT)" 2>&1
+	@cat "$(TEST_OUTPUT)"
+
+verify-privacy: gui ct2util $(TEST_EXE) $(TEST_SDL_DLL)
+	@$(PYTHON) $(WINDOWS_SUPPORT) verify-privacy \
+		--root "$(BUILD_ROOT)" --record "$(PRIVACY_STATUS)"
+
+verify: gui ct2util test verify-privacy
+	@$(PYTHON) $(WINDOWS_SUPPORT) verify-pe --kind gui --file "$(GUI_EXE)"
+	@$(PYTHON) $(WINDOWS_SUPPORT) verify-pe --kind ct2util --file "$(CT2UTIL_EXE)"
+	@$(PYTHON) $(WINDOWS_SUPPORT) verify-pe --kind test --file "$(TEST_EXE)"
+	@$(PYTHON) $(WINDOWS_SUPPORT) write-status --root "$(BUILD_ROOT)" \
+		$(if $(STATUS_PEER),--peer "$(STATUS_PEER)")
+	@$(PYTHON) $(WINDOWS_SUPPORT) verify-privacy \
+		--root "$(BUILD_ROOT)" --record "$(PRIVACY_STATUS)"
+
+toolchain-info:
+	@$(PYTHON) $(WINDOWS_SUPPORT) toolchain-info
+
+clean:
+	@$(PYTHON) $(WINDOWS_SUPPORT) clean --root "$(BUILD_ROOT)"
+
+$(LDC_STAGE_STATUS): $(WINDOWS_SUPPORT)
+	@mkdir -p "$(GENERATED)"
+	@$(PYTHON) $(WINDOWS_SUPPORT) stage-ldc --output "$(LDC_IMPORTS)"
+
+$(SDL_STATUS): $(WINDOWS_SUPPORT)
+	@mkdir -p "$(SDL_ROOT)"
+	@$(PYTHON) $(WINDOWS_SUPPORT) prepare-sdl --output "$(SDL_ROOT)"
+
+$(SDL_IMPORT_LIBRARY) $(SDL_SOURCE_DLL): $(SDL_STATUS)
+
+$(WINDOWS_ICON): $(ICON_SOURCE) $(ICON_SCRIPT)
+	@mkdir -p "$(ICON_ROOT)"
+	@$(PYTHON) $(ICON_SCRIPT) --source "$(ICON_SOURCE)" \
+		--output "$(ICON_ROOT)" --platform windows --verify
+
+$(GENERATED_RC): $(WINDOWS_RESOURCE_TEMPLATE) $(WINDOWS_MANIFEST) $(WINDOWS_ICON)
+	@$(PYTHON) $(WINDOWS_SUPPORT) prepare-resource \
+		--template "$(WINDOWS_RESOURCE_TEMPLATE)" \
+		--icon "generated/icons/windows/cheesecutter.ico" \
+		--manifest "$(WINDOWS_MANIFEST)" \
+		--output "$(GENERATED_RC)"
+
+$(RESOURCE_OBJECT): $(GENERATED_RC)
+	@mkdir -p "$(@D)"
+	@cd "$(BUILD_ROOT)" && rc.exe /nologo /fo "$(LOCAL_RESOURCE_OBJECT)" \
+		"generated/resources/cheesecutter.rc"
+
+$(PLAYER_BIN): src/c64/player_v4.acme
+	@mkdir -p "$(@D)"
+	@$(ACME) -f cbm -Wno-old-for --outfile "$@" "$<"
+
+$(OBJ_D)/%.o: %.d $(LDC_STAGE_STATUS) $(PLAYER_BIN)
+	@mkdir -p "$(@D)"
+	@$(PYTHON) $(WINDOWS_SUPPORT) ldc --working-directory "$(BUILD_ROOT)" -- \
+		$(LDC_LOCAL_COMMON) -c \
+		--of="$(patsubst $(BUILD_ROOT)/%,%,$@)" "../../$<"
+
+$(OBJ_C)/%.o: %.c
+	@mkdir -p "$(@D)"
+	@cl.exe $(MSVC_C_FLAGS) /c "$<" "/Fo$@"
+
+$(OBJ_CPP)/%.o: %.cpp
+	@mkdir -p "$(@D)"
+	@cl.exe $(MSVC_CPP_FLAGS) /c "$<" "/Fo$@"
+
+$(GUI_EXE): $(PLAYER_BIN) $(WIN_D_OBJS) $(WIN_C_OBJS) $(WIN_CPP_OBJS) \
+		$(RESOURCE_OBJECT) $(SDL_IMPORT_LIBRARY)
+	@mkdir -p "$(@D)"
+	@$(PYTHON) $(WINDOWS_SUPPORT) ldc --link-runtime \
+		--working-directory "$(BUILD_ROOT)" -- \
+		--conf=generated/ldc-empty.conf --of="$(LOCAL_GUI_EXE)" \
+		$(LOCAL_WIN_D_OBJS) $(LOCAL_WIN_C_OBJS) $(LOCAL_WIN_CPP_OBJS) \
+		$(LOCAL_RESOURCE_OBJECT) $(LOCAL_SDL_IMPORT_LIBRARY) $(GUI_LINK)
+
+$(CT2UTIL_EXE): $(PLAYER_BIN) $(WIN_UTIL_D_OBJS) $(WIN_C_OBJS)
+	@mkdir -p "$(@D)"
+	@$(PYTHON) $(WINDOWS_SUPPORT) ldc --link-runtime \
+		--working-directory "$(BUILD_ROOT)" -- \
+		--conf=generated/ldc-empty.conf --of="$(LOCAL_CT2UTIL_EXE)" \
+		$(LOCAL_WIN_UTIL_D_OBJS) $(LOCAL_WIN_C_OBJS) $(CONSOLE_LINK)
+
+$(TEST_EXE): tests/main.d $(PLAYER_BIN) $(LDC_STAGE_STATUS) \
+		$(SDL_IMPORT_LIBRARY)
+	@mkdir -p "$(@D)"
+	@$(PYTHON) $(WINDOWS_SUPPORT) ldc --link-runtime \
+		--working-directory "$(BUILD_ROOT)" -- \
+		$(LDC_LOCAL_COMMON) -i --of="$(LOCAL_TEST_EXE)" \
+		../../tests/main.d $(LOCAL_SDL_IMPORT_LIBRARY) $(CONSOLE_LINK)
+
+$(BIN_SDL_DLL): $(SDL_SOURCE_DLL)
+	@mkdir -p "$(@D)"
+	@cp "$(SDL_SOURCE_DLL)" "$@"
+
+$(TEST_SDL_DLL): $(SDL_SOURCE_DLL)
+	@mkdir -p "$(@D)"
+	@cp "$(SDL_SOURCE_DLL)" "$@"

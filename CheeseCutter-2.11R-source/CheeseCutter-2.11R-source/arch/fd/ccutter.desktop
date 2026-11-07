@@ -1,0 +1,11 @@
+[Desktop Entry]
+# Actions=Play;
+Name=CheeseCutter
+Comment=SID music editor
+Comment[fr]=Éditeur de musique SID
+Terminal=false
+Exec=ccutter %f
+Type=Application
+Icon=cheesecutter
+Categories=GNOME;Application;AudioVideo;Audio;Video;
+MimeType=audio/ct;audio/sid;

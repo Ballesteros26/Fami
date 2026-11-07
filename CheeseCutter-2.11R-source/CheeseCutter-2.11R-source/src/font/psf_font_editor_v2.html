@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Compact PSF Font Editor</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0b0e12;
+    --panel: #12171e;
+    --panel-2: #171d25;
+    --line: #2a3340;
+    --line-strong: #465366;
+    --text: #e7edf4;
+    --muted: #8e9aaa;
+    --accent: #c9ff5a;
+    --accent-2: #89c8ff;
+    --danger: #ff8f8f;
+    --cell-off: #10151b;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font: 12px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  button, input { font: inherit; }
+
+  button {
+    min-height: 27px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--panel-2);
+    color: var(--text);
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+
+  button:hover:not(:disabled) { border-color: var(--line-strong); background: #202834; }
+  button:active:not(:disabled) { transform: translateY(1px); }
+  button:disabled { opacity: .42; cursor: default; }
+  button.primary { border-color: #66863a; color: var(--accent); }
+  button.danger { color: var(--danger); }
+
+  .app {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 5px 7px;
+    border-bottom: 1px solid var(--line);
+    background: #0f1319;
+    white-space: nowrap;
+  }
+
+  .topbar .file-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--accent-2);
+  }
+
+  .topbar .meta {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--muted);
+  }
+
+  .spacer { flex: 1; }
+  #fileInput { display: none; }
+
+  .workspace {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) 310px minmax(150px, 1fr);
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .overview {
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    scrollbar-width: thin;
+  }
+
+  .glyph-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+    gap: 2px;
+    padding: 3px;
+    align-content: start;
+  }
+
+  .glyph-tile {
+    position: relative;
+    min-width: 0;
+    height: 43px;
+    padding: 2px 1px 11px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background: #0d1117;
+    color: var(--muted);
+    overflow: hidden;
+  }
+
+  .glyph-tile:hover { border-color: var(--line-strong); }
+  .glyph-tile.selected { border-color: var(--accent); box-shadow: inset 0 0 0 1px #577326; }
+  .glyph-tile canvas { display: block; width: 100%; height: 29px; image-rendering: pixelated; }
+  .glyph-tile span {
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    bottom: 1px;
+    text-align: center;
+    font-size: 9px;
+    line-height: 9px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .editor {
+    min-height: 0;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 7px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: var(--panel);
+  }
+
+  .glyph-head {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 28px 1fr 28px;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .glyph-title { min-width: 0; text-align: center; }
+  .glyph-title strong { display: block; font-size: 13px; color: var(--text); }
+  .glyph-title span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--accent-2); }
+
+  #pixelCanvas {
+    display: block;
+    max-width: 100%;
+    background: var(--cell-off);
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+    image-rendering: pixelated;
+    cursor: crosshair;
+    touch-action: none;
+  }
+
+  .tools {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+  }
+
+  .tools button { padding: 4px 3px; overflow: hidden; text-overflow: ellipsis; }
+  .shift-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 31px);
+    grid-template-rows: repeat(2, 27px);
+    gap: 3px;
+    justify-content: center;
+  }
+  .shift-pad button { padding: 0; font-size: 15px; }
+  .shift-pad .up { grid-column: 2; }
+  .shift-pad .left { grid-column: 1; grid-row: 2; }
+  .shift-pad .down { grid-column: 2; grid-row: 2; }
+  .shift-pad .right { grid-column: 3; grid-row: 2; }
+
+  .jump-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .jump-row input {
+    min-width: 0;
+    height: 27px;
+    padding: 3px 6px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: #0d1117;
+    color: var(--text);
+  }
+
+  .help {
+    width: 100%;
+    color: var(--muted);
+    text-align: center;
+    font-size: 10px;
+  }
+
+  .statusbar {
+    min-height: 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 7px;
+    border-top: 1px solid var(--line);
+    background: #0f1319;
+    color: var(--muted);
+  }
+
+  #roundtrip.ok { color: var(--accent); }
+  #roundtrip.changed { color: var(--danger); }
+  #message { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .drop-active::after {
+    content: "Drop PSF file to load";
+    position: fixed;
+    inset: 10px;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    border: 2px dashed var(--accent);
+    border-radius: 8px;
+    background: rgba(11, 14, 18, .92);
+    color: var(--accent);
+    font-size: 18px;
+    pointer-events: none;
+  }
+
+  dialog {
+    width: min(720px, calc(100vw - 24px));
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px;
+    background: #151b23;
+    color: var(--text);
+  }
+  dialog::backdrop { background: rgba(0, 0, 0, .72); }
+  dialog h2 { margin: 0 0 7px; font-size: 15px; }
+  dialog p { margin: 5px 0 8px; color: var(--muted); line-height: 1.35; }
+  #recoveryText {
+    width: 100%;
+    height: 190px;
+    resize: vertical;
+    box-sizing: border-box;
+    padding: 7px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: #0d1117;
+    color: var(--text);
+    font: 11px/1.25 ui-monospace, SFMono-Regular, Consolas, monospace;
+  }
+  .dialog-actions { display: flex; justify-content: flex-end; gap: 7px; margin-top: 8px; }
+
+  @media (max-width: 760px) {
+    .workspace { grid-template-columns: minmax(108px, 1fr) 286px minmax(108px, 1fr); gap: 3px; padding: 3px; }
+    .topbar .meta { display: none; }
+    .glyph-grid { grid-template-columns: repeat(auto-fill, minmax(34px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <button id="loadBtn">Load PSF</button>
+    <input id="fileInput" type="file" accept=".psf,application/octet-stream">
+    <button id="saveBtn" class="primary" disabled>Save PSF</button>
+    <button id="backupBtn" disabled>Recovery text</button>
+    <button id="restoreAllBtn" class="danger" disabled>Restore all</button>
+    <span class="file-name" id="fileName">No font loaded</span>
+    <span class="meta" id="meta"></span>
+    <span class="spacer"></span>
+  </header>
+
+  <main class="workspace">
+    <section class="overview" aria-label="First half of glyphs"><div class="glyph-grid" id="glyphsLeft"></div></section>
+
+    <section class="editor" aria-label="Glyph editor">
+      <div class="glyph-head">
+        <button id="prevBtn" title="Previous glyph">‹</button>
+        <div class="glyph-title">
+          <strong id="glyphIndex">Glyph 0</strong>
+          <span id="glyphMapping">No Unicode mapping</span>
+        </div>
+        <button id="nextBtn" title="Next glyph">›</button>
+      </div>
+
+      <canvas id="pixelCanvas" width="176" height="308" aria-label="Editable glyph pixels"></canvas>
+
+      <div class="tools">
+        <button id="copyBtn">Copy</button>
+        <button id="pasteBtn" disabled>Paste</button>
+        <button id="invertBtn">Invert</button>
+        <button id="clearBtn">Clear</button>
+      </div>
+
+      <div class="shift-pad" aria-label="Wrap shift by one pixel">
+        <button class="up" id="shiftUpBtn" title="Wrap shift up by 1">↑</button>
+        <button class="left" id="shiftLeftBtn" title="Wrap shift left by 1">←</button>
+        <button class="down" id="shiftDownBtn" title="Wrap shift down by 1">↓</button>
+        <button class="right" id="shiftRightBtn" title="Wrap shift right by 1">→</button>
+      </div>
+
+      <div class="tools">
+        <button id="restoreGlyphBtn">Restore glyph</button>
+        <button id="fillBtn">Fill</button>
+        <button id="rotateBtn" title="Rotate 180 degrees">Rotate</button>
+        <button id="mirrorBtn" title="Mirror horizontally">Mirror</button>
+      </div>
+
+      <div class="jump-row">
+        <label for="jumpInput">Jump</label>
+        <input id="jumpInput" inputmode="numeric" placeholder="index, character or U+XXXX">
+        <button id="jumpBtn">Go</button>
+      </div>
+
+      <div class="help">Left click draws. Right click erases. Drag works. Ctrl/Cmd+C and Ctrl/Cmd+V copy and paste glyphs.</div>
+    </section>
+
+    <section class="overview" aria-label="Second half of glyphs"><div class="glyph-grid" id="glyphsRight"></div></section>
+  </main>
+
+  <footer class="statusbar">
+    <span id="roundtrip">No font loaded</span>
+    <span>·</span>
+    <span id="message">The supplied font is embedded and will load automatically.</span>
+  </footer>
+</div>
+
+<dialog id="recoveryDialog">
+  <h2>PSF recovery data</h2>
+  <p>This text contains the complete edited PSF. Copy it somewhere safe. It can be decoded back into the exact file even when an embedded preview blocks downloads.</p>
+  <textarea id="recoveryText" spellcheck="false" readonly></textarea>
+  <div class="dialog-actions">
+    <button id="copyRecoveryBtn">Copy recovery text</button>
+    <button id="closeRecoveryBtn">Close</button>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  "use strict";
+
+  const EMBEDDED_NAME = "font.psf";
+  const EMBEDDED_PSF_BASE64 = "NgQDDqpVqlWqVapVqlWqVapVAAAAABg8fv9+PBgAAAAAAAAAAP9mZmZmZmYAAAAAABgYftvY2NjbfhgYAADDw2Y8GH4YfhgYAAAAAAB+gZmloaWZgX4AAAAAAAAAGzZs2Gw2GwAAAAAAfoG5pbmppYF+AAAAAH/b29vbexsbGxsAAAAAAAAA2Gw2GzZs2AAAYOBiZmwYMGDOmwYMHwAAAH/MzMz/zMzMzM8AAAAAfGZjY/tjY2NmfAAAAAA9Z2ZufnZmZua8AAAMGMPDZmY8GBgYGBgAAAAAAAAAdht739jYbgAAAAAAAAA9Z25+dua8AAAAAH/MzMzPzMzMzH8AAAAAAAAAftvb39jYfgAAZmYAw8NmZjwYGBgYAAAAAA4bGBh+GBgYGBjYcAAAAAAAAAD/AAAAAAAAADMzZgAAAAAAAAAAAAAAAAAAAAAAAAAA29sAAAAA7Kz4GDAwYH/V3wAAAAAAHjNg/GD8YDMeAAAAAPtVVVEAAAAAAAAAAAAAfMbGxsb+xsbGxgwHAAAAAAB8Bn7GxsZ+DAcAAAYfBn7GxsbGxn4AAAAA/sDAwPjAwMDA/gwHAABgYGBgcOBgYGB/AAAAAAAAAAAAAAAAAAAAAAAAGBgYGBgYGAAYGAAAAGZmZgAAAAAAAAAAAAAAAGxsbP5sbP5sbGwAAAAYGH7b2Nh+GxvbfhgYAABm1mwMGBgwNmtmAAAAADhsbDh23MzM3HYAAAAYGBgAAAAAAAAAAAAAAAAMGDAwMDAwMBgMAAAAADAYDAwMDAwMGDAAAAAAAAAAbDj+OGwAAAAAAAAAAAAYGH4YGAAAAAAAAAAAAAAAAAAAGBgwAAAAAAAAAAD+AAAAAAAAAAAAAAAAAAAAABgYAAAAAAYGDAwYGDAwYGAAAAAAfMbGzt725sbGfAAAAAAYOHgYGBgYGBh+AAAAAHzGxgYMGDBgwP4AAAAAfMbGBjwGBsbGfAAAAAAGDh42Zsb+BgYGAAAAAP7AwMD8BgYGxnwAAAAAPGDAwPzGxsbGfAAAAAD+BgYMDBgYMDAwAAAAAHzGxsZ8xsbGxnwAAAAAfMbGxsZ+BgYMeAAAAAAAAAAYGAAAABgYAAAAAAAAABgYAAAAGBgwAAAAAAYMGDBgMBgMBgAAAAAAAAD+AAD+AAAAAAAAAABgMBgMBgwYMGAAAAAAfMbGxgwYGAAYGAAAAAB+w8/b29vbz8B/AAAAAHzGxsbG/sbGxsYAAAAA/MbGxvzGxsbG/AAAAAB8xsbAwMDAxsZ8AAAAAPjMxsbGxsbGzPgAAAAA/sDAwPjAwMDA/gAAAAD+wMDA+MDAwMDAAAAAAHzGxsDA3sbGxnwAAAAAxsbGxv7GxsbGxgAAAAA8GBgYGBgYGBg8AAAAAB4MDAwMDAzMzHgAAAAAxsbM2PDw2MzGxgAAAADAwMDAwMDAwMD+AAAAAIHD5//bw8PDw8MAAAAAxsbG5vbezsbGxgAAAAB8xsbGxsbGxsZ8AAAAAPzGxsbG/MDAwMAAAAAAfMbGxsbGxsbefAYAAAD8xsbGxvzw2MzGAAAAAHzGwMB8BgbGxnwAAAAA/xgYGBgYGBgYGAAAAADGxsbGxsbGxsZ8AAAAAMbGxsbGbGxsODgAAAAAw8PDw8Pb/+fDgQAAAADGxmxsODhsbMbGAAAAAMPDZmY8GBgYGBgAAAAA/gYGDBgwYMDA/gAAAAA8MDAwMDAwMDA8AAAAAGBgMDAYGAwMBgYAAAAAPAwMDAwMDAwMPAAAABg8ZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+ADAYAAAAAAAAAAAAAAAAAAAAAAB8Bn7GxsZ+AAAAAMDAwPzGxsbGxvwAAAAAAAAAfMbAwMDGfAAAAAAGBgZ+xsbGxsZ+AAAAAAAAAHzGxv7AwHwAAAAAHjAw/DAwMDAwMAAAAAAAAAB+xsbGxsZ+BnwAAMDAwPzGxsbGxsYAAAAAGBgAOBgYGBgYPAAAAAAGBgAOBgYGBgZmZjwAAMDAwMbM2PDYzMYAAAAAOBgYGBgYGBgYPAAAAAAAAAD+29vb29vbAAAAAAAAAPzGxsbGxsYAAAAAAAAAfMbGxsbGfAAAAAAAAAD8xsbGxsb8wMAAAAAAAH7GxsbGxn4GBgAAAAAA3vDgwMDAwAAAAAAAAAB+wMB8Bgb8AAAAADAwMPwwMDAwMB4AAAAAAAAAxsbGxsbGfgAAAAAAAADGxsZsbDg4AAAAAAAAAMPD29vb234AAAAAAAAAxsZsOGzGxgAAAAAAAADGxsbGxsZ+BnwAAAAAAP4MGDBgwP4AAAAAHDAwMGAwMDAwHAAAAAAYGBgYGBgYGBgYAAAAAHAYGBgMGBgYGHAAAABz284AAAAAAAAAAAAAAAD/GBgYGBgYGBgcDBg2HAD/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AAA4bAB8xsbGxsbGxnwAAHbcAHzGxsbGxsbGfAAAbGwAfMbGxsbGxsZ8AAAAAAAAAMZsOGzGAAAAADAYxsbGxsbGxsbGfAAAGDDGxsbGxsbGxsZ8AAA4bADGxsbGxsbGxnwAAGxsAMbGxsbGxsbGfAAAAADAwPzGxsbG/MDAAAAAAHjMzMj8xsbG5rwAAAAAMBgAfAZ+xsbGfgAAAAAYMAB8Bn7GxsZ+AAAAADhsAHwGfsbGxn4AAAAAdtwAfAZ+xsbGfgAAAABsbAB8Bn7GxsZ+AAAAADhsOHwGfsbGxn4AAAAAAAAAfMbAwMDGfDBgAAAwGAB8xsb+wMB8AAAAABgwAHzGxv7AwHwAAAAAOGwAfMbG/sDAfAAAAABsbAB8xsb+wMB8AAAAADAYADgYGBgYGDwAAAAADBgAOBgYGBgYPAAAAAA4bAA4GBgYGBg8AAAAAGxsADgYGBgYGDwAAAAAaDBYfMbGxsbGfAAAAAB23AD8xsbGxsbGAAAAADAYAHzGxsbGxnwAAAAAGDAAfMbGxsbGfAAAAAA4bAB8xsbGxsZ8AAAAAHbcAHzGxsbGxnwAAAAAbGwAfMbGxsbGfAAAAAAAABgYAH4AGBgAAAAAADAYAMbGxsbGxn4AAAAAGDAAxsbGxsbGfgAAAAA4bADGxsbGxsZ+AAAAAGxsAMbGxsbGxn4AAAAAGDAAxsbGxsbGfgZ8AADAwMD8xsbGxsb8wMAAAGxsAMbGxsbGxn4GfGw4AHzGxsDexsbGfAAAAABsOAB+xsbGxsZ+BnwYGAA8GBgYGBgYGDwAAAAAAAAAOBgYGBgYPAAAAAB8xsDAfAYGxsZ8MGAAAAAAAH7AwHwGBvwwYGw4AHzGwMB8BgbGfAAAAABsOAB+wMB8Bgb8AABsOAD+BgwYMGDAwP4AAAAAbDgA/gwYMGDA/gAAOGwAAAAAAAAAAAAAAAB23AAAAAAAAAAAAAAAAAAYMDAAAAAAAAAAAAAAABgYMAAAAAAAAAAAAAAAAAAAAAAAAAAAGBgwAABmzMwAAAAAAAAAAAAAAAAAAAAAAAAAAGZmzAAAABgYfhgYGBgYGBgAAAAAGBh+GBgYGH4YGAAAAAAAAAAYPDwYAAAAAAAAAAAAAAwYMGAwGAwAAAAAAAAAYDAYDBgwYAAAbDgAfMbGxv7GxsbGAAAAAGw4AHwGfsbGxn4AABgwAHzGxsDAwMbGfAAAAAAYMAB8xsDAwMZ8AABsOAB8xsbAwMDGxnwAAAAAbDgAfMbAwMDGfAAAbDgA+MzGxsbGxsz4AABsOAYGBn7GxsbGxn4AAAAAAAAAfMbG/sDAfBgObDgA/sDAwPjAwMD+AAAAAGw4AHzGxv7AwHwAAGDAAMDAwMDAwMDA/gAADBgAOBgYGBgYGBg8AABsOMDAwMDAwMDAwP4AAGw4ADgYGBgYGBgYPAAAAAA4GBgYHDgYGBg8AAAYMMbGxub23s7GxsYAAAAAGDAA/MbGxsbGxgAAbDjGxsbm9t7OxsbGAAAAAGw4APzGxsbGxsYAADZsAHzGxsbGxsbGfAAAAAA2bAB8xsbGxsZ8AAAYMAD8xsbG/PDYzMYAAAAAGDAA3vDgwMDAwAAAbDgA/MbGxvzw2MzGAAAAAGw4AN7w4MDAwMAAABgwAHzGwMB8BgbGfAAAAAAMGAB+wMB8Bgb8AAAAADAwMPwwMDAwMB4MGGw4ADAw/DAwMDAwHgAAOGw4xsbGxsbGxsZ8AAAAADhsOMbGxsbGxn4AADZsAMbGxsbGxsbGfAAAAAA2bADGxsbGxsZ+AAAYMAD+BgwYMGDAwP4AAAAAGDAA/gwYMGDA/gAAGBgA/gYMGDBgwMD+AAAAABgYAP4MGDBgwP4AAAAAfMbAwHwGBsbGfDBgAAAAAAB+wMB8Bgb8MGAAADAwMPwwMDAwMB4MGGw4AAAAAAAAAAAAAAAAbDgAAAAAAAAAAAAAAAAYGAAAAAAAAAAAAAAAADZsAAAAAAAAAAAAAAAAOGwAfMbGwMDAxsZ8AAAAADhsAHzGwMDAxnwAABgYAHzGxsDAwMbGfAAAAAAYGAB8xsDAwMZ8AAA4bAB8xsbA3sbGxnwAAAAAOGwAfsbGxsbGfgZ8GBgAfMbGwN7GxsZ8AAAAABgYAH7GxsbGxn4GfDhsAMbGxsb+xsbGxgAAHDbAwMD8xsbGxsbGAAAcNgAeDAwMDAzMzHgAAAAAHDYADgYGBgYGZmY8OGwAfMbAwHwGBsZ8AAAAADhsAH7AwHwGBvwAAGw4xsbGxsbGxsbGfAAAAABsOADGxsbGxsZ+AAB8AHzGxsbG/sbGxsYAAAAAAHwAfAZ+xsbGfgAAfAD+wMDA+MDAwMD+AAAAAAB8AHzGxv7AwHwAABgYAP7AwMD4wMDA/gAAAAAYGAB8xsb+wMB8AAAAAHzGxsDA3sbGxnwwYAAMGBgAfsbGxsbGfgZ8fgA8GBgYGBgYGBg8AAAAAAB8ADgYGBgYGDwAAAAAPBgYGBgYGBgYPBgOAAAYGAA4GBgYGBg8GA4AAMbGzNjw8NjMxvYwYAAAwMDAxszY8NjM9jBgAADAwMDAwMDAwMD+MGAAADgYGBgYGBgYGDwYMAAAxsbG5vbezsbG9jBgAAAAAAD8xsbGxsb2MGB8AHzGxsbGxsbGxnwAAAAAAHwAfMbGxsbGfAAAAAD8xsbGxvzw2Mz2MGAAAAAAAN7w4MDAwOBgwHwAxsbGxsbGxsbGfAAAAAAAfADGxsbGxsZ+AAAAAMbGxsbGxsbGxnwYDjAYAP7AwMD4wMDA/gAAGDAA/sDAwMDAwMDAAAAAAHzGwMD4wMDAxnwAABgwxsbM2PDw2MzGxgAAMBjGxsbO3vbmxsbGAABsOMbGxsbGfgYGBnwAAAAAxsbGxsbGxsbG/jg4AAD8wMD8xsbGxsb8AAAAAP7GxsDAwMDAwMAAAAAAfMbGBjwGBsbGfAAAAADGxsbO3vbmxsbGAABsOMbGxs7e9ubGxsYAAAAAHjZmZmZmZmZmxgAAAAD+xsbGxsbGxsbGAAAAAMbGxsbGfgYGBnwAAAAAxsbGxsZ+BgYGBgAAAADgYGB8ZmZmZmZ8AAAAAGBgYHxmZmZmZnwAAAAAfMYGBj4GBgbGfAAAAAB+xsbGxn4eNmbGAAAAAHzAwPzGxsbGxvwAAAAAeMzMyPzGxsbG/AAAAAAAAAB8BgZ8wMB8AAAAAAAAAH7GxsbGxn4GfAAAAAAAfMYGPAbGfAAAAAAAAADGxsbGxsZ+AAAAAGw4AMbGxsbGxn4AAAAAAAAAxszY8NjMxgAAAAAAAAA+ZmZmZmbGAAAAAAAAAMbGxv7GxsYAAAAAAAAA/sbGxsbGxgAAAAAAAADGxsZ+BgYGAAAAAAAAAOBgfGZmZnwAAAAAAAAAYGB8ZmZmfAAAAAAAAAB8xgY+BsZ8AAAAAAAAAH7Gxn42ZsYAAAAAMBgAfMbG/sDAfAAAAAAYMAB8BgZ8wMB8AAAAAAAAAHzGwPjAxnwAAAAAGDAAxszY8NjMxgAAAAAwGADGxsbGxsZ+AAAAAGw4AMbGxsbGxn4GfAAAAAAAxsbGxsbG/jg4Bgb+wMDAwMDAwMDAAAAAAABgYHwGBnzAwHwAAAAAlpaW0PDwsJaQlgAAAAD+wMDAwPzGxsbGBgwAAAAAAP7AwPjMzMwMGAAAfMbGBjwGBsbGfDAwAAAAAAB8xgY8BsZ8MDAAAMbG1tz4+NzWxsYAAAAAAAAAxtbc+NzWxgAAAAB8xsbAwMDAxsZ8MDAAAAAAAHzGwMDAxnwwMAAAxsbG1tZ+FhYGBgAAAAAAAADGxtZ+FgYGAAAAAMDAwMD8xsbGxsYAAAAAAAAAwMD8xsbGxgAAbGwAfMbGxv7GxsbGAAAAAGxsAHwGfsbGxn4AAGw4AP7AwMD4wMDA/gAAAABsOAB8xsb+wMB8AAAAAHzGBgb+xsbGxnwAAAAAAAAAfAYG/sbGfAAAfADGxsbO3vbmxsbGAAAAAAB8AMbGxsbGxn4AAGxsAHzGxsbGxsbGfAAAAABsbAB8xsbGxsZ8AAAAAHzGxsb+xsbGxnwAAAAAAAAAfMbG/sbGfAAAfADGxsbGxn4GBgZ8AAAAAAB8AMbGxsbGxn4GfGxsAMbGxsZ+BgYGfAAAAABsbADGxsbGxsZ+Bnw2bADGxsbGfgYGBnwAAAAANmwAxsbGxsbGfgZ8AAAAAAb+GDD+wAAAAAAAAAAAAHbcAHbcAAAAAAB4bGxsbAAAAAAAAAAAAABmZmZmZmZmAGZmAAAAAAAA/gAA/gAA/gAAAAAAAAAAPmDA+MBgPgAAAAAAfMbGxsbGxsbGAAAAAAAAAAA4ODgAAAAAAAAODAwMDMzMzGw8HAAAGBgYGBgYGBgY2NhwAAAAAAAAAP7AwMAAAAAAAAAAbGxsbGxsbGxsbAAAAAAAAAAAAAAAAAD+AP4AGBgYGAAAAAAAAAAAAABmZmZmAAAAAAAAAAAAAAB8xsbGxsZsbGzuAAAAABg8fhgYGBh+PBgAAAAAGDx+GBgYGH48GH4AAAAGBgYGJmb+/mAgAAAAAAAQPn7wfj4QAAAAAAAAEDh8/mxsbGxsbAAAAAAAEPj8Hvz4EAAAAAAAAGxsbGxsbP58OBAAAAAAEDh8/mxs/nw4EAAAAAAAAMDAwMDA/gAAAAAAAAAAABA4OGxsxsYAAAAAAAAAxsZsbDg4EAAAAAAAxsbGxsbGxsZ8AAAAAAAAEDhsxsbG/gAAAAAAPGZmZmY8GH4YGAAAAAA+DhoyeMzMzMx4AACSJf//Zib9////wAP//6IA//+lAP//qQD//6sAaiL//64A//+2AP//uwBrIv//vQD//8YA///QABAB///YAP//3QD//+YA///4AP//UgH//1MB//94Af//kgH//xQgFSD//x0g//8mIP//MCD//6wg//8iIf//BAH//wUB//8RAf//GAH//0EB//8gAKAAACABIAIgAyAEIAUgBiAHIAggCSAKIP//IQD//yIA//8jAP//JAD//yUA//8mAP//JwD//ygA//8pAP//KgD//ysA//8sAP//LQASIBMgEiKtABAgESD//y4A//8vAP//MAD//zEA//8yAP//MwD//zQA//81AP//NgD//zcA//84AP//OQD//zoA//87AP//PAD//z0A//8+AP//PwD//0AA//9BABAEkQP//0IAEgSSA///QwAhBP//RAD//0UAFQSVA///RgD//0cA//9IAB0ElwP//0kABgSZA///SgAIBP//SwAaBJoDKiH//0wA//9NABwEnAP//04AnQP//08AHgSfA///UAAgBKED//9RAP//UgD//1MABQT//1QAIgSkA///VQD//1YA//9XAP//WAAlBKcD//9ZAK4E//9aAJYD//9bAP//XAD//10A//9eAP//XwD//2AA//9hADAE//9iAP//YwBBBP//ZAD//2UANQT//2YA//9nAP//aAD//2kAVgT//2oAWAT//2sA//9sAP//bQD//24A//9vAD4E//9wAEAE//9xAP//cgD//3MAVQT//3QA//91AP//dgD//3cA//94AEUE//95AEME//96AP//ewD//3wA//99AP//fgD//2IB//9kAf//GgL//9sC//8mAf//JwH//3QB//91Af//cwH//wIE//8JBP//CgT//wsE//8UBP//FgT//6YDJAT//yYE//8oBP//KQT//ysE//8uBP//NgT//zwE//9CBP//RAT//0YE//9IBP//SQT//0sE//9OBP//UgT//1kE//9aBP//WwT//5IE//+TBP//lgT//5cE//+aBP//mwT//6AE//+hBP//ogT//6ME//+kBP//pQT//68E//+yBP//swT//7YE//+3BP//+AT///kE//+uIP//pyD//wUi//8eIv//ICP//5Qh///UIf//BiKUA///Oib//zsm//88Jv//YCb//wAlASX//2wl//88Jf//FCX//2ol//+IJf//LCX//xwl//80Jf//DCX//6MA//+TIbwl//+QIcAl//+SIbYl//+RIbIl//+RJf//oCWuJf//sAD//2Ui//9kIv//GCX//7EA//8kJf//ECX//wIl//+hAP//pAD//6YA//+nAP//qAD//6oA//+sAP//Yyb//2Um//9qJv//rwDJAv//sgD//7MA//+0AP//tQC8A///twD//7gA//+5AP//ugD//7wA//++AP//vwD//8AA///BAP//wgD//8MA///EAP//xQArIf//xwD//8gA///JAP//ygD//8sAAQT//8wA///NAP//zgD//88ABwT//9EA///SAP//0wD//9QA///VAP//1gD//9cA///ZAP//2gD//9sA///cAP//3gD//98A///gAP//4QD//+IA///jAP//5AD//+UA///nAP//6AD//+kA///qAP//6wBRBP//7AD//+0A///uAP//7wBXBP//8AD///EA///yAP//8wD///QA///1AP//9gD///cA///5AP//+gD///sA///8AP///QD///4A////AP//HgH//x8B//8wAf//MQH//14B//9fAf//YAH//2EB//99Af//fgH//8YC///cAv//GCD//xkg//8aIP//HCD//x4g//8gIP//ISD//yIgzyX//zkg//86IP//AgHQBP//AwHRBP//BgH//wcB//8MAf//DQH//w4B//8PAf//GQH//xoB//8bAf//OQH//zoB//89Af//PgH//0IB//9DAf//RAH//0cB//9IAf//UAH//1EB//9UAf//VQH//1gB//9ZAf//WgH//1sB//9jAf//ZQH//24B//9vAf//cAH//3EB//95Af//egH//3sB//98Af//GAL//xkC//8bAv//xwL//9gC///ZAv//3QL//wgB//8JAf//CgH//wsB//8cAf//HQH//yAB//8hAf//JAH//yUB//80Af//NQH//1wB//9dAf//bAH//20B//8AAf//AQH//xIB//8TAf//FgH//xcB//8iAf//IwH//yoB//8rAf//LgH//y8B//82Af//NwH//zsB//88Af//RQH//0YB//9MAf//TQH//1YB//9XAf//agH//2sB//9yAf//AAT//wME//8EBP//DAT//w0E//8OBP//DwT//xEE//+TAxME//8XBP//GAT//xkE//8bBP//oAMfBP//IwT//ycE//8qBP//LAT//y0E//8vBP//MQT//zIE//8zBP//NAT//zcE//84BP//OQT//zoE//87BP//PQT//z8E//9HBP//SgT//0wE//9NBP//TwT//1AE//9TBP//VAT//1wE//9dBP//XgT//18E//+QBP//kQT//xYh//+UBP//lQT//5gE//+ZBP//nAT//50E//+qBP//qwT//7gE//+5BP//ugT//7sE///SBP//0wT//9YE///XBP//2AT//9kE///iBP//4wT//+YE///nBP//6AT//+kE///uBP//7wT///AE///xBP//8gT///ME//9gIv//SCL//38g//88IP//YSL//wgi//8pIv//GSL//xoi//8hI///ECP//xYg//8XIP//MiD//zMg//+pAyYh//+VIf//qCH//7Uh///QIf//0SH//9Ih///TIf//1SH//x8i//8nIv//KCL//yoi//8CI///QCb//0Im//8=";
+
+  const $ = id => document.getElementById(id);
+  const els = {
+    app: $("app"), loadBtn: $("loadBtn"), fileInput: $("fileInput"), saveBtn: $("saveBtn"), backupBtn: $("backupBtn"),
+    restoreAllBtn: $("restoreAllBtn"), fileName: $("fileName"), meta: $("meta"),
+    glyphsLeft: $("glyphsLeft"), glyphsRight: $("glyphsRight"), pixelCanvas: $("pixelCanvas"),
+    glyphIndex: $("glyphIndex"), glyphMapping: $("glyphMapping"), prevBtn: $("prevBtn"), nextBtn: $("nextBtn"),
+    copyBtn: $("copyBtn"), pasteBtn: $("pasteBtn"), invertBtn: $("invertBtn"), clearBtn: $("clearBtn"),
+    shiftUpBtn: $("shiftUpBtn"), shiftDownBtn: $("shiftDownBtn"), shiftLeftBtn: $("shiftLeftBtn"), shiftRightBtn: $("shiftRightBtn"),
+    restoreGlyphBtn: $("restoreGlyphBtn"), fillBtn: $("fillBtn"), rotateBtn: $("rotateBtn"), mirrorBtn: $("mirrorBtn"),
+    jumpInput: $("jumpInput"), jumpBtn: $("jumpBtn"), roundtrip: $("roundtrip"), message: $("message"),
+    recoveryDialog: $("recoveryDialog"), recoveryText: $("recoveryText"),
+    copyRecoveryBtn: $("copyRecoveryBtn"), closeRecoveryBtn: $("closeRecoveryBtn")
+  };
+
+  const ctx = els.pixelCanvas.getContext("2d", { alpha: false });
+  let font = null;
+  let currentGlyph = 0;
+  let clipboard = null;
+  let cellSize = 18;
+  let pointerMode = null;
+  let lastPaintCell = "";
+  let tileButtons = [];
+  let tileCanvases = [];
+  let changedOffsets = new Set();
+  let autosaveTimer = null;
+  const AUTOSAVE_KEY = "psf-font-editor-v2-autosave";
+
+  function base64ToBytes(base64) {
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return bytes;
+  }
+
+  function bytesToBase64(bytes) {
+    let binary = "";
+    for (let i = 0; i < bytes.length; i += 0x8000) {
+      binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+    }
+    return btoa(binary);
+  }
+
+  function readU16LE(bytes, offset) {
+    return bytes[offset] | (bytes[offset + 1] << 8);
+  }
+
+  function parsePsf1Mappings(bytes, offset, glyphCount, hasTable) {
+    const mappings = Array.from({ length: glyphCount }, () => []);
+    if (!hasTable) return mappings;
+    let pos = offset;
+    for (let glyph = 0; glyph < glyphCount && pos + 1 < bytes.length; glyph++) {
+      let inSequence = false;
+      while (pos + 1 < bytes.length) {
+        const value = readU16LE(bytes, pos);
+        pos += 2;
+        if (value === 0xffff) break;
+        if (value === 0xfffe) {
+          inSequence = true;
+          continue;
+        }
+        if (!inSequence) mappings[glyph].push(value);
+      }
+    }
+    return mappings;
+  }
+
+  function parsePsf2Mappings(bytes, offset, glyphCount, hasTable) {
+    const mappings = Array.from({ length: glyphCount }, () => []);
+    if (!hasTable) return mappings;
+    const decoder = new TextDecoder("utf-8", { fatal: false });
+    let pos = offset;
+    for (let glyph = 0; glyph < glyphCount && pos < bytes.length; glyph++) {
+      const singleBytes = [];
+      let inSequence = false;
+      while (pos < bytes.length) {
+        const value = bytes[pos++];
+        if (value === 0xff) break;
+        if (value === 0xfe) {
+          inSequence = true;
+          continue;
+        }
+        if (!inSequence) singleBytes.push(value);
+      }
+      if (singleBytes.length) {
+        const text = decoder.decode(new Uint8Array(singleBytes));
+        for (const char of text) mappings[glyph].push(char.codePointAt(0));
+      }
+    }
+    return mappings;
+  }
+
+  function parseFont(bytes) {
+    if (!(bytes instanceof Uint8Array)) bytes = new Uint8Array(bytes);
+
+    if (bytes.length >= 4 && bytes[0] === 0x36 && bytes[1] === 0x04) {
+      const mode = bytes[2];
+      const charSize = bytes[3];
+      const glyphCount = (mode & 0x01) ? 512 : 256;
+      const width = 8;
+      const height = charSize;
+      const headerSize = 4;
+      const glyphOffset = headerSize;
+      const rowStride = 1;
+      const glyphEnd = glyphOffset + glyphCount * charSize;
+      if (!charSize || glyphEnd > bytes.length) throw new Error("Invalid or truncated PSF1 file.");
+      const hasUnicode = Boolean(mode & 0x02);
+      return {
+        format: "PSF1", version: 1, bytes: bytes.slice(), mode, flags: mode,
+        headerSize, glyphOffset, glyphEnd, glyphCount, charSize, width, height, rowStride,
+        hasUnicode, mappings: parsePsf1Mappings(bytes, glyphEnd, glyphCount, hasUnicode),
+        originalGlyphData: bytes.slice(glyphOffset, glyphEnd),
+        glyphData: bytes.slice(glyphOffset, glyphEnd)
+      };
+    }
+
+    if (bytes.length >= 32) {
+      const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+      if (view.getUint32(0, true) === 0x864ab572) {
+        const version = view.getUint32(4, true);
+        const headerSize = view.getUint32(8, true);
+        const flags = view.getUint32(12, true);
+        const glyphCount = view.getUint32(16, true);
+        const charSize = view.getUint32(20, true);
+        const height = view.getUint32(24, true);
+        const width = view.getUint32(28, true);
+        const rowStride = Math.ceil(width / 8);
+        const glyphOffset = headerSize;
+        const glyphEnd = glyphOffset + glyphCount * charSize;
+        if (headerSize < 32 || !glyphCount || !charSize || !width || !height) throw new Error("Invalid PSF2 header.");
+        if (glyphCount > 8192) throw new Error("This editor supports up to 8192 glyphs per font.");
+        if (rowStride * height > charSize || glyphEnd > bytes.length) throw new Error("Invalid or truncated PSF2 bitmap data.");
+        const hasUnicode = Boolean(flags & 0x01);
+        return {
+          format: "PSF2", version, bytes: bytes.slice(), flags,
+          headerSize, glyphOffset, glyphEnd, glyphCount, charSize, width, height, rowStride,
+          hasUnicode, mappings: parsePsf2Mappings(bytes, glyphEnd, glyphCount, hasUnicode),
+          originalGlyphData: bytes.slice(glyphOffset, glyphEnd),
+          glyphData: bytes.slice(glyphOffset, glyphEnd)
+        };
+      }
+    }
+
+    throw new Error("Not a recognised PSF1 or PSF2 font.");
+  }
+
+  function codePointLabel(cp) {
+    return "U+" + cp.toString(16).toUpperCase().padStart(cp <= 0xffff ? 4 : 6, "0");
+  }
+
+  function safePrintable(cp) {
+    try {
+      const char = String.fromCodePoint(cp);
+      return /[\p{C}\p{Z}]/u.test(char) ? "" : char;
+    } catch {
+      return "";
+    }
+  }
+
+  function mappingLabel(index) {
+    const cps = font?.mappings[index] || [];
+    if (!cps.length) return "No Unicode mapping";
+    const shown = cps.slice(0, 4);
+    const chars = shown.map(safePrintable).join("");
+    const codes = shown.map(codePointLabel).join(" ");
+    const extra = cps.length > shown.length ? ` +${cps.length - shown.length}` : "";
+    return (chars ? `${chars} · ` : "") + codes + extra;
+  }
+
+  function setControlsEnabled(enabled) {
+    [els.saveBtn, els.backupBtn, els.restoreAllBtn, els.prevBtn, els.nextBtn, els.copyBtn, els.invertBtn, els.clearBtn,
+      els.shiftUpBtn, els.shiftDownBtn, els.shiftLeftBtn, els.shiftRightBtn, els.restoreGlyphBtn,
+      els.fillBtn, els.rotateBtn, els.mirrorBtn, els.jumpBtn, els.jumpInput].forEach(el => el.disabled = !enabled);
+    els.pasteBtn.disabled = !enabled || !clipboard;
+  }
+
+  function setMessage(text, isError = false) {
+    els.message.textContent = text;
+    els.message.style.color = isError ? "var(--danger)" : "";
+  }
+
+  function updateRoundTripStatus() {
+    if (!font) {
+      els.roundtrip.textContent = "No font loaded";
+      els.roundtrip.className = "";
+      return;
+    }
+    if (changedOffsets.size === 0) {
+      els.roundtrip.textContent = "0 changed bytes · save is byte-identical";
+      els.roundtrip.className = "ok";
+    } else {
+      els.roundtrip.textContent = `${changedOffsets.size} changed bitmap byte${changedOffsets.size === 1 ? "" : "s"}`;
+      els.roundtrip.className = "changed";
+    }
+  }
+
+  function loadFont(bytes, name) {
+    const parsed = parseFont(bytes);
+    let restoredAutosave = false;
+    try {
+      const saved = JSON.parse(localStorage.getItem(AUTOSAVE_KEY) || "null");
+      if (saved && saved.original === bytesToBase64(parsed.bytes)) {
+        const recovered = base64ToBytes(saved.output || "");
+        if (recovered.length === parsed.bytes.length) {
+          parsed.glyphData.set(recovered.slice(parsed.glyphOffset, parsed.glyphEnd));
+          restoredAutosave = true;
+        }
+      }
+    } catch {}
+    font = parsed;
+    currentGlyph = 0;
+    clipboard = null;
+    changedOffsets = new Set();
+    if (restoredAutosave) {
+      for (let i = 0; i < font.glyphData.length; i++) {
+        if (font.glyphData[i] !== font.originalGlyphData[i]) changedOffsets.add(i);
+      }
+    }
+    els.fileName.textContent = name || "font.psf";
+    els.fileName.title = els.fileName.textContent;
+    els.meta.textContent = `${font.format} · ${font.glyphCount} glyphs · ${font.width}×${font.height} · ${font.charSize} bytes/glyph${font.hasUnicode ? " · Unicode table" : ""}`;
+    setControlsEnabled(true);
+    renderOverview();
+    selectGlyph(0, false);
+    updateRoundTripStatus();
+    setMessage(restoredAutosave
+      ? "Recovered autosaved edits for this exact source font."
+      : "Loaded successfully. Header and Unicode data will be preserved exactly.");
+  }
+
+  function glyphByteOffset(glyph, x, y) {
+    return glyph * font.charSize + y * font.rowStride + (x >> 3);
+  }
+
+  function getPixel(glyph, x, y) {
+    const offset = glyphByteOffset(glyph, x, y);
+    const mask = 0x80 >> (x & 7);
+    return (font.glyphData[offset] & mask) !== 0;
+  }
+
+  function writeByte(offset, value) {
+    value &= 0xff;
+    if (font.glyphData[offset] === value) return false;
+    font.glyphData[offset] = value;
+    if (value === font.originalGlyphData[offset]) changedOffsets.delete(offset);
+    else changedOffsets.add(offset);
+    return true;
+  }
+
+  function setPixel(glyph, x, y, on) {
+    if (!font || x < 0 || y < 0 || x >= font.width || y >= font.height) return false;
+    const offset = glyphByteOffset(glyph, x, y);
+    const mask = 0x80 >> (x & 7);
+    const before = font.glyphData[offset];
+    const after = on ? (before | mask) : (before & ~mask);
+    return writeByte(offset, after);
+  }
+
+  function getGlyphMatrix(glyph = currentGlyph) {
+    return Array.from({ length: font.height }, (_, y) =>
+      Array.from({ length: font.width }, (_, x) => getPixel(glyph, x, y))
+    );
+  }
+
+  function applyGlyphMatrix(matrix, glyph = currentGlyph) {
+    if (!font || matrix.length !== font.height || matrix.some(row => row.length !== font.width)) return;
+    for (let y = 0; y < font.height; y++) {
+      for (let x = 0; x < font.width; x++) setPixel(glyph, x, y, Boolean(matrix[y][x]));
+    }
+    afterGlyphEdit(glyph);
+  }
+
+  function persistAutosave() {
+    if (!font) return;
+    try {
+      localStorage.setItem(AUTOSAVE_KEY, JSON.stringify({
+        name: els.fileName.textContent || "font.psf",
+        original: bytesToBase64(font.bytes),
+        output: bytesToBase64(outputBytes()),
+        savedAt: Date.now()
+      }));
+    } catch {}
+  }
+
+  function queueAutosave() {
+    clearTimeout(autosaveTimer);
+    autosaveTimer = setTimeout(persistAutosave, 120);
+  }
+
+  function afterGlyphEdit(glyph = currentGlyph) {
+    drawEditor();
+    drawPreview(glyph);
+    updateRoundTripStatus();
+    queueAutosave();
+  }
+
+  function calculateCellSize() {
+    return Math.max(4, Math.min(22, Math.floor(278 / font.width), Math.floor(390 / font.height)));
+  }
+
+  function drawEditor() {
+    if (!font) {
+      ctx.fillStyle = "#10151b";
+      ctx.fillRect(0, 0, els.pixelCanvas.width, els.pixelCanvas.height);
+      return;
+    }
+    cellSize = calculateCellSize();
+    els.pixelCanvas.width = font.width * cellSize;
+    els.pixelCanvas.height = font.height * cellSize;
+    ctx.imageSmoothingEnabled = false;
+    ctx.fillStyle = "#10151b";
+    ctx.fillRect(0, 0, els.pixelCanvas.width, els.pixelCanvas.height);
+
+    for (let y = 0; y < font.height; y++) {
+      for (let x = 0; x < font.width; x++) {
+        ctx.fillStyle = getPixel(currentGlyph, x, y) ? "#c9ff5a" : "#10151b";
+        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+      }
+    }
+
+    ctx.strokeStyle = "#2a3340";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = 0; x <= font.width; x++) {
+      const px = Math.min(els.pixelCanvas.width - .5, x * cellSize + .5);
+      ctx.moveTo(px, .5);
+      ctx.lineTo(px, els.pixelCanvas.height - .5);
+    }
+    for (let y = 0; y <= font.height; y++) {
+      const py = Math.min(els.pixelCanvas.height - .5, y * cellSize + .5);
+      ctx.moveTo(.5, py);
+      ctx.lineTo(els.pixelCanvas.width - .5, py);
+    }
+    ctx.stroke();
+  }
+
+  function drawPreview(index) {
+    const canvas = tileCanvases[index];
+    if (!canvas || !font) return;
+    const pctx = canvas.getContext("2d", { alpha: false });
+    const w = canvas.width;
+    const h = canvas.height;
+    pctx.imageSmoothingEnabled = false;
+    pctx.fillStyle = "#0d1117";
+    pctx.fillRect(0, 0, w, h);
+    const scale = Math.max(1, Math.floor(Math.min((w - 2) / font.width, (h - 2) / font.height)));
+    const drawW = font.width * scale;
+    const drawH = font.height * scale;
+    const ox = Math.floor((w - drawW) / 2);
+    const oy = Math.floor((h - drawH) / 2);
+    pctx.fillStyle = "#d8e2ec";
+    for (let y = 0; y < font.height; y++) {
+      for (let x = 0; x < font.width; x++) {
+        if (getPixel(index, x, y)) pctx.fillRect(ox + x * scale, oy + y * scale, scale, scale);
+      }
+    }
+  }
+
+  function makeGlyphTile(index) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "glyph-tile";
+    button.dataset.index = String(index);
+    button.title = `Glyph ${index} · ${mappingLabel(index)}`;
+    button.setAttribute("aria-label", button.title);
+    const canvas = document.createElement("canvas");
+    canvas.width = 34;
+    canvas.height = 29;
+    const label = document.createElement("span");
+    label.textContent = String(index);
+    button.append(canvas, label);
+    tileButtons[index] = button;
+    tileCanvases[index] = canvas;
+    return button;
+  }
+
+  function renderOverview() {
+    els.glyphsLeft.replaceChildren();
+    els.glyphsRight.replaceChildren();
+    tileButtons = new Array(font.glyphCount);
+    tileCanvases = new Array(font.glyphCount);
+    const split = Math.ceil(font.glyphCount / 2);
+    const leftFrag = document.createDocumentFragment();
+    const rightFrag = document.createDocumentFragment();
+    for (let i = 0; i < font.glyphCount; i++) {
+      (i < split ? leftFrag : rightFrag).appendChild(makeGlyphTile(i));
+    }
+    els.glyphsLeft.appendChild(leftFrag);
+    els.glyphsRight.appendChild(rightFrag);
+    for (let i = 0; i < font.glyphCount; i++) drawPreview(i);
+  }
+
+  function selectGlyph(index, scrollIntoView = true) {
+    if (!font) return;
+    index = ((Number(index) % font.glyphCount) + font.glyphCount) % font.glyphCount;
+    if (tileButtons[currentGlyph]) tileButtons[currentGlyph].classList.remove("selected");
+    currentGlyph = index;
+    if (tileButtons[currentGlyph]) {
+      tileButtons[currentGlyph].classList.add("selected");
+      if (scrollIntoView) tileButtons[currentGlyph].scrollIntoView({ block: "nearest", inline: "nearest" });
+    }
+    els.glyphIndex.textContent = `Glyph ${currentGlyph}`;
+    els.glyphMapping.textContent = mappingLabel(currentGlyph);
+    els.glyphMapping.title = els.glyphMapping.textContent;
+    els.jumpInput.value = String(currentGlyph);
+    drawEditor();
+  }
+
+  function copyGlyph() {
+    if (!font) return;
+    clipboard = getGlyphMatrix();
+    els.pasteBtn.disabled = false;
+    setMessage(`Copied glyph ${currentGlyph}.`);
+  }
+
+  function pasteGlyph() {
+    if (!font || !clipboard) return;
+    applyGlyphMatrix(clipboard.map(row => row.slice()));
+    setMessage(`Pasted into glyph ${currentGlyph}.`);
+  }
+
+  function transformGlyph(transform, message) {
+    if (!font) return;
+    const source = getGlyphMatrix();
+    const target = Array.from({ length: font.height }, () => Array(font.width).fill(false));
+    for (let y = 0; y < font.height; y++) {
+      for (let x = 0; x < font.width; x++) {
+        const [tx, ty] = transform(x, y);
+        target[ty][tx] = source[y][x];
+      }
+    }
+    applyGlyphMatrix(target);
+    setMessage(message);
+  }
+
+  function shiftGlyph(dx, dy) {
+    transformGlyph((x, y) => [
+      (x + dx + font.width) % font.width,
+      (y + dy + font.height) % font.height
+    ], `Wrapped glyph ${dx ? (dx < 0 ? "left" : "right") : (dy < 0 ? "up" : "down")} by 1 pixel.`);
+  }
+
+  function invertGlyph() {
+    const matrix = getGlyphMatrix().map(row => row.map(value => !value));
+    applyGlyphMatrix(matrix);
+    setMessage(`Inverted glyph ${currentGlyph}.`);
+  }
+
+  function clearGlyph(fill = false) {
+    applyGlyphMatrix(Array.from({ length: font.height }, () => Array(font.width).fill(fill)));
+    setMessage(`${fill ? "Filled" : "Cleared"} glyph ${currentGlyph}.`);
+  }
+
+  function restoreGlyph() {
+    if (!font) return;
+    const start = currentGlyph * font.charSize;
+    for (let i = 0; i < font.charSize; i++) writeByte(start + i, font.originalGlyphData[start + i]);
+    afterGlyphEdit(currentGlyph);
+    setMessage(`Restored glyph ${currentGlyph} from the loaded file.`);
+  }
+
+  function restoreAll() {
+    if (!font) return;
+    font.glyphData.set(font.originalGlyphData);
+    changedOffsets.clear();
+    for (let i = 0; i < font.glyphCount; i++) drawPreview(i);
+    drawEditor();
+    updateRoundTripStatus();
+    queueAutosave();
+    setMessage("Restored every glyph to the loaded file.");
+  }
+
+  function jumpToGlyph() {
+    if (!font) return;
+    const raw = els.jumpInput.value.trim();
+    if (!raw) return;
+    let index = null;
+    if (/^\d+$/.test(raw)) {
+      index = Number(raw);
+    } else {
+      let cp = null;
+      const match = raw.match(/^U\+([0-9a-f]+)$/i);
+      if (match) cp = parseInt(match[1], 16);
+      else if ([...raw].length) cp = raw.codePointAt(0);
+      if (cp !== null) index = font.mappings.findIndex(list => list.includes(cp));
+    }
+    if (Number.isInteger(index) && index >= 0 && index < font.glyphCount) {
+      selectGlyph(index);
+      setMessage(`Selected glyph ${index}.`);
+    } else {
+      setMessage(`No glyph found for “${raw}”.`, true);
+    }
+  }
+
+  function outputBytes() {
+    if (!font) return null;
+    if (changedOffsets.size === 0) return font.bytes.slice();
+    const out = font.bytes.slice();
+    out.set(font.glyphData, font.glyphOffset);
+    return out;
+  }
+
+  function showRecoveryData() {
+    if (!font) return;
+    persistAutosave();
+    els.recoveryText.value = bytesToBase64(outputBytes());
+    if (typeof els.recoveryDialog.showModal === "function") els.recoveryDialog.showModal();
+    else els.recoveryDialog.setAttribute("open", "");
+    els.recoveryText.focus();
+    els.recoveryText.select();
+  }
+
+  async function copyRecoveryData() {
+    if (!font) return;
+    els.recoveryText.value = bytesToBase64(outputBytes());
+    try {
+      await navigator.clipboard.writeText(els.recoveryText.value);
+      setMessage("Copied complete PSF recovery data to the clipboard.");
+    } catch {
+      els.recoveryText.focus();
+      els.recoveryText.select();
+      document.execCommand("copy");
+      setMessage("Selected the recovery data. Press Ctrl/Cmd+C if it was not copied automatically.");
+    }
+  }
+
+  async function saveFont() {
+    if (!font) return;
+    persistAutosave();
+    const bytes = outputBytes();
+    const name = els.fileName.textContent || "font.psf";
+    const blob = new Blob([bytes], { type: "application/octet-stream" });
+
+    if (window.self === window.top && typeof window.showSaveFilePicker === "function") {
+      try {
+        const handle = await window.showSaveFilePicker({
+          suggestedName: name,
+          types: [{ description: "PC Screen Font", accept: { "application/octet-stream": [".psf"] } }]
+        });
+        const writable = await handle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+        setMessage(changedOffsets.size === 0
+          ? "Saved the original bytes unchanged."
+          : "Saved PSF with only edited bitmap bytes changed.");
+        return;
+      } catch (error) {
+        if (error?.name === "AbortError") return;
+      }
+    }
+
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = name;
+    anchor.target = "_blank";
+    anchor.rel = "noopener";
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+
+    if (window.self !== window.top) showRecoveryData();
+    setMessage("Save requested. If the embedded preview blocks it, copy the recovery text now shown.");
+  }
+
+  function pointerCell(event) {
+    const rect = els.pixelCanvas.getBoundingClientRect();
+    const x = Math.floor((event.clientX - rect.left) * els.pixelCanvas.width / rect.width / cellSize);
+    const y = Math.floor((event.clientY - rect.top) * els.pixelCanvas.height / rect.height / cellSize);
+    return { x, y };
+  }
+
+  function paintFromPointer(event) {
+    if (!font || pointerMode === null) return;
+    const { x, y } = pointerCell(event);
+    if (x < 0 || y < 0 || x >= font.width || y >= font.height) return;
+    const key = `${x},${y}`;
+    if (key === lastPaintCell) return;
+    lastPaintCell = key;
+    if (setPixel(currentGlyph, x, y, pointerMode === "draw")) afterGlyphEdit(currentGlyph);
+  }
+
+  els.pixelCanvas.addEventListener("contextmenu", event => event.preventDefault());
+  els.pixelCanvas.addEventListener("pointerdown", event => {
+    if (!font || (event.button !== 0 && event.button !== 2)) return;
+    event.preventDefault();
+    pointerMode = event.button === 2 ? "erase" : "draw";
+    lastPaintCell = "";
+    els.pixelCanvas.setPointerCapture(event.pointerId);
+    paintFromPointer(event);
+  });
+  els.pixelCanvas.addEventListener("pointermove", event => {
+    if (pointerMode !== null) paintFromPointer(event);
+  });
+  const stopPainting = () => { pointerMode = null; lastPaintCell = ""; };
+  els.pixelCanvas.addEventListener("pointerup", stopPainting);
+  els.pixelCanvas.addEventListener("pointercancel", stopPainting);
+  els.pixelCanvas.addEventListener("lostpointercapture", stopPainting);
+
+  function handleOverviewClick(event) {
+    const tile = event.target.closest(".glyph-tile");
+    if (tile) selectGlyph(Number(tile.dataset.index), false);
+  }
+  els.glyphsLeft.addEventListener("click", handleOverviewClick);
+  els.glyphsRight.addEventListener("click", handleOverviewClick);
+
+  els.loadBtn.addEventListener("click", () => els.fileInput.click());
+  els.fileInput.addEventListener("change", async () => {
+    const file = els.fileInput.files?.[0];
+    if (!file) return;
+    try {
+      loadFont(new Uint8Array(await file.arrayBuffer()), file.name);
+    } catch (error) {
+      setMessage(error.message || String(error), true);
+    } finally {
+      els.fileInput.value = "";
+    }
+  });
+
+  let dragDepth = 0;
+  window.addEventListener("dragenter", event => { event.preventDefault(); dragDepth++; els.app.classList.add("drop-active"); });
+  window.addEventListener("dragover", event => event.preventDefault());
+  window.addEventListener("dragleave", event => { event.preventDefault(); dragDepth--; if (dragDepth <= 0) { dragDepth = 0; els.app.classList.remove("drop-active"); } });
+  window.addEventListener("drop", async event => {
+    event.preventDefault();
+    dragDepth = 0;
+    els.app.classList.remove("drop-active");
+    const file = event.dataTransfer?.files?.[0];
+    if (!file) return;
+    try {
+      loadFont(new Uint8Array(await file.arrayBuffer()), file.name);
+    } catch (error) {
+      setMessage(error.message || String(error), true);
+    }
+  });
+
+  els.saveBtn.addEventListener("click", saveFont);
+  els.backupBtn.addEventListener("click", showRecoveryData);
+  els.copyRecoveryBtn.addEventListener("click", copyRecoveryData);
+  els.closeRecoveryBtn.addEventListener("click", () => els.recoveryDialog.close());
+  els.restoreAllBtn.addEventListener("click", restoreAll);
+  els.prevBtn.addEventListener("click", () => selectGlyph(currentGlyph - 1));
+  els.nextBtn.addEventListener("click", () => selectGlyph(currentGlyph + 1));
+  els.copyBtn.addEventListener("click", copyGlyph);
+  els.pasteBtn.addEventListener("click", pasteGlyph);
+  els.invertBtn.addEventListener("click", invertGlyph);
+  els.clearBtn.addEventListener("click", () => clearGlyph(false));
+  els.fillBtn.addEventListener("click", () => clearGlyph(true));
+  els.shiftUpBtn.addEventListener("click", () => shiftGlyph(0, -1));
+  els.shiftDownBtn.addEventListener("click", () => shiftGlyph(0, 1));
+  els.shiftLeftBtn.addEventListener("click", () => shiftGlyph(-1, 0));
+  els.shiftRightBtn.addEventListener("click", () => shiftGlyph(1, 0));
+  els.restoreGlyphBtn.addEventListener("click", restoreGlyph);
+  els.rotateBtn.addEventListener("click", () => transformGlyph((x, y) => [font.width - 1 - x, font.height - 1 - y], "Rotated glyph 180 degrees."));
+  els.mirrorBtn.addEventListener("click", () => transformGlyph((x, y) => [font.width - 1 - x, y], "Mirrored glyph horizontally."));
+  els.jumpBtn.addEventListener("click", jumpToGlyph);
+  els.jumpInput.addEventListener("keydown", event => { if (event.key === "Enter") jumpToGlyph(); });
+
+  window.addEventListener("keydown", event => {
+    const modifier = event.ctrlKey || event.metaKey;
+    if (modifier && event.key.toLowerCase() === "c" && document.activeElement !== els.jumpInput) {
+      event.preventDefault();
+      copyGlyph();
+    } else if (modifier && event.key.toLowerCase() === "v" && document.activeElement !== els.jumpInput) {
+      event.preventDefault();
+      pasteGlyph();
+    } else if (event.key === "PageUp") {
+      event.preventDefault();
+      selectGlyph(currentGlyph - 1);
+    } else if (event.key === "PageDown") {
+      event.preventDefault();
+      selectGlyph(currentGlyph + 1);
+    }
+  });
+
+  window.addEventListener("beforeunload", event => {
+    if (!font || changedOffsets.size === 0) return;
+    persistAutosave();
+    event.preventDefault();
+    event.returnValue = "";
+  });
+
+  try {
+    loadFont(base64ToBytes(EMBEDDED_PSF_BASE64), EMBEDDED_NAME);
+  } catch (error) {
+    setControlsEnabled(false);
+    setMessage(`Embedded font failed to load: ${error.message || error}`, true);
+  }
+})();
+</script>
+</body>
+</html>

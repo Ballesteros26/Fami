@@ -1,0 +1,130 @@
+CheeseCutter 2.11R — Hypercut
+
+Hypercut is a major desktop editing, arrangement, audio, Help and export update.
+
+Hypercut enhancements by arch0N.
+
+The embedded C64 music driver remains unchanged.
+
+TRACK OVERVIEW
+
+- From top to bottom, the Track Overview contains the grey Timeline bar,
+  Voice 1 lane, Voice 2 lane and Voice 3 lane.
+
+Timeline
+
+- The grey top bar is an interactive song Timeline.
+- Click to place the global song position; click and drag to scrub across the
+  complete song.
+- During playback, scrubbing restarts playback from that position.
+- Double-click to set the active voice's F1 play-from marker.
+- Per-voice arrows show all three F1 play-from positions.
+- Speed dots show voice speed events, and the Timeline follows playback
+  automatically.
+- Use the scrollbar, mouse wheel or trackpad to explore long songs.
+
+Voice lanes
+
+- Each voice lane contains a narrow upper LOOP strip and Sequence blocks below.
+- The LOOP strip shows the voice's LOOP start position.
+- Click above a Sequence block to set it as that voice's independent LOOP
+  target.
+- The lower lane contains distinct, auto-generated, colour-coded Sequence
+  blocks; repeated uses of the same Sequence number retain the same colour.
+- Note previews reveal the musical content of each block.
+- Click a block to select it and jump to its editor position.
+- Shift-click selects a range within one voice lane.
+- Drag to move a block or selected range.
+- Option-drag on macOS or Alt-drag on Windows duplicates a block or range.
+- Copy, Paste and Delete shortcuts edit blocks.
+- The plus control creates and inserts the next unused Sequence.
+- Return or Tab opens a single selected block directly in F6.
+- Only one active block or range is selected at a time, and selections and
+  movement remain confined to their voice lane.
+
+F6 PATTERN EDITOR
+
+- Select complete rows with the mouse or keyboard, then copy, paste or delete
+  the selected range.
+- Slow drag-selection auto-scrolls near the upper and lower edges.
+- Row-number colours relate subtly to their Track Overview block.
+- Adjustable beat-row highlighting is saved with the tune.
+- Return follows referenced Pulse, Filter, Chord or Command data; returning
+  from a table restores the original F6 position.
+- Keypad 0 auditions the current row once for all voices and steps down.
+- Keyboard note audition is more reliable, including short taps.
+
+INSTRUMENTS
+
+- Copy and paste complete Instruments.
+- Select, copy and paste individual Instrument bytes.
+- Instrument pointer fields open their Wave, Pulse or Filter start row.
+- Returning from a program table restores the Instrument editor position.
+- Selecting an Instrument synchronises all three program-table previews.
+- Byte- and nibble-aware Quick Help explains the current Instrument field.
+
+WAVE, PULSE AND FILTER TABLES
+
+- Select complete row ranges with the mouse or keyboard, then copy, paste or
+  delete the selected rows.
+- Slow drag-selection auto-scrolls near table edges.
+- Clipboard data remains restricted to its originating table type.
+- Instrument pointer changes immediately update the related table preview.
+- Expanded byte-, nibble- and value-aware Quick Help explains table commands.
+
+FILES AND EXPORT
+
+- A full mouse-driven file browser provides filtering.
+- Directory and filename fields support direct keyboard and mouse focus.
+- In the Instrument editor, Load and Save icons affect the current Instrument;
+  elsewhere, they affect the Song.
+- Save Songs as .ct directly from the GUI.
+- Export .sid and .prg files directly from the Save dialogue.
+- Load and save individual .cti Instruments.
+- Normal SID and PRG export no longer requires leaving the application.
+
+AUDIO AND PLAYBACK
+
+- The three-voice oscilloscope provides clickable mute controls.
+- Control+1, Control+2 and Control+3 share the same mute state as the
+  oscilloscope.
+- Voice mute settings survive stop, restart and every playback route.
+- The default audio request is 48000 Hz with a 128-sample buffer.
+- Runtime sample-rate and buffer selection is available, down to 32 samples
+  where supported.
+- Runtime PAL/NTSC session playback switching does not change exported song
+  timing.
+- Runtime audio interpolation control is available.
+- SDL2 audio-device compatibility and playback stability are improved.
+
+SUBTUNES
+
+- Select and edit subtunes directly from the main interface.
+
+INTERFACE
+
+- Click fields, tables and pattern data to focus and position the cursor.
+- Four colour themes are included: CheeseCutter Classic, C64, C64 Midnight and
+  Hypercut Neon.
+- Bottom controls provide Fullscreen, theme selection, Load, Save, Keyjam,
+  Audio Settings and contextual Help.
+
+HELP AND QUICK HELP
+
+- Contextual Quick Help has been rewritten as a three-line display.
+- Byte-, nibble-, value- and row-aware information appears while editing.
+- Chord shuffle Help follows the real shuffle region at speed $00 or $01.
+- F12 opens detailed Help for the current editor context.
+- F12 Help provides clickable topics, mouse-wheel scrolling and pinned topic
+  headings.
+- Each Help topic remembers its own scroll position.
+- Detailed Instrument, Wave, Pulse, Filter, Chord and Sequence references are
+  included.
+- Shortcut labels come from canonical keyboard bindings.
+- Command, Control, Option and Alt names match the current platform.
+
+PLATFORMS
+
+- macOS arm64 application release.
+- Native Windows x64 support.
+- Platform-specific desktop application icons.
