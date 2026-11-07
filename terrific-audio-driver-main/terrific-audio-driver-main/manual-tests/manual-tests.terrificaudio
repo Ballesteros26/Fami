@@ -1,0 +1,389 @@
+{
+  "_about": {
+    "file_type": "Terrific Audio Driver project file",
+    "version": "0.4.2"
+  },
+  "brr_samples": [
+    {
+      "name": "sine",
+      "source": {
+        "type": "wav",
+        "source": "samples/sine.wav",
+        "evaluator": "default",
+        "loop_point": 0,
+        "loop_filter": "with_filter",
+        "dupe_block_hack": 2
+      },
+      "ignore_gaussian_overflow": false,
+      "pitches": {
+        "type": "octave",
+        "frequency": 500.0,
+        "first_octave": 4,
+        "last_octave": 6
+      },
+      "envelope": "gain F127"
+    },
+    {
+      "name": "square",
+      "source": {
+        "type": "wav",
+        "source": "samples/square.wav",
+        "evaluator": "default",
+        "loop_point": 0,
+        "loop_filter": "reset_filter"
+      },
+      "ignore_gaussian_overflow": false,
+      "pitches": {
+        "type": "octave",
+        "frequency": 500.0,
+        "first_octave": 1,
+        "last_octave": 6
+      },
+      "envelope": "adsr 12 1 1 16"
+    },
+    {
+      "name": "square48",
+      "source": {
+        "type": "wav",
+        "source": "samples/square48.wav",
+        "evaluator": "default",
+        "loop_point": 0,
+        "loop_filter": "reset_filter"
+      },
+      "ignore_gaussian_overflow": false,
+      "pitches": {
+        "type": "octave",
+        "frequency": 666.66666,
+        "first_octave": 1,
+        "last_octave": 6
+      },
+      "envelope": "adsr 12 1 1 16",
+      "comment": "An instrument with a different tuning frequency"
+    },
+    {
+      "name": "sawtooth",
+      "source": {
+        "type": "wav",
+        "source": "samples/sawtooth.wav",
+        "evaluator": "default",
+        "loop_point": 0,
+        "loop_filter": "with_filter",
+        "dupe_block_hack": 2
+      },
+      "ignore_gaussian_overflow": false,
+      "pitches": {
+        "type": "notes",
+        "frequency": 500.0,
+        "first_note": "d4",
+        "last_note": "g4"
+      },
+      "envelope": "adsr 12 1 1 16",
+      "comment": "This instrument also tests InstrumentNoteRange::Note"
+    },
+    {
+      "name": "triangle",
+      "source": {
+        "type": "wav",
+        "source": "samples/triangle.wav",
+        "evaluator": "default",
+        "loop_point": 0,
+        "loop_filter": "filter_1",
+        "dupe_block_hack": 2
+      },
+      "ignore_gaussian_overflow": false,
+      "pitches": {
+        "type": "octave",
+        "frequency": 500.0,
+        "first_octave": 1,
+        "last_octave": 6
+      },
+      "envelope": "adsr 12 1 1 16"
+    },
+    {
+      "name": "dummy_tuning_1",
+      "source": {
+        "type": "wav",
+        "source": "samples/sine.wav",
+        "evaluator": "default",
+        "loop_point": 0,
+        "loop_filter": "with_filter",
+        "dupe_block_hack": 2
+      },
+      "ignore_gaussian_overflow": false,
+      "pitches": {
+        "type": "octave",
+        "frequency": 2094.0,
+        "first_octave": 0,
+        "last_octave": 7
+      },
+      "envelope": "gain F127",
+      "comment": "Used to pad the pitch table to more than 340 entries.  Using a tuning slightly higher than C7 so dummy_tuning_1 is processed first."
+    },
+    {
+      "name": "dummy_tuning_2",
+      "source": {
+        "type": "wav",
+        "source": "samples/sine.wav",
+        "evaluator": "default",
+        "loop_point": 0,
+        "loop_filter": "with_filter",
+        "dupe_block_hack": 2
+      },
+      "ignore_gaussian_overflow": false,
+      "pitches": {
+        "type": "octave",
+        "frequency": 2100.0,
+        "first_octave": 0,
+        "last_octave": 7
+      },
+      "envelope": "gain F127",
+      "comment": "Used to extend the pitch table beyond 256 entries."
+    },
+    {
+      "name": "dummy_tuning_3",
+      "source": {
+        "type": "wav",
+        "source": "samples/sine.wav",
+        "evaluator": "default",
+        "loop_point": 0,
+        "loop_filter": "with_filter",
+        "dupe_block_hack": 2
+      },
+      "ignore_gaussian_overflow": false,
+      "pitches": {
+        "type": "octave",
+        "frequency": 2150.0,
+        "first_octave": 0,
+        "last_octave": 7
+      },
+      "envelope": "gain F127",
+      "comment": "Used to extend the pitch table beyond 256 entries."
+    },
+    {
+      "name": "biased_square",
+      "source": {
+        "type": "brr",
+        "source": "samples/biased_square.brr"
+      },
+      "ignore_gaussian_overflow": false,
+      "pitches": {
+        "type": "octave",
+        "frequency": 1000.0,
+        "first_octave": 1,
+        "last_octave": 6
+      },
+      "envelope": "adsr 12 1 1 16",
+      "comment": "Used to confirm the sample analyser does not output a 0Hz peak on biased samples"
+    },
+    {
+      "name": "loop_point_and_dbh",
+      "source": {
+        "type": "wav",
+        "source": "samples/sine.wav",
+        "evaluator": "default",
+        "loop_point": 32,
+        "loop_filter": "filter_1",
+        "dupe_block_hack": 1
+      },
+      "ignore_gaussian_overflow": false,
+      "pitches": {
+        "type": "octave",
+        "frequency": 1000.0,
+        "first_octave": 1,
+        "last_octave": 6
+      },
+      "envelope": "adsr 12 1 1 16"
+    },
+    {
+      "name": "loop_point_and_16_dbh",
+      "source": {
+        "type": "wav",
+        "source": "samples/triangle.wav",
+        "evaluator": "default",
+        "loop_point": 32,
+        "loop_filter": "filter_1",
+        "dupe_block_hack": 16
+      },
+      "ignore_gaussian_overflow": false,
+      "pitches": {
+        "type": "octave",
+        "frequency": 1000.0,
+        "first_octave": 1,
+        "last_octave": 6
+      },
+      "envelope": "adsr 12 1 1 16"
+    }
+  ],
+  "default_sfx_flags": {
+    "one_channel": true,
+    "interruptible": true
+  },
+  "high_priority_sound_effects": [],
+  "sound_effects": [
+    "sine_noise_loop",
+    "noise",
+    "noise_no_keyoff",
+    "noise_rest",
+    "beep_beep",
+    "noise_freq_test_left",
+    "noise_freq_test_right",
+    "uninterruptable_noise_left",
+    "uninterruptable_noise_right"
+  ],
+  "low_priority_sound_effects": [],
+  "sound_effect_file": "sound-effects.txt",
+  "songs": [
+    {
+      "name": "cut_portamento_unknown_velocity",
+      "source": "manual/cut-portamento-unknown-velocity.mml"
+    },
+    {
+      "name": "lag_tester",
+      "source": "manual/lag-tester.mml"
+    },
+    {
+      "name": "mml_subroutine_play_at_cursor",
+      "source": "manual/mml-subroutine-play-at-cursor.mml"
+    },
+    {
+      "name": "noise_priority_test",
+      "source": "manual/noise-priority-test.mml"
+    },
+    {
+      "name": "noise_timing_test_a",
+      "source": "manual/noise-timing-test-a.mml"
+    },
+    {
+      "name": "noise_volume_restored_test",
+      "source": "manual/noise-volume-restored-test.mml"
+    },
+    {
+      "name": "portamento_without_instrument",
+      "source": "manual/portamento-without-instrument.mml"
+    },
+    {
+      "name": "tempo_and_timer",
+      "source": "manual/tempo-and-timer.mml"
+    },
+    {
+      "name": "transpose",
+      "source": "manual/transpose.mml"
+    },
+    {
+      "name": "vibrato_with_delay",
+      "source": "manual/vibrato-with-delay.mml"
+    },
+    {
+      "name": "channel_transpose",
+      "source": "mml/channel-transpose.mml"
+    },
+    {
+      "name": "disable_keyoff",
+      "source": "mml/disable-keyoff.mml"
+    },
+    {
+      "name": "echo_invert",
+      "source": "mml/echo-invert.mml"
+    },
+    {
+      "name": "envelope",
+      "source": "mml/envelope.mml"
+    },
+    {
+      "name": "invert",
+      "source": "mml/invert.mml"
+    },
+    {
+      "name": "key_signature",
+      "source": "mml/key-signature.mml"
+    },
+    {
+      "name": "loop",
+      "source": "mml/loop.mml"
+    },
+    {
+      "name": "loop_stack",
+      "source": "mml/loop-stack.mml"
+    },
+    {
+      "name": "q_early_release",
+      "source": "mml/q-early-release.mml"
+    },
+    {
+      "name": "set_echo_delay",
+      "source": "mml/set-echo-delay.mml"
+    },
+    {
+      "name": "song_loop",
+      "source": "mml/song-loop.mml"
+    },
+    {
+      "name": "early_release_and_temp_gain",
+      "source": "bc-interpreter-tests/early-release-and-temp-gain.mml"
+    },
+    {
+      "name": "echo_stress_test",
+      "source": "bc-interpreter-tests/echo-stress-test.mml"
+    },
+    {
+      "name": "adjust_global_i8_limit",
+      "source": "bc-interpreter-tests/adjust-global-i8-limit.mml"
+    },
+    {
+      "name": "main_volume",
+      "source": "bc-interpreter-tests/main-volume.mml"
+    },
+    {
+      "name": "large_skip_last_loop",
+      "source": "bc-interpreter-tests/large-skip-last-loop.mml"
+    },
+    {
+      "name": "volume_pop_bug",
+      "source": "bug-tests/volume-pop-bug.mml"
+    },
+    {
+      "name": "keyoff_srcn_bug",
+      "source": "bug-tests/keyoff-srcn-bug.mml"
+    },
+    {
+      "name": "envelope_race_condition",
+      "source": "bug-tests/envelope-race-condition.mml"
+    },
+    {
+      "name": "subroutine_vibrato_bug",
+      "source": "bug-tests/subroutine-vibrato-bug.mml"
+    },
+    {
+      "name": "portamento_first_tick_bugtest",
+      "source": "bug-tests/portamento-first-tick-bugtest.mml"
+    },
+    {
+      "name": "tremolo_underflow_bug",
+      "source": "bug-tests/tremolo-underflow-bug.mml"
+    },
+    {
+      "name": "volume_slide_down_bug",
+      "source": "bug-tests/volume-slide-down-bug.mml"
+    },
+    {
+      "name": "noise_and_sfx_test",
+      "source": "bug-tests/noise-and-sfx-test.mml"
+    },
+    {
+      "name": "two_channels_modify_timer",
+      "source": "bug-tests/two-channels-modify-timer.mml"
+    },
+    {
+      "name": "subroutine_cursor_tick_count_bug",
+      "source": "bug-tests/subroutine-cursor-tick-count-bug.mml"
+    },
+    {
+      "name": "unbalanced_vibrato_bug",
+      "source": "bug-tests/unbalanced-vibrato-bug.mml"
+    },
+    {
+      "name": "vibrato_after_portamento",
+      "source": "bug-tests/vibrato-after-portamento.mml"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+[package]
+name = "tad-gui"
+description = "GUI app"
+license = "MIT"
+
+edition = "2021"
+rust-version.workspace = true
+
+publish = false
+
+# Use the same version as `tad-compiler`
+version.workspace = true
+
+
+[dependencies]
+# Local crates
+compiler = { workspace = true }
+brr.workspace = true
+tad-emu.workspace = true
+
+# External crates
+fltk.workspace = true
+spectrum-analyzer.workspace = true
+cpal.workspace = true
+ringbuf.workspace = true
+
+[build-dependencies]
+markdown.workspace = true
+regex.workspace = true
+

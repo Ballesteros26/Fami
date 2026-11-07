@@ -1,0 +1,25 @@
+; bc_interpreter envelope test
+
+@0 square
+@g1 square gain F32
+@g2 square gain B10
+@a1 square adsr 14 4 6 28
+@a2 square adsr  2 4 5 31
+
+; Default
+A @0   c2 r
+
+; GAIN
+A @g1  c2 r
+A @g2  c2 r
+A G60  c2 r
+A GI15 c4 & GD10 r4 r
+A GB15 c4 & GE20 r4 r
+
+
+; ADSR
+A @a1        c2 r
+A @a2        c2 r
+A A10,2,3,12 c2 r
+A A5,3,2,0   c2 r
+

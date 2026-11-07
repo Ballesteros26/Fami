@@ -1,0 +1,43 @@
+{
+  "name": "msxplay-js",
+  "version": "1.9.1",
+  "description": "",
+  "type": "module",
+  "engines": {
+    "node": ">=14.18.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^8.10.0",
+    "http-server": "^14.1.1",
+    "lamejs": "zhuker/lamejs#582bbba6a12f981b984d8fb9e1874499fed85675",
+    "libkss-js": "^2.2.1",
+    "mgsc-js": "^2.0.0",
+    "mgsrc-js": "^2.0.1",
+    "prettier": "^2.8.8",
+    "rimraf": "^5.0.0",
+    "utf16-to-sjis": "^1.1.1",
+    "webaudio-stream-player": "^1.2.1",
+    "webpack": "^5.90.1",
+    "webpack-bundle-analyzer": "^4.10.1",
+    "webpack-cli": "^5.1.4",
+    "workbox-sw": "^7.0.0",
+    "workbox-webpack-plugin": "^7.0.0",
+    "worker-url": "^1.1.0"
+  },
+  "repository": {
+    "typo": "git",
+    "url": "https://github.com/digital-sound-antiques/msxplay-js.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npm run build",
+    "clean": "rimraf public/dist",
+    "build": "webpack",
+    "build:dev": "webpack -w --mode=\"development\"",
+    "server": "http-server -c-1 ./public --ssl --key ./cert/localhost+2-key.pem --cert ./cert/localhost+2.pem"
+  },
+  "keywords": [],
+  "author": "Mitsutaka Okazaki",
+  "license": "ISC"
+}

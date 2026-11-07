@@ -1,0 +1,21 @@
+[package]
+name = "wav2brr"
+description = "A mono PCM wav to SNES brr encoder"
+license = "MIT"
+
+edition = "2021"
+rust-version.workspace = true
+
+publish = false
+
+# Use the same version as `tad-compiler` as `tad-gui`
+version.workspace = true
+
+
+[dependencies]
+# Local crates
+brr.workspace = true
+
+# External crates
+clap.workspace = true
+

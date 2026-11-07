@@ -1,0 +1,42 @@
+[package]
+name = "compiler"
+
+license = "MIT"
+
+edition = "2021"
+rust-version.workspace = true
+
+publish = false
+
+# This is a private internal crate.
+# Using version "0.0.0" as I do not care about breaking changes.
+version = "0.0.0"
+
+
+[features]
+default = []
+
+# Adds a UnitTest options to BytecodeContext that disables note-range tests
+# allowing raw assembly compilation without an analysis step
+test = []
+
+
+[dependencies]
+# Local crates
+brr.workspace = true
+
+# External crates
+serde.workspace = true
+serde_json.workspace = true
+relative-path.workspace = true
+
+
+[build-dependencies]
+spc700asm.workspace = true
+
+
+[dev-dependencies]
+compiler = { workspace = true, features = ["test"] }
+
+tad-emu.workspace = true
+

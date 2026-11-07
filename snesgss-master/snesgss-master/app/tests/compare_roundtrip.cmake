@@ -1,0 +1,27 @@
+# Load/save round trip. Saving twice must be stable, and a project already in
+# the current format (has [EX VOL] and LoopUnroll keys) must save unchanged.
+get_filename_component(outdir ${OUT} DIRECTORY)
+file(MAKE_DIRECTORY ${outdir})
+
+execute_process(COMMAND ${EMULATOR} ${SNESGSS} ${PROJECT} -resave ${OUT} RESULT_VARIABLE rc)
+if(NOT rc EQUAL 0)
+	message(FATAL_ERROR "snesgss resave failed (${rc})")
+endif()
+execute_process(COMMAND ${EMULATOR} ${SNESGSS} ${OUT} -resave ${OUT}.2 RESULT_VARIABLE rc)
+if(NOT rc EQUAL 0)
+	message(FATAL_ERROR "snesgss second resave failed (${rc})")
+endif()
+execute_process(COMMAND ${CMAKE_COMMAND} -E compare_files ${OUT} ${OUT}.2 RESULT_VARIABLE diff)
+if(NOT diff EQUAL 0)
+	message(FATAL_ERROR "second save differs from the first")
+endif()
+
+file(READ ${PROJECT} head LIMIT 4096)
+string(FIND "${head}" "[EX VOL]" ex_vol)
+string(FIND "${head}" "LoopUnroll=" unroll)
+if(ex_vol GREATER -1 AND unroll GREATER -1)
+	execute_process(COMMAND ${CMAKE_COMMAND} -E compare_files ${PROJECT} ${OUT} RESULT_VARIABLE diff)
+	if(NOT diff EQUAL 0)
+		message(FATAL_ERROR "saved file differs from ${PROJECT}")
+	endif()
+endif()

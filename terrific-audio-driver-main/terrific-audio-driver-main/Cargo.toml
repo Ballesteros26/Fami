@@ -1,0 +1,85 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "crates/spc700asm",
+
+    "crates/brr",
+    "crates/compiler",
+    "crates/shvc-sound-emu",
+    "crates/tad-emu",
+
+    "crates/tad-compiler",
+    "crates/tad-gui",
+    "crates/wav2brr",
+]
+
+
+[profile.release]
+strip = true
+opt-level = "z"
+lto = true
+
+[profile.release.package.brr]
+opt-level = 3
+
+[profile.release.package.compiler]
+opt-level = 3
+
+[profile.release.package.shvc-sound-emu]
+opt-level = 3
+
+
+# Significantly speed up test_bc_interpreter in the debug build
+[profile.dev.package.shvc-sound-emu]
+opt-level = 2
+
+
+[workspace.package]
+rust-version = "1.85"
+
+version = "0.4.2"
+
+publish = false
+
+
+[workspace.dependencies]
+# Local library crates
+brr = { path = "./crates/brr", version = "=0.0.0" }
+compiler = { path = "./crates/compiler", version = "=0.0.0", features = [] }
+shvc-sound-emu = { path = "./crates/shvc-sound-emu", version = "=0.0.0" }
+tad-emu = { path = "./crates/tad-emu", version = "=0.0.0" }
+
+# Local binary crates
+spc700asm = { path = "./crates/spc700asm/", version = "=0.0.0" }
+tad-compiler = { path = "./crates/tad-compiler", version = "=0.0.0" }
+wav2brr = { path = "./crates/wav2brr", version = "=0.0.0" }
+
+# External crates
+clap = { version="4.5.16", features=[ "derive" ] }
+anstyle = { version="1.0.13" }
+anstream = { version="1.0.0" }
+serde = { version="1.0.164", features=[ "derive" ] }
+serde_json = { version="1.0.97" }
+relative-path = { version="2.0.1", features=[ "serde" ] }
+bitflags = { version="2.10.0" }
+ringbuf = { version="0.4.8" }
+
+# Using cpal v0.16.0 so tad-gui works on older versions of macOS
+cpal = { version="0.16.0", features=[] }
+spectrum-analyzer = { version="1.6.0" }
+
+fltk = { version="1.5.0", features = ["use-ninja"] }
+
+cxx = { version="1.0.107" }
+
+# External build dependencies
+#
+# Chose markdown as it has a security section in its readme file
+markdown = { version="1.0.0" }
+
+regex = { version="1.10.2" }
+
+cxx-build = { version="1.0.107" }
+
+

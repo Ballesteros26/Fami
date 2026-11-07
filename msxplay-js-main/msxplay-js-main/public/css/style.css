@@ -1,0 +1,294 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  background-color: #fafafa;
+}
+
+.en *:lang(ja) {
+  display: none;
+}
+.ja *:lang(en) {
+  display: none;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  min-width: 480px;
+  font-family: Roboto;
+  color: rgba(0, 0, 0, 0.87);
+  overflow: auto;
+}
+
+a {
+  color: #3a76ff;
+  text-decoration: none;
+}
+
+section.page-header {
+  position: relative;
+  width: 100%;
+  color: #fff;
+  background-color: #3a76ff;
+  background-image: linear-gradient(120deg, #3a76ff, #155799);
+  padding: 72px;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
+}
+
+section.page-header.short {
+  position: relative;
+  width: 100%;
+  color: #fff;
+  background-color: #3a76ff;
+  background-image: linear-gradient(120deg, #3a76ff, #155799);
+  padding: 0 16px;
+  height: 48px;
+  top: 0;
+}
+
+.page-header h1 {
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 72px;
+  vertical-align: middle;
+}
+
+.page-header h2 {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.page-header .btn {
+  display: inline-block;
+  padding: 0 8px;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 2px;
+  border: 1px solid #fff;
+  font-size: 16px;
+  font-weight: normal;
+  margin: 16px 0;
+  vertical-align: middle;
+}
+
+.page-header a.btn {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.15s linear;
+}
+
+.page-header a.btn:hover {
+  opacity: 0.5;
+}
+
+nav.root-nav {
+  position: absolute;
+  left: 72px;
+  right: 72px;
+  bottom: 0;
+}
+
+.root-nav a {
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  transition: opacity 0.15s linear;
+}
+
+.root-nav a:hover {
+  text-decoration: none;
+  opacity: 0.5;
+}
+
+.root-nav ul {
+  margin-left: -8px;
+}
+
+.root-nav li {
+  display: inline-block;
+  font-size: 14px;
+  padding: 0 8px;
+  height: 48px;
+  line-height: 48px;
+  list-style-type: none;
+  text-transform: uppercase;
+}
+
+.page-header.short .root-nav {
+  left: 16px;
+}
+.page-header.short .root-nav li {
+  line-height: 48px;
+  height:48px;
+}
+
+.root-nav li.selected {
+  border-bottom: 2px solid yellow;
+}
+
+.content {
+  padding: 32px 72px;
+}
+
+.content p {
+  font-size: 12px;
+  line-height: 160%;
+  max-width: 800px;
+  margin: 8px 0;
+}
+
+.content .note {
+  font-size: 10px;
+}
+
+.content h2 {
+  margin: 32px 0 18px 0;
+  font-size: 16px;
+}
+
+.content h3 {
+  margin: 12px 0 12px 0;
+  font-size: 14px;
+}
+
+.content table {
+  font-size: 12px;
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+
+.content th {
+  background-color: #f0f0f0;
+}
+
+.content td,
+.content th {
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 4px;
+}
+
+.content ul {
+  font-size: 12px;
+  line-height: 160%;
+  max-width: 800px;
+  margin: 8px 0;
+}
+
+.content ul li {
+  margin-left: 20px;
+}
+
+hr {
+  border: none;
+  border-top: 1px dotted #ccc;
+  margin: 16px 0;
+}
+
+footer {
+  font-size: 10px;
+  color: #777;
+  margin: 56px 0 0px 0;
+}
+
+#dnd-panel {
+  position: relative;
+  margin: 24px 0;
+  width: 400px;
+  height: 56px;
+  line-height: 56px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #efeff4;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  transition: all 0.25s;
+}
+
+.dnd-able.ondrag {
+  border: 2px solid #ce0d0d;
+  transform: scale(1.05, 1.05);
+}
+
+.msxplay {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+#modal-player-stage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 100;
+}
+
+#modal-player {
+  position: absolute;
+  top: -164px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto auto;
+}
+
+#modal-player-stage .close-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  height: 24px;
+  padding: 24px;
+  cursor: pointer;
+}
+
+.beta {
+  line-height: 1;
+  margin: 0;
+  font-size: 50%;
+  color: #c01111;
+}
+
+#modal-player-cover {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 101;
+}
+
+#modal-player-cover .button {
+  padding: 24px 32px 24px 24px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  color: #0080ff;
+  font-size: 24px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#modal-player-cover .button i {
+  font-size: 48px;
+}
+
+#modal-player-cover .button:hover {
+  background-color: #f0f0f0;
+}

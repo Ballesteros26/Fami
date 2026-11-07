@@ -1,0 +1,32 @@
+#Title Panbrello example
+
+#Tempo 120
+
+@1 square gain F127
+
+A @1
+
+A p~50,10 c1 r4
+
+A px0 p~64,50 [c8 d8]25 r4
+
+; Panbrello is disabled on overflow
+A px+50 p~15,10 c4 r4
+
+; Tremolo is disabled on underflow
+A px-50 p~15,10 c2 r4
+
+; Changing pan disables panbrello
+A px0 p~15,10 c2 px0  c4 r4
+
+A px0 p~15,10 c2 px+4 c4 r4
+
+; Test set_pan_and_volume disables panbrello
+A px0 p~15,2 c2 \asm { set_pan_and_volume 64 64 } c4 r4
+
+
+; The ticks argument is an MML length when prefixed with `l`
+; (these two lines should sound the same)
+A px0 p~32,l16 c1 r4
+A px0 p~32,6   c1 r4
+

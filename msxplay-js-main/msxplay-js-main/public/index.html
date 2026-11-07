@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html" charset="utf-8" />
+    <title>MSXplay</title>
+    <meta name="viewport" content="width=540" />
+    <meta property="og:type" content="website" />
+    <meta name="keywords" content="MSX, YM2413, OPLL, PSG, SCC, MGSDRV, JavaScript, Emscripten, MML" />
+    <meta name="description" content="A MSX sound emulation player for JavaScript." />
+    <meta property="og:title" content="MSXplay" />
+    <meta property="og:site_name" content="MSXplay" />
+    <meta property="og:description" content="MSX sound player on the web." />
+    <meta property="og:image" content="http://digital-sound-antiques.github.io/msxplay-js/img/ogp.png" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="MSXPlay" />
+    <meta name="twitter:description" content="MSX sound player on the web." />
+    <meta name="twitter:image" content="https://msxplay.com/img/ogp.png" />
+
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="css/msxplay.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="register-sw.js"></script>        
+    <script type="module">
+      import MSXPlayUI from './dist/msxplay-bundle.js';
+      window.MSXPlayUI = MSXPlayUI;
+    </script>
+    <script src="js/lang-switcher.js"></script>
+    <script src="js/query-parser.js"></script>
+    <script src="js/modal-player.js"></script>
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(window, document, "script", "https://www.google-analytics.com/analytics.js", "ga");
+
+      ga("create", "UA-77432401-1", "auto");
+      ga("send", "pageview");
+    </script>
+    <script src="js/index.js"></script>
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">
+        MSXplay
+        <a href="https://github.com/digital-sound-antiques/msxplay-js" class="btn">View on GitHub</a>
+      </h1>
+      <h2 class="project-tagline">MSX sound player on the web, powered by Emscripten.</h2>
+      <nav class="root-nav">
+        <ul>
+          <li class="selected">Home</li>
+          <li><a href="editor.html">MML Editor</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <section class="content">
+      <p lang="ja">
+        MSXplay はブラウザ内で MSX の音楽 (PSG,SCC,OPLL) をエミュレーション再生する実験的なサウンドプレイヤーです。
+        C言語版の
+        <a href="https://github.com/digital-sound-antiques/libkss">libkss</a> を
+        <a href="http://kripken.github.io/emscripten-site/">Emscripten</a> で JavaScript に変換して利用しています。
+      </p>
+      <p lang="ja">
+        音声の再生にはブラウザの
+        <a href="https://developer.mozilla.org/docs/Web/API/Web_Audio_API">Web Audio API</a>
+        を使用しています。<br />
+      </p>
+      <p lang="en">
+        MSXplay is an experimental MSX sound player which emulates PSG, SCC and OPLL on the JavaScript engine in the
+        browser. The emulation core is based on
+        <a href="https://github.com/digital-sound-antiques/libkss">libkss</a> in C.
+        <a href="http://kripken.github.io/emscripten-site/">Emscripten</a> is used to build JavaScript version of
+        libkss.
+      </p>
+      <p lang="en">
+        To play audio stream directly on the browser, we use
+        <a href="https://developer.mozilla.org/docs/Web/API/Web_Audio_API">Web Audio API</a>
+        interface.
+      </p>
+
+      <h2>Supported Browsers</h2>
+      <p lang="ja">Chrome または FireFox 推奨です。IE は Web Audio API をサポートしないため対応予定はありません。</p>
+      <p lang="en">
+        We recommend Chrome or FireFox. We have no plan to support any version of IE since they do not provide Web Audio
+        API interface.
+      </p>
+      <table>
+        <style>
+          th {
+            width: 80px;
+          }
+        </style>
+        <tr>
+          <th>Chrome</th>
+          <th>FireFox</th>
+          <th>Safari</th>
+          <th>Edge</th>
+        </tr>
+        <tr>
+          <td><img src="img/chrome_32x32.png" /></td>
+          <td><img src="img/firefox_32x32.png" /></td>
+          <td><img src="img/safari_32x32.png" /></td>
+          <td><img src="img/edge_32x32.png" /></td>
+        </tr>
+      </table>
+
+      <p class="note x-small">
+        The browser icons by
+        <a href="https://github.com/alrra/browser-logos">alrra/browser-logos</a>
+      </p>
+
+      <h2>Demo Player</h2>
+      <p lang="ja">次のプレーヤーパネルの左側にある再生ボタンを押してください。演奏が始まります。</p>
+      <p lang="en">To listen the demo sound, press play button on the left in the player panel below.</p>
+
+      <div
+        id="initial-player"
+        class="msxplay dnd-able"
+        data-gain="1.0"
+        data-title="OPLL (YM2413) demo"
+        data-url="demo/grider.mgs"
+        data-footnote="Gun Rider by J, arr. by Brezza."
+      ></div>
+
+      <p lang="ja">
+        ご自身の音楽ファイルを再生してみたい方は、以下のパネルにファイルをドロップしてください。<br />
+        対応フォーマットは KSS, BGM(MuSICA), MGS, MPK, OPX です。
+      </p>
+      <p lang="en">
+        If you want to test your own sound files, drag and drop them to the panel below.<br />
+        The supported formats are KSS, BGM(MuSICA), MGS, MPK and OPX.
+      </p>
+
+      <div id="dnd-panel" class="dnd-able">Drag and Drop your file here.</div>
+
+      <h2>Open from URL</h2>
+      <p lang="ja">
+        以下のように 'id' パラメータに GitHub の raw ファイルの URL (https://raw.githubusercontent.com/ で始まる URL)
+        を記述すると、 MSXplay の サイトでそのファイルを開くことができます。'id' の値は<a
+          href="https://developer.mozilla.org/ja/docs/Glossary/percent-encoding"
+          >パーセントエンコード</a
+        >する必要があります。 拡張子が .mgs 以外（.mml など）の URL を指定した場合は、MML エディタ画面が開きます。
+      </p>
+      <p lang="en">
+        The following URL scheme with 'id' query parameter can be used to open an raw file on GitHub directly from this
+        site. The 'id' value is must be
+        <a href="https://developer.mozilla.org/ja/docs/Glossary/percent-encoding">percent-encoded</a>. If 'id' value
+        ends with an extension other than .mgs (ex .mml) is given, MML editor page will open instead of the top page.
+      </p>
+      <ul>
+        <li>
+          <a
+            href="https://f.msxplay.com?id=https%3A%2F%2Fraw.githubusercontent.com%2Fdigital-sound-antiques%2Fmsxplay-js%2Fmaster%2Fdemo%2Fes59.mgs"
+          >
+            https://f.msxplay.com?id=https%3A%2F%2Fraw.githubusercontent.com%2Fdigital-sound-antiques%2Fmsxplay-js%2Fmaster%2Fdemo%2Fes59.mgs
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://f.msxplay.com?id=https%3A%2F%2Fraw.githubusercontent.com%2Fdigital-sound-antiques%2Fmsxplay-js%2Fmaster%2Fdemo%2Fes59.mml"
+          >
+            https://f.msxplay.com?id=https%3A%2F%2Fraw.githubusercontent.com%2Fdigital-sound-antiques%2Fmsxplay-js%2Fmaster%2Fdemo%2Fes59.mml
+          </a>
+        </li>
+      </ul>
+
+      <h2>MML Compiler</h2>
+      <p lang="ja">
+        MGSDRV用のMMLコンパイラ MGSC のエミュレータも
+        <a href="https://github.com/digital-sound-antiques/mgsc-js">mgsc-js</a>
+        として JavaScript で動作するバージョンがあります。これを MSXplay.js と組み合わせて MML
+        をブラウザで直接コンパイルする環境を実現しました。<a href="editor.html">MML EDITOR</a>
+        からお試しください。MML の文法は
+        <a href="http://www.gigamix.jp/mgsdrv/MGSC111.TXT">MGSC.COMの仕様</a>
+        のとおりです。
+      </p>
+
+      <p lang="en">
+        A emulator of MML compiler for MGSDRV (aka MGSC) is also available as
+        <a href="https://github.com/digital-sound-antiques/mgsc-js">mgsc-js</a>
+        for JavaScript. Using this with MSXplay.js, we can compile MML and play its sound directly on the browser. Try
+        <a href="editor.html">MML EDITOR</a>. The MML grammer of MGSDRV can be found at
+        <a href="http://www.gigamix.jp/mgsdrv/MGSC111.TXT">MGSC.COM specification (japanese)</a>.
+      </p>
+
+      <h2>Acknowledgement</h2>
+      <p lang="ja">
+        MSXplay は各種MSXフォーマットの再生のため内部で以下のMSX用バイナリを利用しています。
+        各バイナリの製作者の皆様に感謝します。
+      </p>
+      <p lang="en">
+        The following software binaries are embedded to MSXplay. We thank the authors for their great artifacts.
+      </p>
+      <ul>
+        <li><a href="https://gigamix.hatenablog.com/entry/mgsdrv/">MGSDRV</a> (c) Ain./Gigamix</li>
+        <li>KINROU5 (c) Keiichi Kuroda</li>
+        <li>MPK (c) K-KAZ</li>
+        <li>OPLLDriver (c) Ring</li>
+      </ul>
+      <footer>
+        <hr />
+        <p>MSXPlay - Copyright &copy; 2016-2021 Digital Sound Antiques.</p>
+      </footer>
+    </section>
+    <div id="modal-player-stage">
+      <div class="close-button" onclick="closeModalPlayer()"><i class="material-icons">close</i></div>
+    </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyA3yBgjdAOXUS8MiVvlUjMoPAsfEk_k9ZA",
+        authDomain: "msxplay-63a7a.firebaseapp.com",
+        databaseURL: "https://msxplay-63a7a.firebaseio.com",
+        projectId: "msxplay-63a7a",
+        storageBucket: "msxplay-63a7a.appspot.com",
+        messagingSenderId: "720072373890",
+        appId: "1:720072373890:web:d4f28f5c3c3a27b8eea69b",
+        measurementId: "G-CV2H302X7T",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+  </body>
+</html>

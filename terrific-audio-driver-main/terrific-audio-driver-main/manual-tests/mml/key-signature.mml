@@ -1,0 +1,56 @@
+#Title Key Signature Test
+#Tempo 120
+
+; Sets the default key signature for all channels and subroutines
+; This is the equivalent to adding `_{}` to the start of every channel and subroutine.
+; Multiple key signature commands can be seperated by commas.
+#KeySignature -bea ; E Flat Major
+
+@1 square
+
+A @1
+
+; E Flat Major scale (from #KeySignature header)
+A o4 efgab>cde r
+A _{=abcdefg}
+
+; A major scale
+A _{+fcg} o4 ab>cdefga r
+A _{=fcg}
+
+; B♭ major scale
+A _{-be} o4 b>cdefgab r
+A _{=be}
+
+; Sharp & Flat signature
+A _{+cfg} _{-be} o4 cdefgab>c r
+A _{=abcdefg}
+
+; Sharps and flats are relative to the key signature
+A _{+c} o4 c-- c- c c+ c++ r
+A _{=c} o4 c-- c- c c+ c++ r
+
+; a `=` on a pitch will ignore the key signature
+; (from mml-syntax.mml)
+A _{+fcg} g= ; plays g natural
+A _{+fcg} g=- g=+ ; plays g- then g+
+A _{=fcg} r
+
+; key signature and channel transpose are independent settings
+; (tests tad-gui statusbar)
+A _{+fc} _M+2 c  __M-3 _{-de} _{=c} d
+A _{=abcdefg} _M0 r
+
+; Subroutines and channels have independent key signatures
+
+; The following plays `fb-c r8 f+bc+`
+!s1 fbc r8 ; f is sharp from #KeySignature value
+A _{+fc} !s1 fbc
+A _{=fc} r
+
+; The following plays `f+bc+ r8 fb-c`
+!s2 _{=abcdefg} ; reset #KeySignature value
+!s2 _{+fc} fbc r8
+A _{-be} !s2 fbc
+A _{=be} r
+

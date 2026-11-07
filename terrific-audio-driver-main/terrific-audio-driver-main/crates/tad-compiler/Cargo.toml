@@ -1,0 +1,21 @@
+[package]
+name = "tad-compiler"
+description = "CLI app"
+license = "MIT"
+
+edition = "2021"
+rust-version.workspace = true
+
+publish = false
+
+# Use the same version as `tad-gui`
+version.workspace = true
+
+
+[dependencies]
+# Local crates
+compiler.workspace = true
+
+# External crates
+clap.workspace = true
+

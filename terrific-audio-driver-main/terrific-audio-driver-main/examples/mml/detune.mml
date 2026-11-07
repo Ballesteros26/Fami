@@ -1,0 +1,45 @@
+#Title Detune examples
+
+@1 sine adsr 12 7 7 0
+
+A @1 v14
+
+; The `D` detune MML command adds a fixed VxPITCH offset to all
+; subsequent play-note and portamento instructions.
+; `D0` disables detune.
+
+A D0   c r16
+A D+80 c r16
+A D-80 c r16
+A r
+
+A D0    {eg} r16
+A D+100 {eg} r16
+A D-100 {eg} r16
+A r
+
+; `P` play pitch MML commands are unaffected by detune
+; (these two notes will sound the same)
+A D0      P$1000 r16
+A D+1000  P$1000 r16
+A r
+
+
+; `MD` detune-cents MML command calculates the VxPITCH offset
+; and adds a `D` detune command before each note.
+A MD+25  c d e r16
+; `MD0` disables `MD` and `D` detune
+A MD0    c d e r16
+A r
+
+
+; These two lines should sound the same
+; (detuned down 200 cents, or down 2 semitones)
+A MD-200  o5  e  f  g  r16
+A MD0     o5  d  e- f  r16
+A r
+
+; MD also detunes portameno.
+; These two portamentos should sound the same.
+A MD+200 {df}^ r16
+A D0     {eg}^ r16
