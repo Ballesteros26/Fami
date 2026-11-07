@@ -1,0 +1,172 @@
+# -----------------------------------------------------------------------------
+# 工作流：自动解压多种常见格式压缩包
+# - 为每个压缩包创建独立的同名文件夹再解压
+# - 解压失败的文件跳过继续，不中断整体流程
+# - 解压后剔除 .git / .github / .gitignore / .gitattributes / .gitmodules 等歧义路径
+# - 并发锁 + push 前 rebase 防止竞态
+# - 提交并推送到运行时所在分支（不再写死 main/master）
+# -----------------------------------------------------------------------------
+
+name: 自动解压多种常见格式压缩包
+
+on:
+  push:
+    branches: [ main, master, GM82 ]
+    paths:
+      - '**.zip'
+      - '**.7z'
+      - '**.rar'
+      - '**.tar'
+      - '**.tar.gz'
+      - '**.tgz'
+      - '**.tar.bz2'
+      - '**.tar.xz'
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  # 修复：原脚本少了 $，group 名会退化成字面量，导致所有分支共用同一把锁
+  group: extract-archives-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  extract_all_archives:
+    runs-on: ubuntu-22.04
+    if: github.actor != 'github-actions[bot]'
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          # 修复：rebase 需要与远端有共同历史，depth=1 在复杂场景下会失败
+          fetch-depth: 0
+
+      - name: 安装解压依赖
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y p7zip-full unrar
+
+      - name: 配置 Git 身份
+        run: |
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: 查找、解压、过滤歧义路径、暂存并删除压缩包
+        run: |
+          set -euo pipefail
+
+          # 找出所有待处理压缩包（排序保证顺序稳定）
+          mapfile -t ARCHIVES < <(
+            find . -type f -not -path './.git/*' \
+              | grep -iE '\.(zip|7z|rar|tar\.gz|tar\.bz2|tar\.xz|tar|tgz)$' \
+              | sort
+          )
+          if [ "${#ARCHIVES[@]}" -eq 0 ]; then
+            echo "未找到压缩文件。"
+            exit 0
+          fi
+          echo "找到 ${#ARCHIVES[@]} 个压缩文件。"
+
+          # 需要从解压结果中剔除的歧义路径（任意层级）
+          # 注意：.git 既可能是目录（嵌套仓库），也可能是文件（submodule gitlink），
+          #      find -name + rm -rf 对两者都生效
+          EXCLUDE_NAMES=(
+            '.git'
+            '.github'
+            '.gitignore'
+            '.gitattributes'
+            '.gitmodules'
+            '.gitkeep'
+            '.gitlab-ci.yml'
+            '.travis.yml'
+            '.circleci'
+          )
+
+          FAIL_COUNT=0
+          for FILE in "${ARCHIVES[@]}"; do
+            TARGET_DIR="$(dirname "$FILE")"
+            FILENAME="$(basename "$FILE")"
+            BASENAME="$(echo "$FILENAME" | sed -E 's/\.(tar\.(gz|bz2|xz)|tgz|zip|7z|rar)$//i')"
+            DEST_DIR="$TARGET_DIR/$BASENAME"
+            mkdir -p "$DEST_DIR"
+            echo "正在处理: $FILE -> $DEST_DIR"
+
+            LOWER="$(echo "$FILENAME" | tr '[:upper:]' '[:lower:]')"
+            OK=true
+            case "$LOWER" in
+              *.zip)          unzip -o "$FILE" -d "$DEST_DIR"        || OK=false ;;
+              *.7z)           7z x "$FILE" -o"$DEST_DIR" -y          || OK=false ;;
+              *.rar)          unrar x -o+ "$FILE" "$DEST_DIR/"       || OK=false ;;
+              *.tar.gz|*.tgz) tar -xzf "$FILE" -C "$DEST_DIR"        || OK=false ;;
+              *.tar.bz2)      tar -xjf "$FILE" -C "$DEST_DIR"        || OK=false ;;
+              *.tar.xz)       tar -xJf "$FILE" -C "$DEST_DIR"        || OK=false ;;
+              *.tar)          tar -xf  "$FILE" -C "$DEST_DIR"        || OK=false ;;
+              *)              echo "  -> 未知格式，跳过"; OK=false ;;
+            esac
+
+            if ! $OK; then
+              echo "  -> 解压失败，清理残留并跳过。"
+              # 修复：原脚本 rmdir 只能删空目录，部分解压产物会残留在工作区
+              rm -rf -- "$DEST_DIR"
+              FAIL_COUNT=$((FAIL_COUNT + 1))
+              continue
+            fi
+
+            echo "  -> 解压成功，过滤歧义路径。"
+
+            # 删除任意层级的 .git / .github / .gitignore / .gitattributes / .gitmodules 等
+            # -name 精确匹配 basename，不受 shell glob 元字符影响
+            for NAME in "${EXCLUDE_NAMES[@]}"; do
+              find "$DEST_DIR" -name "$NAME" -exec rm -rf -- {} + 2>/dev/null || true
+            done
+
+            # 暂存解压结果（--force 允许添加被 .gitignore 忽略的二进制/产物）
+            git add --force -- "$DEST_DIR"
+
+            # 删除源压缩包并暂存删除
+            rm -f -- "$FILE"
+            git add -- "$FILE"
+          done
+
+          echo "完成。成功: $((${#ARCHIVES[@]} - FAIL_COUNT)), 失败: $FAIL_COUNT"
+
+      - name: 提交并推送到运行时所在分支
+        run: |
+          set -euo pipefail
+
+          if git diff --staged --quiet; then
+            echo "没有文件变动需要提交。"
+            exit 0
+          fi
+
+          git commit -m "Chore: 自动解压并删除多种格式压缩包 [skip ci]"
+
+          # 修复：不再写死 main，使用运行时分支
+          # - push 事件：GITHUB_REF_NAME = 触发分支名
+          # - workflow_dispatch：GITHUB_REF_NAME = 选择运行的分支名
+          CURRENT_BRANCH="${GITHUB_REF_NAME:-$(git rev-parse --abbrev-ref HEAD)}"
+          if [ -z "$CURRENT_BRANCH" ] || [ "$CURRENT_BRANCH" = "HEAD" ]; then
+            echo "无法确定当前分支，回退到 master"
+            CURRENT_BRANCH="master"
+          fi
+          echo "当前分支: $CURRENT_BRANCH"
+
+          # 与远端同步后再推送，避免 non-fast-forward
+          git pull --rebase origin "$CURRENT_BRANCH"
+
+          # 带退避的推送重试，应对偶发并发
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:$CURRENT_BRANCH"; then
+              echo "推送成功。"
+              exit 0
+            fi
+            echo "推送失败（第 ${attempt} 次），尝试同步后重试..."
+            git pull --rebase origin "$CURRENT_BRANCH"
+            sleep $((attempt * 2))
+          done
+
+          echo "推送失败：已重试 3 次。"
+          exit 1
