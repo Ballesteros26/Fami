@@ -1,0 +1,29 @@
+﻿<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NDP Online</title>
+  <base href="/online/">
+  <link href="site.css?v=0.5.11" rel="stylesheet">
+</head>
+<body>
+  <div id="app">NDP Online を読み込み中…</div>
+  <script src="interop.js?v=0.5.11"></script>
+  <script src="player.js?v=0.5.13"></script>
+  <script src="editor-highlight.js?v=0.5.13c"></script>
+  <script src="share.js?v=0.5.12"></script>
+  <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+  <script>
+    Blazor.start({
+      loadBootResource: function (type, name, defaultUri, integrity) {
+        if (location.hostname === 'ndp.squares.net' &&
+            type === 'globalization' && name.endsWith('.dat')) {
+          return defaultUri.replace(/\.dat$/, '.bin');
+        }
+        return null;
+      }
+    });
+  </script>
+</body>
+</html>

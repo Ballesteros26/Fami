@@ -1,0 +1,90 @@
+/*
+** FamiTracker - NES/Famicom sound tracker
+** Copyright (C) 2005-2014  Jonathan Liss
+**
+** 0CC-FamiTracker is (C) 2014-2018 HertzDevil
+**
+** This program is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation; either version 2 of the License, or
+** (at your option) any later version.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+** Library General Public License for more details.  To obtain a
+** copy of the GNU Library General Public License, write to the Free
+** Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+**
+** Any permitted reproduction of these routines, in whole or in part,
+** must bear this legend.
+*/
+
+#pragma once
+
+
+// Key accelerator class
+
+#include "stdafx.h"		// // //
+#include <vector>		// // //
+#include <unordered_set>		// // //
+
+struct stAccelEntry {
+	LPCWSTR name;
+	int	mod;
+	int	key;
+	int	id;
+	LPCWSTR orig_name;		// // //
+};
+
+class CSettings;		// // //
+
+class CAccelerator {
+public:
+	CAccelerator();
+	~CAccelerator();
+
+	LPCWSTR			GetItemName(int Item) const;					// Name of shortcut
+	int				GetItemKey(int Item) const;						// Key for shortcut
+	int				GetItemMod(int Item) const;						// Modifier for shortcut
+	int				GetDefaultKey(int Item) const;					// Default key for shortcut
+	int				GetDefaultMod(int Item) const;					// Default modifier for shortcut
+	LPCWSTR			GetItemModName(int Item) const;					// Key string for shortcut
+	LPCWSTR			GetItemKeyName(int Item) const;					// Modifier string for shortcut
+	CStringW		GetVKeyName(int virtualKey) const;				// // // Translates virtual key to a string
+	void			StoreShortcut(int Item, int Key, int Mod);		// Store key and modifier for shortcut
+
+	void			SaveShortcuts(CSettings *pSettings) const;		// Save to registry
+	void			LoadShortcuts(CSettings *pSettings);			// Load from registry
+	void			LoadDefaults();									// Load defaults
+
+	void			Setup();
+	void			Shutdown();
+	BOOL			Translate(HWND hWnd, MSG *pMsg);
+	void			SetAccelerator(HACCEL hAccel);
+
+	CStringW		GetShortcutString(int id) const;		// // //
+
+	// // // check if key is used as a modifier-less shortcut
+	bool			IsKeyUsed(int nChar) const;
+
+public:
+	// Class member constants
+	static const LPCWSTR	  MOD_NAMES[];							// Strings for modifiers
+	static const std::vector<stAccelEntry> DEFAULT_TABLE;			// // // List of default shortcuts
+	static const int		  ACCEL_COUNT;							// Number of shortcuts
+	static const LPCWSTR	  SHORTCUTS_SECTION;					// Registry section
+
+private:
+	HACCEL	m_hAccel = nullptr;
+	HACCEL	m_hAdditionalAccel = nullptr;
+
+	// Shortcut table
+	std::vector<stAccelEntry> m_pEntriesTable;		// // //
+
+	// Accelerator table
+	std::vector<ACCEL> m_pAccelTable;		// // //
+
+	// // // Used keys
+	std::unordered_set<int> m_iUsedKeys;
+};

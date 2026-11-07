@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "SkinEditor/2026.1015.2": {
+        "runtime": {
+          "SkinEditor.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SkinEditor/2026.1015.2": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

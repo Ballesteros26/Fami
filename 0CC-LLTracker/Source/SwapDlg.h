@@ -1,0 +1,63 @@
+/*
+** FamiTracker - NES/Famicom sound tracker
+** Copyright (C) 2005-2014  Jonathan Liss
+**
+** 0CC-FamiTracker is (C) 2014-2018 HertzDevil
+**
+** This program is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation; either version 2 of the License, or
+** (at your option) any later version.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+** Library General Public License for more details.  To obtain a
+** copy of the GNU Library General Public License, write to the Free
+** Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+**
+** Any permitted reproduction of these routines, in whole or in part,
+** must bear this legend.
+*/
+
+
+#pragma once
+
+#include "stdafx.h"
+#include "../resource.h"
+#include "APU/Types_fwd.h"
+
+// CSwapDlg dialog
+
+class CSwapDlg : public CDialog
+{
+	DECLARE_DYNAMIC(CSwapDlg)
+
+public:
+	CSwapDlg(CWnd* pParent = NULL);   // standard constructor
+	void SetTrack(unsigned int Track);
+
+// Dialog Data
+	enum { IDD = IDD_SWAP };
+
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+
+	void CheckDestination() const;
+
+	unsigned int m_iDestChannel1, m_iDestChannel2;
+	sound_chip_t m_iDestChip1, m_iDestChip2;
+	unsigned int m_iTrack;
+
+	CEdit m_cSubindexFirst, m_cSubindexSecond;
+	CComboBox m_cChipFirst, m_cChipSecond;
+
+	DECLARE_MESSAGE_MAP()
+public:
+	virtual BOOL OnInitDialog();
+	afx_msg void OnEnChangeEditSwapChan1();
+	afx_msg void OnEnChangeEditSwapChan2();
+	afx_msg void OnCbnSelchangeComboSwapChip1();
+	afx_msg void OnCbnSelchangeComboSwapChip2();
+	afx_msg void OnBnClickedOk();
+};
