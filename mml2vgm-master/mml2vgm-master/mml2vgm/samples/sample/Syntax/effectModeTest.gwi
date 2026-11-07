@@ -1,0 +1,52 @@
+﻿'{
+
+	TitleName   =EffectModeTest
+	TitleNameJ  =効果音モード
+	GameName    =none
+	GameNameJ   =none
+	SystemName  =Sega Genesis
+	SystemNameJ =Sega Mega Drive
+	Composer    =kuma
+	ComposerJ   =kuma
+	ReleaseDate =2015/11/15
+	Converted   =
+	Notes       =2026/03/07 動作確認
+
+	Notes       =EXONコマンドはCh3(YM2609の場合はCh9も含む)で実施するようにしてください。
+	Notes       =(スロットの割り当てをリセットするため)
+
+}
+
+
+
+'@ N 000
+   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG
+'@ 031,012,012,015,015,000,000,001,000,000,000
+'@ 031,012,012,015,015,000,000,001,000,000,000
+'@ 031,012,012,015,015,000,000,001,000,000,000
+'@ 031,012,012,015,015,000,000,001,000,000,000
+'@ 007,000
+
+'@ F 110
+   AR  DR  SR  RR  SL  TL  KS  ML  DT
+'@ 031,000,000,000,000,033,000,004,007
+'@ 018,015,009,007,003,009,000,004,007
+'@ 031,000,000,000,000,024,000,002,003
+'@ 031,015,009,007,003,000,000,002,003
+'@ 004,007
+
+
+'F1 T90
+
+F3 EXON EX1 @0 D0 v120 p3 o5 l8 q0 cdefedcrefgagfercrcrcrcrl16ccddeeffl8edcrrrrrrrrrrrrrrrrrrrrrrg>cr
+F7      EX2    D0 v120    o5 l8 q0 rrrrrrrrcdefedcrefgagfercrcrcrcrl16ccddeeffl8edcrrrrrrrrrrrrrrrrr
+F8      EX3    D0 v120    o5 l8 q0 rrrrrrrrrrrrrrrrcdefedcrefgagfercrcrcrcrl16ccddeeffl8edcrrrrrrrrr
+F9      EX4    D0 v120    o5 l8 q0 rrrrrrrrrrrrrrrrrrrrrrrrcdefedcrefgagfercrcrcrcrl16ccddeeffl8edcr
+
+F3 @110 EXON EX12 D0 v100 p3 o4 l8 q0 cdefedcrefgagfercrcrcrcrl16ccddeeffl8edcrrrrrrrrr
+F7           EX34 D0 v100    o4 l8 q0 rrrrrrrrcdefedcrefgagfercrcrcrcrl16ccddeeffl8edcr
+
+'F3 EXON EX1 @0 D0 v110 p3 o5 l8 q0 cdefedcrefgagfercrcrcrcrl16ccddeeffl8edcr
+'F7      EX2    D2 v090    o5 l8 q0 r16cdefedcrefgagfercrcrcrcrl16ccddeeffl8edcr
+'F8      EX3    D4 v080    o5 l8 q0 r  cdefedcrefgagfercrcrcrcrl16ccddeeffl8edcr
+

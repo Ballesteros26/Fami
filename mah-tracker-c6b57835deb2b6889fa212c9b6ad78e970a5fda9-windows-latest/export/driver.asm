@@ -1,0 +1,1177 @@
+; !!! IMPORTANT !!!
+; This 6502 driver and the accompanying Python converter are NOT licensed under the GPL.
+; They are licensed under the public domain. 
+; Use this driver and converter whenever and wherever you want, commercial or for fun!
+
+; HR_MODE = 0: use the hard-restart method that the GUI editor uses
+; HR_MODE = 1: use the hard-restart method that GT2 and other players use
+HR_MODE = 1
+HR_FRAME_LENGTH = 1
+
+.include "music_props.asm"
+
+.zeropage
+.org $fe
+temp: .res 2
+
+.segment "CODE"
+
+.org    $080D
+jmp $900
+.res $0900-*
+main:
+ sei
+ lda #$35
+ sta $01
+
+ lda #127
+ sta $dc0d
+
+ and $d011
+ sta $d011
+
+ lda $dc0d
+ lda $dd0d
+
+ lda #<irq
+ sta $fffe
+ lda #>irq
+ sta $ffff
+
+ lda #$1b
+ sta $d011
+ lda #$40
+ sta $d012
+
+ lda #1
+ sta $d01a
+
+ lda #0
+ jsr $1000
+
+    cli
+	jmp *
+
+irq:
+	pha
+    txa
+    pha
+    tya
+    pha
+
+    inc $d020
+	jsr $1003
+    dec $d020
+    asl $d019
+
+    pla
+    tay
+    pla
+    tax
+    pla
+    rti
+
+.res $1000-*
+    jmp init
+play:
+    dec tick
+    lda tick
+    beq :+
+    jmp skipseq
+:
+
+    lda #0
+    sta do_patend
+    sta row_has_9xx
+    .if sid_chip_cnt >= 2
+        sta row_has_9xx+1
+    .endif
+
+    ldx #0
+ch_loop:
+    jsr do_ch
+    inx
+    cpx #3*sid_chip_cnt
+    bne ch_loop
+
+    lda do_patend
+    beq :+
+    inc order
+    lda order
+    jsr set_pat
+:
+
+    ldx tick_sel
+    lda speed, x
+    sta tick
+    sta tick_cur
+    lda tick_sel
+    eor #1
+    sta tick_sel
+skipseq:
+
+    ldx #0
+:
+    jsr do_pulse_sweep
+    jsr do_eff
+    jsr do_wav
+    .if HR_MODE = 1
+        lda hr_delay, x
+        cmp #$ff
+        bne @skip_freq
+    .endif
+    ldy sid_mul, x
+    lda final_freq
+    clc
+    adc bend_lo, x
+    sta $d400, y
+    lda final_freq+1
+    adc bend_hi, x
+    sta $d401, y
+    lda duty_lo, x
+    sta $d402, y
+    lda duty_hi, x
+    sta $d403, y
+    .if HR_MODE = 1
+@skip_freq:
+    .endif
+    inx
+    cpx #3*sid_chip_cnt
+    bne :-
+
+    .if sid_chip_cnt >= 2
+filt_ch_temp = glide_temp
+filt_base_temp = last_eff
+        lda #0
+        sta filt_ch_temp
+        jsr do_filt
+        lda #1
+        sta filt_ch_temp
+        jsr do_filt
+        rts
+    .endif
+
+do_filt:
+    .if sid_chip_cnt >= 2
+        ldy filt_ch_temp
+
+        tya
+        asl
+        clc
+        adc filt_ch_temp
+        tax
+        lda chip_base_tabl, x
+        sta filt_base_temp
+
+        ldx filt_inst, y
+        stx filt_ch_temp+1
+    .else
+        ldx filt_inst
+    .endif
+    bne :+
+    rts
+:
+    lda ins_filt_lo, x
+    sta temp
+    lda ins_filt_hi, x
+    sta temp+1
+
+@redo_wave:
+    .if sid_chip_cnt >= 2
+        ldx filt_ch_temp
+        ldy filter_pos, x
+        ldx filt_ch_temp+1
+    .else
+        ldy filter_pos
+    .endif
+    lda (temp), y ; filter mode
+    cmp #$ff
+    beq @do_jump
+
+    .if sid_chip_cnt >= 2
+        ldx filt_base_temp
+        ora #$0f
+        sta $d418, x
+        ldx filt_ch_temp+1
+    .else
+        ora #$0f
+        sta $d418
+    .endif
+
+    tya
+    clc
+    adc ins_filter_len, x
+    tay
+
+    lda ins_filter_enable, x
+    .if sid_chip_cnt >= 2
+        ldx filt_ch_temp
+    .endif
+    and #$20
+    beq :+
+    lda (temp), y ; filter cutoff
+    clc
+    .if sid_chip_cnt >= 2
+        adc cur_cutoff, x
+    .else
+        adc cur_cutoff
+    .endif
+    jmp :++
+:
+    lda (temp), y ; filter cutoff
+:
+
+    .if sid_chip_cnt >= 2
+        sta cur_cutoff, x
+        inc filter_pos, x
+        lda cur_cutoff, x
+        ldx filt_base_temp
+        sta $d416, x
+        ldx filt_ch_temp+1
+    .else
+        sta cur_cutoff
+        inc filter_pos
+        lda cur_cutoff
+        sta $d416
+    .endif
+
+    rts
+
+@do_jump:
+    .if sid_chip_cnt >= 2
+        ldx filt_ch_temp
+        ldy filt_inst, x
+        lda filter_pos, x
+        clc
+        adc ins_filter_len, y
+        tay
+        lda (temp), y
+        sta filter_pos, x
+        ldx filt_ch_temp+1
+    .else
+        ldy filt_inst
+        lda filter_pos
+        clc
+        adc ins_filter_len, y
+        tay
+        lda (temp), y
+        sta filter_pos
+    .endif
+    jmp @redo_wave
+
+do_pulse_sweep:
+    ldy ins, x
+    lda duty_lo, x
+    clc
+    adc duty_speed_lo, x
+    sta duty_lo, x
+    lda duty_hi, x
+    adc duty_speed_hi, x
+    sta duty_hi, x
+
+    lda ins_duty_end_lo, y
+    sec
+    sbc duty_lo, x
+    lda ins_duty_end_hi, y
+    sbc duty_hi, x
+    bpl :+
+    lda ins_duty_end_lo, y
+    sta duty_lo, x
+    lda ins_duty_end_hi, y
+    sta duty_hi, x
+    jmp flip_duty_speed
+:
+
+    lda duty_lo, x
+    sec
+    sbc ins_duty_start_lo, y
+    lda duty_hi, x
+    sbc ins_duty_start_hi, y
+    bpl :+
+    lda ins_duty_start_lo, y
+    sta duty_lo, x
+    lda ins_duty_start_hi, y
+    sta duty_hi, x
+    jmp flip_duty_speed
+:
+    rts
+
+flip_duty_speed:
+    ; (duty_speed^0xffff)+1
+    lda duty_speed_lo, x
+    eor #$ff
+    sta duty_speed_lo, x
+    lda duty_speed_hi, x
+    eor #$ff
+    sta duty_speed_hi, x
+    inc duty_speed_lo, x
+    bne :+
+    inc duty_speed_hi, x
+:
+    rts
+
+set_adsr_note:
+    ldy ins, x
+    lda ins_ad, y
+    sta temp
+    lda ins_sr, y
+    sta temp+1
+
+    lda eff_type, x
+    cmp #5
+    bne :+
+    lda eff_arg, x
+    sta temp
+:
+    cmp #6
+    bne :+
+    lda eff_arg, x
+    sta temp+1
+:
+
+    ldy sid_mul, x
+    lda temp
+    sta $d405, y
+    lda temp+1
+    sta $d406, y
+    rts
+
+init_note_macros:
+    .if HR_MODE <> 1
+        jsr set_adsr_note
+    .endif
+
+    ldy ins, x
+    lda ins_duty_reset, y
+    beq :++
+    lda ins_duty_speed_lo, y 
+    sta duty_speed_lo, x
+    lda ins_duty_speed_hi, y 
+    sta duty_speed_hi, x
+    lda ins_duty_start_hi, y
+    bpl :+
+    lda ins_duty_end_lo, y 
+    sta duty_lo, x
+    lda ins_duty_end_hi, y 
+    sta duty_hi, x
+    jmp :++
+:
+    lda ins_duty_start_lo, y 
+    sta duty_lo, x
+    lda ins_duty_start_hi, y 
+    sta duty_hi, x
+:
+
+    .if sid_chip_cnt >= 2
+        lda ins_filter_enable, y
+        and #$20
+        beq :+
+        ldy chip_num_tabl, x
+        lda row_has_9xx, y
+        bne :+
+        ldy ins, x
+        lda ins_filter_init_cut, y
+        ldy chip_num_tabl, x
+        sta cur_cutoff, y
+    :
+        ldy ins, x
+
+        ldy chip_num_tabl, x
+        lda filt_resonance_temp, y
+        and bit_mask_inv, x
+        sta filt_resonance_temp, y
+        and #7
+        sta temp
+        ldy ins, x
+    .else
+        lda ins_filter_enable, y
+        and #$20
+        beq :+
+        lda row_has_9xx
+        bne :+
+        lda ins_filter_init_cut, y
+        sta cur_cutoff
+    :
+
+        lda filt_resonance_temp
+        and bit_mask_inv, x
+        sta filt_resonance_temp
+        and #7
+        sta temp
+    .endif
+
+    .if sid_chip_cnt >= 2
+        lda ins_filter_enable, y
+        asl
+        asl
+        asl
+        asl
+        bcc :+
+        ora bit_mask, x
+        ora temp
+        ldy chip_num_tabl, x
+        sta filt_resonance_temp, y
+    :
+        ldy chip_num_tabl, x
+        lda filt_resonance_temp, y
+        ldy chip_base_tabl, x
+        sta $d417, y
+        ldy ins, x
+    .else
+        lda ins_filter_enable, y
+        asl
+        asl
+        asl
+        asl
+        bcc :+
+        ora bit_mask, x
+        ora temp
+        sta filt_resonance_temp
+    :
+        lda filt_resonance_temp
+        sta $d417
+    .endif
+
+    .if sid_chip_cnt >= 2
+        lda ins_filter_len, y
+        beq :+
+        lda ins_filter_enable, y
+        and #$10
+        beq :+
+        tya
+        ldy chip_num_tabl, x
+        sta filt_inst, y
+        lda #0
+        sta filter_pos, y
+        ldy ins, x
+    :
+    .else
+        lda ins_filter_len, y
+        beq :+
+        lda ins_filter_enable, y
+        and #$10
+        beq :+
+        lda #0
+        sta filter_pos
+        sty filt_inst
+    :
+    .endif
+
+    lda #$ff
+    sta hr_delay, x
+    rts
+
+do_wav:
+    lda ins, x
+    bne :+
+    rts
+:
+
+    lda incoming_note_delay, x
+    cmp #$ff
+    beq @skip_note_delay
+    inc incoming_note_delay, x
+    lda incoming_note_delay, x 
+    cmp #HR_FRAME_LENGTH+1
+    bne @skip_note_delay
+    lda #$ff
+    sta incoming_note_delay, x
+    lda incoming_note, x
+    sta cur_note, x
+@skip_note_delay:
+
+    lda hr_delay, x
+    cmp #$ff
+    beq @skip_to_wav
+    inc hr_delay, x
+    lda hr_delay, x
+    .if HR_MODE = 1
+        cmp #HR_FRAME_LENGTH
+        bne :+
+        jsr set_adsr_note
+        lda #$09
+        sta $d404, y
+        rts
+    :
+        cmp #HR_FRAME_LENGTH+1 ; HR frames
+    .else
+        cmp #HR_FRAME_LENGTH+1
+    .endif
+    bne @skip_note_macro_init
+    jsr init_note_macros
+    jmp @skip_to_wav
+@skip_note_macro_init:
+    rts
+@skip_to_wav:
+
+    ldy ins, x
+
+    lda arp_pos, x
+    clc
+    adc #1
+    cmp ins_wave_len, y
+    bcc :+
+    lda ins_wave_len, y
+    sec
+    sbc #1
+    sta arp_pos, x   
+:
+
+    lda ins_wav_lo, y
+    sta temp
+    lda ins_wav_hi, y
+    sta temp+1
+    
+@redo_wave:
+    ldy arp_pos, x
+    lda (temp), y
+    bpl :+
+    cmp #$ff
+    beq @do_jump
+    and #$7f
+    jmp :++
+:
+    clc
+    adc transpose, x
+    clc
+    adc cur_note, x
+    sec
+    sbc #48
+:
+
+@cont_wave:
+    tay
+    lda freq_lo, y
+    sta final_freq
+    lda freq_hi, y
+    sta final_freq+1
+
+    ldy ins, x
+    lda arp_pos, x
+    clc
+    adc ins_wave_len, y
+    tay
+    lda (temp), y
+    and gate_mask, x
+    ldy sid_mul, x
+    sta $d404, y
+    .if HR_MODE = 1
+        sta wave_temp, x
+    .endif
+
+    inc arp_pos, x
+    rts
+
+@do_jump:
+    ldy ins, x
+    lda arp_pos, x
+    clc
+    adc ins_wave_len, y
+    tay
+    lda (temp), y
+    sta arp_pos, x
+    jmp @redo_wave
+
+do_ch:
+    dec dur, x
+    lda dur, x
+    beq :+
+    rts
+:
+
+    lda eff_type, x
+    sta last_eff
+
+    lda pat_ptr_lo, x
+    sta temp
+    lda pat_ptr_hi, x
+    sta temp+1
+
+    ldy #0
+    sty pattern_rel_ptr
+
+pattern_rel_ptr = *+1
+
+@parse_rept:
+
+    ldy #0
+    lda (temp), y
+    cmp #$40
+    bcs :+
+    sta dur, x
+    inc pattern_rel_ptr
+    jmp @end_parse
+:
+    cmp #$80
+    bcs :+
+    and #$3f
+    sta ins, x
+    inc pattern_rel_ptr
+    lda eff_type, x
+    cmp #3
+    beq @parse_rept
+    jsr reinit_note_inst
+    jmp @parse_rept
+:
+    cmp #$e0
+    bcs :+
+    and #$7f
+    ldy eff_type, x
+    cpy #3
+    bne @goto_set_note
+    ldy eff_arg, x
+    bne @skip_tie_note
+    sta incoming_note, x
+    lda #0
+    sta incoming_note_delay, x
+    jmp @goto_set_note_tie
+@skip_tie_note:
+    jmp @do_glide_eff
+@goto_set_note:
+    sta cur_note, x
+@goto_set_note_tie:
+    inc pattern_rel_ptr
+    lda eff_type, x
+    cmp #3
+    beq @parse_rept
+    jsr reinit_note_inst
+    jmp @parse_rept
+:
+    cmp #$e0
+    bne :+
+    lda #0
+    sta eff_type, x
+    sta eff_arg, x
+    inc pattern_rel_ptr
+    jmp @parse_rept
+:
+    cmp #$f0
+    bcs @skip_eff
+    and #$0f
+    ldy eff_type, x
+    sta eff_type, x
+    sty last_eff
+    ldy #1
+    lda (temp), y
+    sta eff_arg, x
+    lda eff_type, x
+    cmp #$09
+    bne :+
+    .if sid_chip_cnt >= 2
+        ldy chip_num_tabl, x
+        sta row_has_9xx, y
+        ; ldy #1
+    .else
+        sta row_has_9xx
+    .endif
+:
+    inc pattern_rel_ptr
+    inc pattern_rel_ptr
+    jmp @parse_rept
+@skip_eff:
+    cmp #$fd
+    bne :++
+    ldy #1
+    lda (temp), y
+    sta ins, x
+    inc pattern_rel_ptr
+    inc pattern_rel_ptr
+    lda eff_type, x
+    cmp #3
+    beq :+
+    jsr reinit_note_inst
+:
+    jmp @parse_rept
+:
+    cmp #$fe
+    bne :+
+    sta gate_mask, x
+    inc pattern_rel_ptr
+    jmp @parse_rept
+:
+    cmp #$ff
+    bne :+
+    lda #1
+    sta do_patend
+:
+@end_parse:
+    lda pattern_rel_ptr
+    clc
+    adc temp
+    sta temp
+    bcc :+
+    inc temp+1
+:
+
+    lda last_eff
+    cmp eff_type, x
+    beq :+
+    lda #0
+    sta vib_tim, x
+:
+
+    lda eff_type, x
+    cmp #$0e
+    bne :+
+    lda eff_arg, x
+    and #$0f
+    sta speed+1
+    lda eff_arg, x
+    lsr
+    lsr
+    lsr
+    lsr
+    sta speed
+:
+
+    lda eff_type, x
+    cmp #$0f
+    bne :+
+    lda eff_arg, x
+    sta speed
+    sta speed+1
+:
+
+    lda eff_type, x
+    cmp #$0c
+    bne :+
+    lda eff_arg, x
+    sta transpose, x
+:
+
+    lda temp
+    sta pat_ptr_lo, x
+    lda temp+1
+    sta pat_ptr_hi, x
+;ch_skip_parse:
+    rts
+
+@do_glide_eff:
+    sta glide_note, x
+    pha
+    tya
+    sta glide_speed, x
+    pla
+    tay
+
+    lda #0
+    sta vib_tim, x
+
+    txa
+    pha
+
+    lda cur_note, x
+    tax
+
+    lda freq_lo, y
+    sec
+    sbc freq_lo, x
+    sta glide_temp
+    lda freq_hi, y
+    sbc freq_hi, x
+    sta glide_temp+1
+
+    pla
+    tax
+    lda glide_temp
+    sta glide_limit_lo, x
+    lda glide_temp+1
+    sta glide_limit_hi, x
+    ldy #0
+    inc pattern_rel_ptr
+    jmp @parse_rept
+
+reinit_note_inst:
+    lda #0
+    sta hr_delay, x
+    sta arp_pos, x
+    sta vib_tim, x
+    sta bend_lo, x
+    sta bend_hi, x
+    lda #$ff
+    sta gate_mask, x
+    .if HR_MODE = 1
+        ldy sid_mul, x
+        lda #$00
+        sta $d405, y
+        lda #$00
+        sta $d406, y
+        lda wave_temp, x
+        and #$fe
+        sta $d404, y
+    .else
+        lda #$00
+        ldy sid_mul, x
+        sta $d405, y
+        sta $d406, y
+        lda #$08
+        sta $d404, y
+    .endif
+    rts
+
+sid_mul:
+    .byte 0, 7, 14
+    .if sid_chip_cnt >= 2
+        .byte $20+0, $20+7, $20+14
+    .endif
+bit_mask:
+    .byte 1, 2, 4
+    .if sid_chip_cnt >= 2
+        .byte 1, 2, 4
+    .endif
+bit_mask_inv:
+    .byte 1^$ff, 2^$ff, 4^$ff
+    .if sid_chip_cnt >= 2
+        .byte 1^$ff, 2^$ff, 4^$ff
+    .endif
+.if sid_chip_cnt >= 2
+chip_num_tabl:
+    .repeat sid_chip_cnt, I
+        .res 3, I
+    .endrepeat
+chip_base_tabl:
+    .repeat sid_chip_cnt, I
+        .res 3, I*$20
+    .endrepeat
+.endif
+
+init:
+    ldx #$18
+    lda #0
+:
+    sta $d400, x
+    dex
+    bpl :-
+    ldx #(vars_end-vars_start)-1
+:
+    sta vars_start, x
+    dex
+    bpl :-
+    lda #$ff
+    ldx #(3*sid_chip_cnt)-1
+:
+    sta hr_delay, x
+    sta gate_mask, x
+    sta incoming_note_delay, x
+    dex
+    bpl :-
+    lda #$0f
+    sta $d418
+    .if sid_chip_cnt >= 2
+        lda #$0f
+        sta $d418+$20
+    .endif
+    lda init_speed
+    sta speed
+    sta speed+1
+    lda #1
+    sta tick
+    lda #0
+    sta order
+    .if sid_chip_cnt >= 2
+        ldx #(3*sid_chip_cnt)-1
+    :
+        sta ins, x
+        dex
+        bpl :-
+    .else
+        sta ins
+        sta ins+1
+        sta ins+2
+    .endif
+    ;jsr set_pat
+    ;rts
+
+; Y = pattern
+set_pat:
+    sta @set_pat_smc+1
+    ldx #(3*sid_chip_cnt)-1
+@loop:
+    lda order_lo, x
+    sta temp
+    lda order_hi, x
+    sta temp+1
+@set_pat_smc:
+    ldy #0
+    lda (temp), y
+    cmp #$ff
+    bne :+
+    lda #order_loop
+    sta order
+    jmp set_pat
+:
+    tay
+    lda pat_lo, y
+    sta pat_ptr_lo, x
+    lda pat_hi, y
+    sta pat_ptr_hi, x
+    .if sid_chip_cnt >= 2
+        lda #1
+        sta dur, x
+    .endif
+    dex
+    bpl @loop
+
+    .if sid_chip_cnt < 2
+        lda #1
+        sta dur
+        sta dur+1
+        sta dur+2
+    .endif
+    rts
+
+do_eff_cut:
+    ; 9xx: set cutoff command
+    sty temp
+    lda tick
+    cmp tick_cur
+    bne :+
+    .if sid_chip_cnt >= 2
+        ldy chip_num_tabl, x
+        lda eff_arg, x
+        sta cur_cutoff, y
+        lda #$09
+        sta row_has_9xx, y
+    .else
+        lda eff_arg, x
+        sta cur_cutoff
+        lda #$09
+        sta row_has_9xx
+    .endif
+:
+    ldy temp
+    rts
+
+do_eff_adsr:
+    ; 5xx and 6xx ADSR commands
+    sty temp
+    clc 
+    adc sid_mul, x
+    tay
+    lda hr_delay, x
+    cmp #$ff
+    bne :+
+    lda eff_arg, x
+    sta $d400, y
+:
+    ldy temp
+    rts
+
+do_eff:
+    lda eff_type, x
+    cmp #5
+    beq do_eff_adsr
+    cmp #6
+    beq do_eff_adsr
+    cmp #9
+    beq do_eff_cut
+    cmp #4
+    beq @jump_to_vib
+    cmp #1
+    bne @skip1
+    lda eff_arg, x
+    sta temp
+    jmp vib_add
+@skip1:
+    cmp #2
+    bne @skip2
+    lda eff_arg, x
+    sta temp
+    jmp vib_sub
+@skip2:
+    cmp #3
+    bne @skip3
+    lda eff_arg, x
+    beq @skip3
+
+    lda glide_speed, x
+    sta temp
+
+    lda glide_limit_hi, x
+    bmi @skip_to_dec_glide
+    ; +
+    jsr vib_add
+    lda glide_limit_lo, x
+    sec
+    sbc bend_lo, x
+    lda glide_limit_hi, x
+    sbc bend_hi, x
+    bcs :+
+    lda #0
+    sta bend_lo, x
+    sta bend_hi, x
+    sta glide_speed, x
+    lda glide_note, x
+    sta cur_note, x
+:
+    rts
+@skip_to_dec_glide:
+    jsr vib_sub
+    lda bend_lo, x
+    sec
+    sbc glide_limit_lo, x
+    lda bend_hi, x
+    sbc glide_limit_hi, x
+    bcs :+
+    lda #0
+    sta bend_lo, x
+    sta bend_hi, x
+    sta glide_speed, x
+    lda glide_note, x
+    sta cur_note, x
+:
+    rts
+@skip3:
+    rts
+@jump_to_vib:
+
+    lda eff_arg, x
+    asl
+    asl
+    asl
+    asl
+    sta temp
+    lda eff_arg, x
+    lsr
+    lsr
+    lsr
+    lsr
+    eor #$0f
+    sta temp+1
+    lda vib_tim, x
+    bmi :+
+    cmp temp+1
+    bcc :+
+    eor #$ff
+:
+    clc
+    adc #2
+    sta vib_tim, x
+    and #1
+    beq vib_add
+    ;bne vib_sub
+vib_sub:
+    .if pitch_shift_amt = 0
+        lda bend_lo, x
+        sec
+        sbc temp
+        sta bend_lo, x
+        lda bend_hi, x
+        sbc #0
+        sta bend_hi, x
+    .elseif pitch_shift_amt > 0
+        lda #0
+        sta temp+1
+        lda eff_type, x
+        cmp #4
+        beq :+
+        .repeat pitch_shift_amt
+            asl temp
+            rol temp+1
+        .endrepeat
+    :
+        lda bend_lo, x
+        sec
+        sbc temp
+        sta bend_lo, x
+        lda bend_hi, x
+        sbc temp+1
+        sta bend_hi, x
+    .endif
+    rts
+
+vib_add:
+    .if pitch_shift_amt = 0
+        lda bend_lo, x
+        clc
+        adc temp
+        sta bend_lo, x
+        lda bend_hi, x
+        adc #0
+        sta bend_hi, x
+    .elseif pitch_shift_amt > 0
+        lda #0
+        sta temp+1
+        lda eff_type, x
+        cmp #4
+        beq :+
+        .repeat pitch_shift_amt
+            asl temp
+            rol temp+1
+        .endrepeat
+    :
+        lda bend_lo, x
+        clc
+        adc temp
+        sta bend_lo, x
+        lda bend_hi, x
+        adc temp+1
+        sta bend_hi, x
+    .endif
+    rts
+
+order_lo:
+    .lobytes order_ch0, order_ch1, order_ch2
+    .if sid_chip_cnt >= 2
+        .lobytes order_ch3, order_ch4, order_ch5
+    .endif
+
+order_hi:
+    .hibytes order_ch0, order_ch1, order_ch2
+    .if sid_chip_cnt >= 2
+        .hibytes order_ch3, order_ch4, order_ch5
+    .endif
+
+vars_start:
+speed: .byte 0, 0
+tick: .byte 0
+tick_cur: .byte 0
+tick_sel: .byte 0
+dur: .res 3*sid_chip_cnt, 0
+ins: .res 3*sid_chip_cnt, 0
+gate_mask: .res 3*sid_chip_cnt,0
+pat_ptr_lo: .res 3*sid_chip_cnt, 0
+pat_ptr_hi: .res 3*sid_chip_cnt, 0
+eff_type: .res 3*sid_chip_cnt, 0
+eff_arg: .res 3*sid_chip_cnt, 0
+cur_note: .res 3*sid_chip_cnt, 0
+incoming_note: .res 3*sid_chip_cnt, 0
+incoming_note_delay: .res 3*sid_chip_cnt, 0
+arp_pos: .res 3*sid_chip_cnt, 0
+arp_addr_lo: .res 3*sid_chip_cnt, 0
+arp_addr_hi: .res 3*sid_chip_cnt, 0
+hr_delay: .res 3*sid_chip_cnt, 0
+do_patend: .byte 0
+order: .byte 0
+final_freq: .word 0
+duty_lo: .res 3*sid_chip_cnt, 0
+duty_hi: .res 3*sid_chip_cnt, 0
+duty_speed_lo: .res 3*sid_chip_cnt, 0
+duty_speed_hi: .res 3*sid_chip_cnt, 0
+filt_resonance_temp: .res sid_chip_cnt, 0
+filt_inst: .res sid_chip_cnt, 0
+filter_pos: .res sid_chip_cnt, 0
+cur_cutoff: .res sid_chip_cnt, 0
+vib_tim: .res 3*sid_chip_cnt, 0
+bend_lo: .res 3*sid_chip_cnt, 0
+bend_hi: .res 3*sid_chip_cnt, 0
+last_eff: .byte 0
+transpose: .res 3*sid_chip_cnt, 0
+.if HR_MODE = 1
+    wave_temp: .res 3*sid_chip_cnt, 0
+.endif
+glide_limit_lo: .res 3*sid_chip_cnt, 0
+glide_limit_hi: .res 3*sid_chip_cnt, 0
+glide_note: .res 3*sid_chip_cnt, 0
+glide_speed: .res 3*sid_chip_cnt, 0
+glide_temp: .word 0
+row_has_9xx: .res sid_chip_cnt, 0
+vars_end:
+
+freq_lo:
+    .incbin "note_lo.bin"
+
+freq_hi:
+    .incbin "note_hi.bin"
+
+.include "music.asm"

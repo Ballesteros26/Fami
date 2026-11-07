@@ -1,0 +1,54 @@
+﻿'{
+
+	TitleName   =YM2203(OPN) Test
+	TitleNameJ  =YM2203(OPN)テスト
+	GameName    =
+	GameNameJ   =
+	SystemName  =
+	SystemNameJ =
+	Composer    =
+	ComposerJ   =
+	ReleaseDate =2017/01/02
+	Converted   =
+	Notes       =
+
+	ClockCount  =192
+
+}
+
+'@ N 110
+   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG
+'@ 031,000,000,000,000,033,000,004,007,001,000
+'@ 018,015,009,007,003,009,000,004,007,001,000
+'@ 031,000,000,000,000,024,000,002,003,001,000
+'@ 031,015,009,007,003,000,000,002,003,001,000
+'@ 004,007
+
+
+     No, SV, AR, DR, SL, SR, RR, ST, Chip
+'@ E  1, 15,  0, 20, 12, 30,  4,  1, OPN
+
+
+;'Ns1 T160
+;'N1 @110v125o4l8D0Q8[cdefgab>c<]
+;'N7 EON@E1v13o5l8Q*8crdrerfrgrarbr>cr
+;
+;'Ns1 @110v116o4l8rD2[cdefgab>c<]
+;       No Cmd Sync   data...
+;'@ CAR  1,  w,   0,
+;'@                   #1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 ; 複数行定義可能
+;
+;'N7 CA0,1
+;'N7 v12CAON0
+;'N7 l8P2rcccc cccc r1 CAOF0
+;
+;'N7 v12l1P2w0cw10dw20e
+;
+
+
+'N1 @110v125l8
+; o-1まで拡張
+'N1 o2 [gec<]4
+; o9まで拡張
+'N1 o8 [ceg>]2
+

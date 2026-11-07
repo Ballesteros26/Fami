@@ -1,0 +1,45 @@
+﻿'{
+
+	TitleName   =
+	TitleNameJ  =色々テスト
+	GameName    =
+	GameNameJ   =
+	SystemName  =
+	SystemNameJ =
+	Composer    =
+	ComposerJ   =
+	ReleaseDate =2016/12/18
+	Converted   =
+	Notes       =
+
+	ClockCount  =192
+
+}
+
+     No,SV,AR,DR,SL,SR,RR,ST,ChipName
+'@ E  0,10, 1, 1, 8,10, 2, 1,OPNB
+
+T10 v15q0l8o4D-1cdefgab
+T11 v15Q4l8o3cdefgab
+T12 v15q0l8o4D1cdefgab
+
+T10 v5q0l4[c4_br4)1]10
+
+T10 MSV0,1,-10,100,0v15D2
+T11 MSV0,1,-10,100,0v15D-2
+T11 r8(4
+T10-11,T12 a1&a1 
+
+T10-12 MSV0,1,-2,4,0
+T10-12 a1&a1 
+
+'T10 EON@0l2q0v15 o4cdeP2cdeP3cde P2w0c4w8c4w16c4w24c4w31c4 P3w0c4w8c4w16c4w24c4w31c4
+
+       No Cmd Sync   data...
+'@ CAR  1,  w,   0,
+'@                   #1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 ; 複数行定義可能
+
+'T10 CA0,1
+'T10 v15CAON0
+'T10 l8P2rcccc cccc r1 CAOF0
+

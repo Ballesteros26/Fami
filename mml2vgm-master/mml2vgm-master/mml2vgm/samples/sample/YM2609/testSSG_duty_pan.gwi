@@ -1,0 +1,103 @@
+﻿'{
+
+	TitleName            =test YM2609 
+	TitleNameJ           =YM2609テスト
+	GameName             =
+	GameNameJ            =
+	SystemName           =Virtual chip
+	SystemNameJ          =妄想音源
+	Composer             =kuma
+	ComposerJ            =くま
+	ReleaseDate          =2345/01/23
+	Converted            =kuma
+	Notes                =SSGテスト
+
+	Format               =ZGM
+	ClockCount           =192
+
+}
+
+
+
+'U01 T120
+
+SSG
+    @I Duty cycle
+        7:1/8 6:2/8 5:3/8 4:4/8 3:5/8 2:6/8 1:7/8 duty. 0:8/8 Pure square wave.(default)
+        8:Triangle Wave  9:Saw Wave
+
+All
+'U19 o3 v15 l4 q8 p1 @I0 c @I1 c @I2 c p3 @I3 c @I4 c p2 @I5 c @I6 c @I7 c p3 @I8 c @I9 c
+'U20-25 l4rrrrrrrrrr
+
+duty 4/8
+'U19 o5v13 l16 @I4q1 p3
+'U19 ccc<a+a+a+>c+c+c+ccc<a+a+>cc ccc<a+a+a+g+g+g+a+a+a+g+g+a+a+>
+'U20-25 r1r1
+
+Triangle
+'U19 o4v13 l1 @I8 p3
+'U19 gf+fe
+'U20-25 l1rrrr
+
+'U19-25 J r2
+
+SuperSaw
+'U19-25 o4 v10 l8 @I9 q1 p3
+'U19    D-40 p1 (2
+'U20    D-20 p3 (1
+'U21    D-10 p3
+'U22    D0   p3
+'U23    D10  p3
+'U24    D20  p3 (1
+'U25    D40  p2 (2
+ 位相リセット無し
+'U19-25 PROF e.e.e e.e.d e.e.e d.e.f
+ 位相リセット有り
+'U19-25 PRON e.e.e e.e.d e.e.e d.e.f
+
+ SSG user define wave form test
+'@ WS 0,
+'@ $70,$70,$e0,$e0 ,$c0,$c0,$90,$90 ,$c0,$c0,$e0,$e0 ,$a0,$a0,$70,$70
+'@ $c0,$c0,$f0,$f0 ,$d0,$d0,$80,$80 ,$a0,$a0,$b0,$b0 ,$70,$70,$20,$20
+'@ $80,$80,$d0,$d0 ,$90,$90,$40,$40 ,$50,$50,$70,$70 ,$20,$20,$00,$00
+'@ $30,$30,$80,$80 ,$50,$50,$10,$10 ,$30,$30,$60,$60 ,$30,$30,$10,$10
+
+
+単独 ノーエフェクト
+'U19 o4 v13l8 q1 p3 D0 T150 @W0
+'U19 <g.>c16d.f16e.c16d.a16 g.c16d.f16e.c16g.b16
+
+単独 リバーブ、コーラス
+'U19 XRvS3 XChS1 XChM35 XChD20 XChR16 XChF0 )
+'U19 <g.>c16d.f16e.c16d.a16 g.c16d.f16e.c16g.b16
+'U19 XRvS0 XChS0
+'U19 *M0 ;同期マーク
+
+複数 ノーエフェクト
+'U2021   *S0 ;同期開始
+'U192021 o4 v13l8 q1 p3 D0 @W0
+'U20     v10D2  r8
+'U21     v8 D-2 r4
+'U192021 <g.>c16d.f16e.c16d.a16 g.c16d.f16e.c16g.b16
+
+複数 リバーブ、コーラス
+'U192021 XRvS1 XChS1 XChM35 XChD30 XChR16 XChF0 )
+'U192021 <g.>c16d.f16e.c16d.a16 g.c16d.f16e.c16g.b16
+'U192021 >c.<b-16a-.g16f.e-16d.<b-16> b-.>c16<b-.g16
+'U192021 T140 a12f12 T130 d12g12 T120 e12d12
+'U192021 r1
+
+
+
+       No Cmd Sync   data...
+'@ CAR  1,  w,   0,
+'@                   #1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 ; 複数行定義可能
+'@ CAR  2,  P,   0,
+'@                   #21,|,2,1 ; 複数行定義可能
+
+'U19 CA0,1CA1,2
+'U19 v15
+'U19 l8 ccccc1 CAOF0CAOF1
+
+

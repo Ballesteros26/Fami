@@ -1,0 +1,39 @@
+﻿'{
+
+	TitleName   =Bend test
+	TitleNameJ  =ベンドテスト
+	GameName    =
+	GameNameJ   =
+	SystemName  =
+	SystemNameJ =
+	Composer    =
+	ComposerJ   =
+	ReleaseDate =2016/02/13 
+	Converted   =kuma
+	Notes       =2026/03/07 動作確認
+
+}
+
+(from WING☆GHOST @8)
+'@ F 008
+   AR  DR  SR  RR  SL  TL  KS  ML  DT
+'@  31,  2,  1,  1,  1, 23,  0,  1,  0
+'@  31,  3,  2,  1,  2, 24,  0,  1,  0
+'@  31,  3,  2,  1,  2, 25,  0,  1,  5
+'@  25,  2,  1,  7,  1,  3,  0,  1,  0
+'@   3,  5
+
+'F2 T120
+
+F2 !
+
+
+
+'F2 @8D0K0p3v113o4l1q0
+
+Up
+'F2 c1_>>>cr1
+
+Down
+'F2 c1_<<<cr1
+

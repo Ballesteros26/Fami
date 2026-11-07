@@ -1,0 +1,46 @@
+﻿'{
+
+	TitleName   =FM Tone Setting Slot Specification Functionality Test
+	TitleNameJ  =FM音色 設定スロット指定動作テスト
+	GameName    =none
+	GameNameJ   =none
+	SystemName  =Sega Genesis
+	SystemNameJ =Sega Mega Drive
+	Composer    =kuma
+	ComposerJ   =kuma
+	ReleaseDate =2021/09/xx
+	Converted   =
+	Notes       =2026/03/07 動作確認
+	Format=XGM
+
+
+}
+
+
+
+'@ N 004
+   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG
+'@ 024,004,004,000,000,028,000,008,000,000,000
+'@ 024,008,004,008,006,000,000,004,000,000,000
+'@ 025,012,012,008,012,000,000,004,000,000,000
+'@ 025,012,012,008,012,000,000,004,000,000,000
+   ALG FB
+'@ 004,007
+
+'@ F 005
+   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSG-EG
+'@ 000,004,004,000,000,028,000,008,000
+'@ 000,008,004,008,006,000,000,004,000
+'@ 018,004,004,000,004,000,000,004,000
+'@ 018,004,004,000,004,000,000,004,000
+'@ 4,0
+
+
+'E01 T90
+
+'E07 EXON EX12 @4,12  v106q2o4l8axxxrrxxxxrxrx
+'E08      EX34 @5,34,Av105q2o4l4b-df<c>e<cg2
+
+
+
+

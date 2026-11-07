@@ -1,0 +1,3108 @@
+更新履歴
+TAG810 2026/11/06
+  ぐほんさんからのプルリクの総受け入れ。(Thanks!! ぐほんさん)
+
+TAG809 2026/10/15
+  Core:GIMIC(STIC OPN2)対応
+
+TAG808 2026/07/12
+  IDE:.NET10に変更。azuki10へ差し替え。
+
+TAG807 2026/07/11
+  IDE:Editor:改行マークなどの表示を設定できるように機能追加
+
+TAG806 2026/03/20
+  IDE:ZGM:AY8910:音が出ていなかったのを修正
+  IDE:PartCounter:mucomDotNET:オクターブ値が一つずれていたので修正
+  IDE:mucomDotNET:新規作成時のテンプレートの内容を更新
+
+TAG805 2026/03/07
+  Core:OPN系:LFOワウが動作していなかったのを修正
+
+TAG804 2026/02/28
+  簡易UI:出力形式がZGMのとき、外部プレイヤを自動起動することが出来なかったバグを修正。
+
+TAG803 2026/01/17
+  mucomDotNET差し替え
+
+TAG802 2025/12/23
+  IDE:PartCounter:mucomDotNET:メモコマンド対応
+
+TAG801 2025/12/22
+  IDE:PartCounter:mucomDotNET:PCコマンド対応
+
+TAG800 2025/12/21
+  IDE:PartCounter:PMD:PPZ8向けの改修を忘れていたので追加
+
+TAG799 2025/12/20 3rd
+  IDE:PartCounter:PMD:envelopeの表示を追加
+
+TAG798 2025/12/20 2nd
+  IDE:PartCounter:PMD:lfo/lfo switchの表示を追加
+
+TAG797 2025/12/20
+  IDE:mucom:OPNA/OPNB:各音源のボリューム設定が反映できていなかったのを修正
+  IDE:mucom/muap:OPNA:GIMICのSSG音源のボリューム設定が反映できていなかったのを修正
+
+TAG796 2025/12/15
+  Core:OPN2系:Ch6の休符時に音量を更新するように修正
+
+TAG795 2025/12/14
+  FolderTree:フォルダが表示できなくなっていたのを修正
+
+TAG794 2025/12/13
+  MDSound差し替え
+  muapDotNET:FM/SSG/リズム/ADPCM(Ch.11のみ)のミュートに対応。
+
+TAG793 2025/12/06
+  muapDotNET差し替え
+
+TAG792 2025/11/22
+  IDE:Editor:置換機能がバグってたので修正。
+  IDE:Editor:Shift+Homeで選択しながらホームポジション(行頭/mml行頭)に移れるように修正。
+  （ごめんなさい、ショートカットキーの設定を初期化することになります...）
+  mucomDotNET差し替え
+
+TAG791 2025/11/15
+  muapDotNET差し替え
+
+TAG790 2025/11/10
+  muapDotNET差し替え
+
+TAG789 2025/11/09
+  muapDotNET差し替え
+
+TAG788 2025/11/08
+  MDSound差し替え
+
+TAG787 2025/11/03 2nd
+  muapDotNET対応作業:データコピー時のバグ修正
+
+TAG786 2025/11/03
+  muapDotNET対応作業:歌詞表示できるようになった
+
+TAG785 2025/10/23
+  muapDotNET対応作業:SSGPCMの音量設定値取得バグを修正
+
+TAG784 2025/10/12 2nd
+  muapDotNET対応作業:エクスポート(.oの出力機能)、PlayOnMDPの機能実装
+                    muapのマニュアル参照機能実装(初回はマニュアルのファイルの位置を聞いてきます)
+                    TONE.DTA/TONEX.DTAを読みこめるように機能追加。
+                    InstrumentsフォルダにTONES.DTA/TONES.HLP/TONESX.DTA/TONESX.HLPを置いて起動すると
+                    Sienウィンドウの音色リストに追加されます。ダブルクリックで、エディタ上に音色データを挿入します。
+
+TAG783 2025/10/12
+  Core:gwi:OPLL:リズムモードから通常モードに戻すことができなかったバグを修正
+
+TAG782 2025/10/11 2nd
+  muapDotNET対応作業:トレース機能:@PORも追従するように機能追加
+                     PartCounter:@DT,Qコマンドに対応
+                     PartCounter:(おまけ)MUAP風のVolume色になるようにVolumeBarColorScheme.txtを修正
+                       C:\Users\(ユーザー名)\AppData\Roaming\KumaApp\mml2vgmIDEx64
+                       に定義ファイルがあるので同梱の同名ファイルと差し替えてください。(必須ではありません)
+
+TAG781 2025/10/11
+  muapDotNET対応作業:トレース機能の追加。
+  ハイライターのバグ修正
+
+TAG780 2025/10/08
+  opn2:gwi:Ch6のベンドができないバグを修正
+
+TAG779 2025/10/04
+  muapDotNET対応作業:muap専用のエディタのハイライターを作った
+
+TAG778 2025/09/28 2nd
+  muapDotNET対応作業:panとinstrumentの表示追加、volume表示の調整(イマイチ納得はできていないのだが...)。
+  音色を読み込む際、途中の読み込み失敗がErrorとしてログに出てしまうので、最終的に読みこめたかどうか不明瞭なため成功した場合もログに出るようにした。
+
+TAG777 2025/09/28
+  muapDotNET対応作業:リズムとADPCM,OPN2のFMのパラメータ表示の一部に対応。
+
+TAG776 2025/09/27
+  muapDotNET対応作業:FMとSSGのパラメータ表示の一部に対応。リズム、PCM系は未対応。
+
+TAG775 2025/09/13
+  muapDotNET対応作業:WSSのPCM鳴らせるように調整
+
+TAG774 2025/09/02
+  muapDotNET対応作業:とりあえず1～17Ch中のFMとSSGの演奏に対応。PCM系は未対応。
+
+TAG773 2025/08/21
+  mucomDotNETの差し替え
+
+TAG772 2025/08/10 2nd
+  Core:.gwi:ヘッダやPCM、音色の定義部は行頭に書くことを必須とした。
+
+TAG771 2025/08/10
+  IDE:.NET9.0に変更
+  MDSoundの差し替え
+
+TAG770 2025/07/24
+  mucomDotNETの差し替え
+
+TAG769 2025/07/12
+  mucomDotNETの差し替え
+
+TAG768 2025/05/02 2nd
+  Core:OPN系:@n1,n2,n3 のn3に数値の代わりにA/C/Fの文字を列挙して指定することも可能にした
+
+TAG767 2025/05/02
+  Core:OPN系:Ch3EX系のチャンネルでTTON/TTOFした際にRRとSLのパラメータが適用されないバグを修正
+
+TAG766 2025/04/25
+  Core:POKEY:エンベロープに対応
+
+TAG765 2025/03/31 2nd
+  IDE:Script:x64にした後からScriptが読みこめていなかったのを修正。自作スクリプトを使用している方はScript.txtを参照お願いします。
+
+TAG764 2025/03/31
+  IDE:PartCounter:ショートカットによるMUTE/SOLOの切り替え時、存在しないChを指定すると例外が出るのを修正
+
+TAG763 2025/03/16 2nd
+  Core:OPN系,OPM:エンベロープ処理が完了すると元の音量に戻ってしまうのを修正
+
+TAG762 2025/03/16
+  Core:エンベロープ:パラメータに0を指定した時フリーズするバグを修正
+  Core:OPN系,OPM:@Eコマンドを使用できるように修正
+
+TAG761 2025/03/01
+  mucomDotNETの差し替え
+
+TAG760 2025/02/23
+  mucomDotNETの差し替え
+
+TAG759 2024/12/21
+  IDE:MIDI鍵盤の機能をシンプルなものに変更。
+      鍵盤を弾くことによってその音程がエディタに入力することが出来ます。
+      初期状態ではプレビューモードになっているので、
+      切り替えに割り当てられている鍵盤又はコントロールボタンを押し、入力モードに切り替えます。
+      モードは左下のステータスバーに表示されます。
+       [Prv] プレビューモード
+       [Ins] 入力モード
+    　アンドゥ、空白、改行(パート情報補完付き)の入力も可能です。
+      割り当ては設定画面で変更が可能です。
+      初期割り当ては
+      　プレビューモード切り替え　鍵盤48 (o3c)
+      　アンドゥ                　鍵盤50 (o3d)
+      　空白                    　鍵盤52 (o3e)
+      　改行                    　鍵盤53 (o3f)
+      です。
+      相対オクターブコマンドを逆転させることも可能です。
+
+TAG758 2024/12/17
+  Core:パート指定が不正な場合、例外がでて動作が不安定になっていたのを修正。(警告として扱い、その行は無視します。)
+
+TAG757 2024/12/10
+  Core:PartCounter:memo欄のbug修正
+
+TAG756 2024/12/9 2nd
+  Core:PartCounter:mucomDotNETを演奏時、パート順が乱れるのを修正
+
+TAG755 2024/12/9
+  Core:XGM2:PCMテーブル生成のバグ修正
+
+TAG754 2024/12/8 2nd
+  Core:PartCounter:.gwi:PPコマンド修正。
+  Core:OPN系(OPNA2除く):yXXコマンドCh3Ex向け修正。
+    参照パラメータがEXパート同士で共有されません。
+    音色部分適応機能の考慮はしません。(これはCh3Ex以外でも同じ)
+
+TAG753 2024/12/8
+  Core:PartCounter:.gwi:PPコマンド追加。パートの表示順を指定できます。
+
+TAG752 2024/12/7 3rd
+  Core:PartCounter:.gwi:memo欄追加
+
+TAG751 2024/12/7 2nd
+  Core:OPN系(OPNA2除く):yDT,yML,yyDT,yyML,yKS,yAR,yyKS,yyAR,yAM,yDR,yyAM,yyDR,ySL,yRR,yySL,yyRRコマンド追加
+
+TAG750 2024/12/7
+  mvc:x64 .NET8 で新規作成
+  Core:x64 .NET8 で新規作成(mml2vgmx64,mml2vgmIDEx64,mvcx64で使用します)
+
+TAG749 2024/12/4
+  mml2vgm(簡易UI版):x64 .NET8 で新規作成
+  mml2vgm(簡易UI版):XGM2:x64のみ:XGM2 forcePCMModeボタン追加。PCMを発音するXGM2を出力します。
+
+TAG748 2024/12/3
+  Core:.gwi(.vgm/.xgm/.xgm2):コンパイルの速度少しアップ
+
+TAG747 2024/12/1
+  Core:.gwi(.vgm/.xgm/.xgm2):OPN2:Ch6の音色番号取得時に音色名を取得できていなかったのを修正
+
+TAG746 2024/10/26
+  Core(簡易UI版のみ):.gwi(.vgm/.xgm/.xgm2):Jコマンド有効中も、クロックとテンポ間の誤差を計算するように修正
+
+TAG745 2024/10/03 2nd
+  POKEY:HPFに対応
+
+TAG744 2024/10/03
+  POKEY:ポルタメント、ノイズ出力に対応
+
+TAG743 2024/10/01
+  Core:POKEYに暫定対応_2nd
+
+TAG742 2024/09/26
+  Core:POKEYに暫定対応
+  IDE:muc2vgmの処理修正
+
+TAG741 2024/08/11 2nd
+  IDE:ハイライト機能をオフに出来るようにした
+
+TAG740 2024/08/11
+  Core:Azukiを.NET8でビルドしたものに差し替え
+
+TAG739 2024/08/06
+  Core:NiseC86ctl差し替え
+
+TAG738 2024/08/05 2nd
+  Core:SCCI2に対応
+
+TAG737 2024/08/05
+  Core:SCCIを削除
+
+TAG736 2024/08/04
+  Core:OPL:１オクターブ高く演奏されてしまうバグを修正
+
+TAG735 2024/07/13
+  Core:コンパイル時にMDSoundを強制的に初期化するようにした。
+  K054539:リバース再生に対応@Rを使用してください。
+
+TAG734 2024/07/10
+  Core:K054539対応
+
+TAG733 2024/06/09
+  Core:自分が未対応のファイルをMDPlayerに送り付けようとするとハングするので対応しているかチェックするようにした。
+
+TAG732 2024/05/04
+  mucomDotNETの差し替え
+
+TAG731 2024/05/03
+  Export:muc to vgmの挙動調整
+
+TAG730 2024/03/20
+  mucomDotNETの差し替え
+
+TAG729 2024/03/06 2nd
+  Core:XGM2:効果音モードが上手く動作していなかったので調整。SGDKのほうは今のところ未対応。
+
+TAG728 2024/03/06
+  Core:XGM2:Jコマンド挙動修正。普通(?)の動きになりました。TAG727の動作はエクスポート或いはMDPlayerによる演奏を指定したときに発動します。
+
+TAG727 2024/03/05
+  Core:XGM2:Jコマンド実装(ただしJの前にLコマンドを書くとどんなに時間的に前の位置にLがあってもJの位置にLがある展開になります。)
+
+TAG726 2024/03/04
+  Core:XGM2:Lコマンド実装
+
+TAG725 2024/03/03
+  Core:XGM2:DCSGのノイズに対応。
+            PCMの再生スピードを切り替え可能にした。
+
+TAG724 2024/03/02 2nd
+  Core:XGM2:PCMの再生サンプリングレートを13.3kHzに調整。(MDSoundによるもの)
+            13.3kHzの.wavファイルを読み込めるようにした。
+            スクリプトにSOXによる13.3kHz変換を追加。
+
+TAG723 2024/03/02
+  Core:XGM2:Export,MDPlayerによる演奏時にはPCM発音を抑制するように修正(暫定)
+            FM,DCSGで演奏時間が異なる場合は短いほうにWaitを追加して調整する処理追加
+            フレーム毎にデータ量をカウントし255を超える場合はワーニングを表示するチェック処理を追加
+
+TAG722 2024/02/29 2nd
+  Core:XGM2:PCMmapモードを追加。
+
+TAG721 2024/02/29
+  Core,IDE:XGM2を追加。
+
+TAG720 2024/02/04
+  LicenseをGPLに変更
+
+TAG719 2024/02/04
+  Core:OPNA,OPNA2,OPNB,OPN2,OPN2X:効果音モード中にTTON(タイトーリリースモード)を使用するとFM4-6のRR/SLの値が破壊されるバグを修正
+
+TAG718 2024/01/26
+  IDE:NiseC86ctlに対応。本物が読み込めない時に使用します。
+
+TAG717 2024/01/20
+  ほぼ全てのChip:位相の効果がDelayを無視していたのを修正
+
+TAG716 2024/01/14
+  MDSoundの差し替え
+
+TAG715 2024/01/13
+  コア:GWI:lコマンド、音符コマンドに発音音長を`(バッククォート)で指定できるようにしました。
+  パート別アルペジオ中のみ機能します。
+  またq/Qコマンドの設定も考慮されます。
+
+TAG714 2024/01/11
+  OPNA/OPNB:ADPCM/ADPCM-Bでベンドができなかったバグを修正
+
+TAG713 2024/01/08
+  MDSoundの差し替え
+
+TAG712 2023/11/26 2nd
+  OPM系:チップに余計なデータを送信するケースが存在したのを修正
+
+TAG711 2023/11/26
+  重要!!->Core:OPNA/OPNB/OPNA2:ADPCMの基準音程変更
+               mucom基準からの修正になります。
+               例えばo4Aであれば444Hz(mucom基準)から440Hzへ変更になります。
+               (gwiのみです。)
+  PartCounter:OPNA2:ADPCMの表記の揺れを修正。
+               音程可変ADPCMを　"ADPCM-A"、
+               音程固定ADPCMを　"ADPCM-B"に。
+               (YM2610とは逆になります)
+               YM2609.txtも修正
+
+
+TAG710 2023/11/25
+  Core:OPNA2:リズム音源パートでは@ コマンドを無視するよう修正
+
+TAG709 2023/11/20
+  その他:mmlCommandTable.mdをメンテナンス実施
+         以下のコマンドの説明を追加
+         @@n1,n2,n3
+         TTON/TTOF
+         TGON/TGOF
+         TLOFSON/TLOFSOF
+
+TAG708 2023/11/08
+  Core:OPN系:OPM:TGON/TGOFコマンド追加
+
+TAG707 2023/09/24
+  Core:OPNA2:ADPCM1/2/3の音量処理修正
+
+TAG706 2023/09/23
+  IDE:PMDDotNET:差し替え
+  IDE:ヘルプ:コマンドリファレンスが開けなくなっていたのを修正
+
+TAG705 2023/09/17 2nd
+  OPM:TTON/TTOF機能修正
+
+TAG704 2023/09/17
+  OPM:TTON/TTOF機能追加
+  IDE:ショートカットキーの挙動修正
+
+TAG703 2023/09/15
+  OPM:パンを反転して出力する機能追加。(オプションから変更可能。)
+  IDE:スクリプト:起動時のスクリプト読み込みをスレッドにした。
+  (但しスクリプト読み込み中は演奏に影響が出るので、スクリプトを使用しない方は機能をオフにしたほうが良い)
+
+TAG702 2023/09/05 2nd
+  IDE:editor:タブ幅を設定できるように機能追加(要再起動)
+
+TAG701 2023/09/05
+  Core:HuC:gwi:Lコマンド時音程を再設定する指定が不完全だったのを修正
+
+TAG700 2023/09/03
+  IDE:OPNA2:gwi:Dutycycleがリセットされてしまうケースがあるのを修正
+
+TAG699 2023/09/02 2nd
+  IDE:partcounter:gwi:音源のパート数が2桁の場合の調整
+  IDE:partcounter:パートごとの種類(partType)を表示できるようにした
+
+TAG698 2023/09/02
+  IDE:gwi:opn系:TLOFSの変化値に0を指定した時それが反映できないのを修正
+  IDE:gwi:opn2x:Ch6でTLOFSが使用出来ないのを修正
+  IDE:gwi:opn2x:Ch6でPCM未使用時ポルタメントが出来ないのを修正
+
+TAG697 2023/08/20 2nd
+  IDE:gwi:696の対応がFM以外の音源に悪影響を出すようなのでFMのみ更新するよう修正
+
+TAG696 2023/08/20
+  IDE:gwi:休符も音量更新するように修正。
+
+TAG695 2023/07/07
+  IDE:mucomDotNET:差し替え
+
+TAG694 2023/06/26
+  IDE:SCCIとC86ctlが含まれていなかった為同梱
+
+TAG693 2023/06/11
+  IDE:gwi:L Jコマンドのハイライト処理を追加
+  IDE:終了時に未保存のファイルがあった時に表示されるメッセージを該当するファイル名が表示されるように調整
+  IDE:その他微調整
+
+TAG692 2023/06/10
+  IDE:mucomDotNET:エディタの動作が遅いためハイライト処理の無駄を修正
+  (Thanks!! かずあにさまさん)
+
+TAG691 2023/06/01
+  Core:妄想音源YM2609:逆位相コマンドのバグ修正
+  (Thanks!! Some Spoony Bardさん)
+  Core:トレース:mmlのコマンド文字数を数える処理をさらに調整
+  (Thanks!! きゃどんさん)
+
+TAG690 2023/05/29
+  Core:トレース:mmlのコマンド文字数を数える処理の調整
+  (Thanks!! きゃどんさん)
+
+TAG689 2023/05/20
+  Core:OPN系:SSGPCM使用時にNoiseをオフにするよう修正
+            :SSGPCM使用時に音色を指定していない場合はエラーを出力するように修正
+  (Thanks!! きゃどんさん)
+
+TAG688 2023/05/15
+  IDE:OPN系:TLオフセット機能を使用しない場合はyTLが反映されるように修正
+
+TAG687 2023/04/23 2nd
+  IDE:mucomDotNET:差し替え
+
+TAG686 2023/04/23
+  IDE:mucomDotNET:差し替え
+
+TAG685 2023/04/06
+  ボリューム値送信内容の修正
+
+TAG684 2023/03/22
+  MDSoundの差し替え
+
+TAG683 2023/03/19 4th
+  IDE:mucomDotNET:差し替え
+
+TAG682 2023/03/19 3rd
+  IDE:mucomDotNET:差し替え
+
+TAG681 2023/03/19 2nd
+  IDE:mucomDotNET:差し替え
+
+TAG680 2023/03/19
+  IDE:mucomDotNET:差し替え
+
+TAG679 2023/03/09
+  IDE:GWI:.wavエクスポート機能のバグ修正
+
+TAG678 2023/02/27
+  IDE:再生停止中のスリープ時間を調整(Thanks!!きゃどんさん)
+  IDE:コールバックで演奏をしたときサンプリングレートが44100以外だとテンポがおかしくなるバグを修正。
+
+TAG677 2023/02/21
+  PartCounter:初回起動時に項目を非表示にする操作を行うと発生するバグの修正
+  Core:OPN系:EXによってスロットの割り当てを変更した場合に、他のexパートの影響を受け続けるケースがあるため、
+  EXONし直すと各exパートのスロットの割り当てを解除するよう修正
+
+TAG676 2023/02/20
+  PartCounter:列の並び順展開処理のバグ修正
+
+TAG675 2023/02/18
+  x64版作成
+
+TAG674 2023/02/05
+  MDSoundの差し替え(PPZ8,OPLL対応版)
+  (Thanks!! ゆみちゃん)
+
+TAG673 2023/01/22 2nd
+  Core:OPN系:TAG672にて、音量が正常に切り替えられないケースがあるバグを修正
+  (Thanks!! maroさん)
+
+TAG672 2023/01/22
+  Core:OPN系:音色切り替え時、指定スロットを指定した際、ALG、FBを更新するかどうか指定できる機能を追加
+  (Thanks!! maroさん)
+
+TAG671 2023/01/09
+  Core:OPN系:TLオフセット機能を更に修正
+  (Thanks!! D.M.88さん)
+
+TAG670 2023/01/07
+  Core:OPN系:指定スロットのみの音色切り替え機能の不具合を修正
+  (Thanks!! maroさん)
+
+TAG669 2023/01/06
+  Core:OPN系:TLオフセット機能を更に修正
+  (Thanks!! D.M.88さん)
+
+TAG668 2023/01/04 2nd
+  Core:OPN系:TLオフセット機能を修正
+  (Thanks!! D.M.88さん)
+
+TAG667 2023/01/04
+  Core,IDE:各種dllの更新
+  IDE:IronPythonの起動処理の調整
+
+TAG666 2023/01/03
+  txt:ピッチシフトについて説明を追加
+  (Thanks!! maroさん)
+  Core:OPN系:TLオフセット機能を追加
+  (Thanks!! D.M.88さん)
+
+TAG665 2022/11/10
+  Core:OPN系:TAG663の対応時から既存の動作が出来なくなっていたのを修正
+  (Thanks!! maroさん)
+
+TAG664 2022/11/06 2nd
+  IDE:mucomDotNET:差し替え
+
+TAG663 2022/11/06
+  Core:OPN系:拡張チャンネルのみ:音色指定時に対象スロットを指定できるよう機能追加。それに伴い全ての拡張チャンネルで音色指定を可能にした。
+
+TAG662 2022/11/03
+  Core:.VGM/.ZGMのコンパイルのスピードが若干早くなった
+
+TAG661 2022/10/25
+  IDE:ライブラリ(NAudio他)の更新
+
+TAG660 2022/10/23
+  IDE:EXコマンド使用直後のノートで必ずfnumの再設定を行うように修正
+  (Thanks!! ぐほんさん)
+
+TAG659 2022/10/19
+  IDE:TAG655からのトレース機能の不具合修正
+  (Thanks!! ぐほんさん)
+
+TAG658 2022/10/18
+  IDE:検索機能、アンカージャンプ機能:画面の中央(Y座標のみ)にスクロールするように修正。
+  (Thanks!! ぐほんさん)
+
+TAG657 2022/10/15
+  IDE:PMDDotNET:差し替え
+  (Thanks!! pedipanol.)
+
+TAG656 2022/10/13
+  Core:連符コマンドの組み合わせが悪いときのエラーを検出できるようにした
+  (Thanks!! ぐほんさん)
+
+TAG655 2022/10/12
+  Core:開始或いは到達音程にo0を含むポルタメントができないバグを修正
+  (Thanks!! ぐほんさん)
+  IDE:gwiのみ:全てのチップ:パートカウンター:ベンド中にオクターブ移動があるときそれが反映されないのを修正
+
+TAG654 2022/10/10
+  Core:TAG637のループ展開処理を修正
+
+TAG653 2022/10/06
+  IDE:検索機能の大文字小文字の区別をする為のチェックボックスの状態を記憶するように修正
+  (Thanks!! ぐほんさん)
+
+TAG652 2022/10/05 2nd
+  IDE:PMDDotNET:差し替え
+  (Thanks!! pedipanol.)
+
+TAG651 2022/10/05
+  IDE:共有メモリ処理を廃止。ファイルによる処理に変更。
+
+TAG650 2022/09/26
+  IDE:mucomDotNET:差し替え
+  (Thanks!! ゆきにゃんさん)
+
+TAG649 2022/09/24
+  IDE:mucomDotNET:差し替え
+  (Thanks!! ゆきにゃんさん)
+
+TAG648 2022/09/03 2nd
+  IDE:PartCounter:設定フォルダのVolumeBarColorScheme.txtを参照するように修正
+
+TAG647 2022/09/03
+  IDE:PartCounter:VolumeBarのカラーセットを64色まで拡張。
+  IDE:PartCounter:VolumeBarのカラーセットの定義を外部ファイル(VolumeBarColorScheme.txt)化。
+  (Thanks!! ぐほんさん)
+
+TAG646 2022/08/30 2nd
+  Core:PCM:PCMの登録番号が重複している時、意図した登録にならないバグを修正
+  (Thanks!! ぐほんさん)
+
+TAG645 2022/08/30
+  IDE:検索機能に大文字小文字の区別をする機能追加
+  (Thanks!! ぐほんさん)
+
+TAG644 2022/08/29
+  IDE:編集中の同名のファイルを開こうとしたとき、編集中のファイルを閉じてから開きなおすように動作変更。
+  IDE:アプリケーション終了時、未保存のファイルがあった場合、保存して終了するかどうか問い合わせるように変更。
+  IDE:CTRL＋ROLLUP/DOWN操作(アンカー"//"に移動する)時、移動先のアンカーが見つからなかったときの動作を変更。
+  (Thanks!! ぐほんさん)
+
+TAG643 2022/08/27 2nd
+  Core:XGM:VAR/CAR:ARPしか有効になっていなかった(!)のを修正
+  (Thanks!! ゆみちゃん)
+
+TAG642 2022/08/27
+  IDE:mucomDotNET:差し替え
+
+TAG641 2022/08/26 2nd
+  IDE:Export:.WAV/.MP3:出力時にメモリストリームではなく直接ファイルストリームに出力するように変更
+  (Thanks!! ぺんぺさん)
+
+TAG640 2022/08/26
+  Core:XGM:YM2612X:PCMマッピングモード時、未定義の音程を使用すると例外メッセージになってしまうのを修正。
+  (Thanks!! ぐほんさん)
+
+TAG639 2022/07/24
+  IDE:mucomDotNET:差し替え
+  (Thanks!! ゆきにゃんさん)
+
+TAG638 2022/08/21
+  IDE:mucomDotNET:mute:リズム音源/ADPCM-Aのミュート操作時のバグを修正
+  (Thnaks!! ゆきにゃんさん)
+  IDE:gwi:インクルード失敗時に想定外のエラーがでるのを修正
+
+TAG637 2022/08/06
+  IDE:Core:TTON/TTOFコマンド使用時は事前にループを展開するように修正
+
+TAG636 2022/07/31
+  IDE:mucomDotNET:差し替え
+
+TAG635 2022/07/27 2nd
+  IDE:mucomDotNET:差し替え
+  IDE:コンパイル時の警告の出力を抑制する機能追加
+
+TAG634 2022/07/27
+  IDE:mucomDotNET:差し替え
+
+TAG633 2022/07/26 2nd
+  IDE:mmlファイル保存時（否名前を付けて保存）、既存が存在する場合はそれをリネームしてバックアップする機能を追加
+
+TAG632 2022/07/26
+  IDE:mucomDotNET:差し替え
+
+TAG631 2022/07/13
+  IDE:YM2609:ZGM:FMのOperatorデータ生成時、負の値が無視されていたのを修正
+
+TAG630 2022/07/06
+  IDE:YM2609:ZGM:FMのOperatorデータ転送を演奏直前に一括転送化
+
+TAG629 2022/07/05
+  IDE:mucomDotNET:差し替え
+  IDE:YM2609:ZGM:Adpcm012のPCMデータ転送を高速化
+
+TAG628 2022/06/19
+  IDE:Core:トーンダブラーが使用できなくなっていたのを修正。
+  IDE:XGM:未定義のPCM番号を使用した際、適切なエラーメッセージが表示できていなかったのを修正
+
+TAG627 2022/06/12
+  IDE:mucomDotNET:差し替え
+
+TAG626 2022/06/11 2nd
+  IDE:多重起動時にファイル名を指定している場合は既存のIDEにファイルを開くよう指示を出してから終了するように機能追加
+
+TAG625 2022/06/11
+  IDE:起動時又はD&D時、.mml/.mdlの読み込みに対応していなかったのを修正
+
+TAG624 2022/06/09
+  IDE:mucomDotNET:差し替え
+
+TAG623 2022/06/06
+  IDE:export:mucToVGM:ループ回数の問い合わせ機能を追加。
+  IDE:setting:other:おまけをおまけとotherに分割。
+  IDE:setting:other>useScript:スクリプトを使用可否設定を追加。
+  IDE:setting:other>useMucomDotNET:MucomDotNETを使用可否設定を追加。
+  IDE:setting:other>usePMDDotNET:PMDDotNETを使用可否設定を追加。
+  IDE:setting:other>useMoonDriverDotNET:MoonDriverDotNETを使用可否設定を追加。
+
+TAG622 2022/06/03
+  IDE:export:wav|wavAllChSolo:オプションで有効に設定すると、エクスポート時にループ回数を問い合わせる機能を追加。
+
+TAG621 2022/06/02 2nd
+  IDE:export:wavAllChSolo:Aboutボタンを押したときは途中であっても処理を中断するよう修正
+
+TAG620 2022/06/02
+  IDE:export:wav:こちらも設定した出力パスに出力できるように修正
+  IDE:export:wavAllChSolo:partcounter:mucomDotNET:ひとつもソロを選んでいない場合は全てのパートを個別に出力するよう修正
+
+TAG619 2022/06/01 2nd
+  Core:gwi:OPN系:VOPコマンド追加
+
+TAG618 2022/06/01
+  IDE:mucomDotNET:差し替え
+  IDE:export:wavAllChSolo:partcounter:mucomDotNET:ソロに選んだパートだけ出力するよう修正
+
+TAG617 2022/05/31
+  IDE:mucomDotNET:差し替え
+
+TAG616 2022/05/24
+  IDE:mucomDotNET:差し替え
+
+TAG615 2022/05/23
+  NAudioが反応しなくなりフリーズする現象が発生したとき、
+  メッセージにキャンセルを答えることにより再初期化を試みるように修正。
+
+  一部のExportにショートカットキーを割り当てられるようにした
+    初期設定
+     "Export to driver format" -> F7
+     "Export to.Wav file(All Ch. Solo)" -> Shift + F7
+  Exportタブ追加。
+  FixedExportPlace項目を設定画面に追加し、
+  ExporttoWavAllChSolo時の出力パスをあらかじめ設定できるようにした。
+
+TAG614 2022/05/22
+  IDE:外部アプリケーションなどでインターフェイスの初期化が行われるなどした場合に
+  NAudioが反応しなくなりフリーズする現象が発生するが
+  その場合はアプリケーション終了時に強制終了を行うよう修正。
+
+TAG613 2022/05/21 2nd
+  IDE:mucomDotNET:差し替え
+
+TAG612 2022/05/21
+  IDE:mucomDotNET:差し替え
+
+TAG611 2022/05/20 2nd
+  IDE:終了処理の微調整、エラー時のログ出力強化など。
+  IDE:mucomDotNET:差し替え
+
+TAG610 2022/05/20
+  IDE:mucomDotNET:差し替え
+
+TAG609 2022/05/19
+  IDE:mucomDotNET:差し替え
+  IDE:エクスポート:mucomDotNET:mubファイルのエクスポート不具合を修正。(ありがとうございます、古代センセ)
+
+TAG608 2022/05/18
+  IDE:PMDDotNET:差し替え
+  IDE:PartCounter:gwi:チップ種の判定処理をちょっとだけ修正。
+
+TAG607 2022/05/09 2nd
+  Core:OPN2/OPN2X:Fnum定義ファイルの更新。
+
+TAG606 2022/05/09
+  IDE:mucomDotNET:差し替え
+
+TAG605 2022/05/08
+  IDE:mucomDotNET:差し替え
+  IDE:muc to vgm:ループ回数指定が2回固定だったのを修正
+
+TAG604 2022/05/04 2nd
+  IDE:KeyOn列の赤いXが出ないように修正(from DOBON.NET様)
+
+TAG603 2022/05/04
+  IDE:mucomDotNET:差し替え
+
+TAG602 2022/05/02
+  IDE:色々調整
+
+TAG601 2022/05/01
+  IDE:一時停止をした際に、レンダリング結果を捨てる(完全に無音になる)ように修正。
+  (但し、実チップは当然ながらなりっぱなしのままです)
+
+TAG600 2022/04/24
+  IDE:mucomDotNET:差し替え
+
+TAG599 2022/04/19
+  IDE:mucomDotNET:差し替え
+
+TAG598 2022/04/18 2nd
+  IDE:OPNA:mucomDotNET:起動時にリズム音源向けPCMファイルを予め読みこむようにし、以降はそれを使用するよう修正
+
+TAG597 2022/04/18
+  Document:MMLコマンドメモに拡張エンベロープについて書いていなかったので追記
+  IDE:OPNA:初期化時リズム音源向けPCMファイルが読み込めなかった場合にデバッグウィンドウにメッセージが出るように修正
+
+TAG596 2022/04/17 2nd
+  IDE:PartCounter
+    :mutesolo:SOLOモードから抜けるときにmuteが解除されないケースがまだあったのを修正
+
+TAG595 2022/04/17
+  IDE:PartCounter
+    :mutesolo:再生時に色が反映されないバグを修正
+    :mutesolo:SOLOモードから抜けるときにmuteが解除されないケースがあるのを修正
+    :mucomDotNET:HardLFO表示追加
+    :mucomDotNET:LFOのDeltaをsigned16bitに修正
+
+TAG594 2022/04/16
+  IDE:PartCounter:solo時のChの背景色を暗い赤に変わるよう修正。
+  ビルド環境をVS2022に変更。(何かあったら2019に戻します)
+
+TAG593 2022/04/13
+  IDE:メニューバー:コンパイル時のキー操作を併記(日本語のみ)
+
+TAG592 2022/04/09 2nd
+  PartCounter:mute/solo関連の処理修正:耳コピ中に例外がでたのでOPN2/OPNA/OPNA2の追加修正を行いました。
+
+TAG591 2022/04/09
+  PartCounter:mute/solo関連の処理修正:大まかな所は大体できました。
+  とりあえずOPM/OPNA/OPNB/OPN2/OPNA2が対応してます。
+  mute状態はドキュメント毎に記憶、復帰します。
+  記憶といってもファイルに保存しているわけではないので起動しなおすと忘れてます。
+  既知の問題点として
+  「一度でも再生させないとパートカウンターが更新されない為、mute/soloの設定が行えない」
+  がありますが、今のところどうするか決まってません。
+
+TAG590 2022/04/08
+  PartCounter:mucomDotNETのみ:gatetime(qコマンド)の値が表示できるよう修正。(mute/solo関連の処理はまだ途中です)
+
+  --   2022/04/08
+  PartCounter:mute/solo関連の処理を修正中
+
+TAG589 2022/04/06
+  PartCounter:mute/solo関連の処理を大幅に修正
+
+TAG588 2022/04/05 
+  IDE:mucomDotNET更新
+
+TAG587 2022/04/04(注意)
+  Core:YM2609:SSGのユーザー定義波形を4bit->8bitに仕様変更
+  IDE:mucomDotNET更新
+
+TAG586 2022/04/03
+  IDE:mucomDotNET更新
+
+TAG585 2022/04/02
+  IDE:mucomDotNET更新
+
+TAG584 2022/04/01
+  IDE:パートカウンター:mucomDotNET:SSGのPanの表示に対応(Thanx!ゆきにゃんさん)
+  IDE:エクスポート:mucomDotNET:Wavのチャンネルごとのエクスポートが可能に。(Thanx!古代センセ)
+
+TAG583 2022/03/31
+  IDE:mucomDotNET:Duty比選択対応版
+
+TAG582 2022/03/30
+  IDE:mucomDotNET:SSGExtendタグに対応
+
+TAG581 2022/03/20
+  IDE:mucomDotNET:TAG情報の取得を行うよう修正。また、細かいバグの修正。
+
+TAG580 2022/03/17
+  Core:mucomDotNET:vgm形式でエクスポートできるよう機能追加(暫定)
+
+TAG579 2022/02/12
+  Core:VGM:ダミーコマンド除去処理の不具合を修正
+
+TAG578 2022/02/11 2nd
+  IDE:最適化を有効にしてビルドすると処理が重いことが分かったので無効にした。
+  IDE:各ライブラリの更新
+
+TAG577 2022/02/11
+  Core:vgm:AY:C140:secondaryChipに対応
+
+TAG576 2022/02/05
+  IDE:moonDriverDotNET:
+    ドライバ再生周波数の設定を修正。
+    「名前を付けて保存」に.mdlを追加。
+    .mdrの出力に対応。
+    .wavの出力に対応。(但しループ検出未対応)
+    .mp3の出力に対応。(但しループ検出未対応)
+  IDE:一度コンパイルしていないと、.wavなどのエクスポートが出来なかったのを修正
+
+TAG575 2022/02/04
+  Core:HuC6280:初期化時に送信するパラメータを修正
+  (MAMEcore対策)
+
+TAG574 2022/02/02
+  Core:HuC6280:音色定義時にindexをリセット後、DDAモード解除するように修正
+  (MAMEcore対策)
+
+TAG573 2022/02/01
+  Core:YM2609:2Ch以上同時にノイズを使用した時、ノイズ周波数が反映されないChがある不具合を修正。
+  (YM2609は4Ch分ノイズをパラで使用可能)
+  Core:OPN系:相対ノイズ周波数設定コマンド２つ w> w< を追加
+
+TAG572 2022/01/29
+  Core:OPN系:効果音モード専用パートでyXXop,datが使用できなかったのを修正。
+  IDE:共有メモリの処理の修正、各スレッドに名前を設定するよう修正。
+
+TAG571 2022/01/24
+  Core:YM2609:ADPCM-A:トータルボリュームが設定できないバグを修正
+
+TAG570 2022/01/16
+  IDE:mucomDotNET更新
+  IDE:partCounterちょっとだけ修正
+
+TAG569 2022/01/11
+  IDE:mucomDotNET更新
+
+TAG568 2022/01/04
+  IDE:2重起動抑制を行うよう修正。(DOBON.NETさんのコードを流用)
+  Core:エンベロープ:拡張フォーマットを追加(sample/Syntax/testEnvelope.gwiを参照)
+
+TAG567 2021/12/26
+  IDE:Script:GetWhndを追加。
+  指定した名前のアプリケーションのWindowHandleが取得できます。
+  IDE:余りにも追いにくい＆不具合、要望の多いMute関連処理を改めてコーディング中...orz
+
+TAG566 2021/12/08
+  Core:OPN系:TTON/TTOFコマンド追加
+
+TAG565 2021/12/04
+  Core:トレース向けの演奏位置記録処理の不具合を修正
+
+TAG564 2021/11/27
+  IDE:xgm再生時にPCコマンドが使用できなかったのを修正
+
+TAG563 2021/11/26
+  IDE:mucomDotNET更新
+
+TAG562 2021/11/25
+  IDE:mucomDotNET更新
+
+TAG561 2021/11/23
+  IDE:mucomDotNET更新
+
+TAG560 2021/11/20
+  Core:OPNのオクターブを-1～9へ拡張
+  (Thanx! D.M.88さん!)
+
+TAG559 2021/11/14
+  IDE:mucomDotNET更新
+
+TAG558 2021/11/13 2nd
+  IDE:mucomDotNET更新
+
+TAG557 2021/11/13
+  Core:コマンドアルペジオにyコマンド追加
+
+TAG556 2021/11/09
+  Core:MIDIのオクターブの範囲をo0～o10までに拡張
+
+TAG555 2021/11/03
+  IDE:STICの認識をDSPボード単位からSTIC単位へ修正
+
+TAG554 2021/10/31
+  IDE:C86ctlを更新
+
+TAG553 2021/10/21 2nd
+  IDE:MUC:OPN音色展開に対応
+
+TAG552 2021/10/21
+  IDE:BambooTrackerの.btbファイルからOPN音色を取り込める機能を追加。
+  Instrumentsフォルダにファイルを置いて起動してください。
+
+TAG551 2021/10/15 2nd
+  Core:ZGM:NES:DPCMがならなかったのを修正
+
+TAG550 2021/10/15
+  Core:ZGM:VRC6:未実装箇所の対応
+
+TAG549 2021/10/14
+  Core:ZGM:VRC6に対応
+
+TAG548 2021/10/09 2nd
+  IDE:mucomDotNET:初期化時の引数が間違っていたのを修正。
+      (OPNBでテンポを変えるととても遅くなるバグの修正)
+
+TAG547 2021/10/09
+  IDE:MDPlayerからの音色データを受信しドキュメントに書き込む機能を実装
+      (GWI:OPN,OPM　MUC:OPNの音色受信に対応)
+
+TAG546 2021/10/07
+  Core:OPNA/2,OPNB:PCMのfnum値を修正
+  IDE:mucomDotNET更新
+
+TAG545 2021/10/03
+  IDE:mucomDotNET更新
+
+TAG544 2021/10/02
+  IDE:mucomDotNET更新
+
+TAG543 2021/10/01 2nd
+  IDE:mucomDotNET更新
+
+TAG542 2021/10/01
+  IDE:mucomDotNET更新
+
+TAG541 2021/09/28
+  IDE:mucomDotNET更新
+
+TAG540 2021/09/27
+  IDE:mucomDotNET更新
+
+TAG539 2021/09/26 2nd
+  IDE:mucomDotNET更新
+
+TAG538 2021/09/26
+  IDE:mucomDotNET更新
+
+TAG537 2021/09/20
+  IDE:mucomDotNET更新
+
+TAG536 2021/09/18
+  IDE:mucomDotNET更新
+  Core:MIDIのオクターブの範囲をo0～o9までに拡張
+
+TAG535 2021/09/17
+  IDE:mucomDotNET更新
+  IDE:mucomDotNET:Jコマンド使用時などのフレーム落ち処理対策追加
+
+TAG534 2021/09/15
+  IDE:mucomDotNET更新
+
+TAG533 2021/09/09
+  IDE:mucomDotNET更新
+
+TAG532 2021/09/08
+  IDE:mucomDotNET更新
+
+TAG531 2021/09/07
+  IDE:mucomDotNET更新
+
+TAG530 2021/09/05
+  Core:OPN系:EXFコマンド追加。効果音モードのスロットFnum固定します。
+    (effectMode_FixedFnumTest.gwiを参考)
+
+TAG529 2021/09/04
+  IDE:mucomDotNET更新
+  IDE:mucomDotNET:コンパイラが想定外のエラー(コンパイル情報を生成しないような)を出したとき、IDEが落ちてしまうのを修正
+
+TAG528 2021/08/28
+  Core:ピッチシフト:sample(testPitchShift.gwi)を追加。コマンドの説明を追加。
+  IDE:.MID File Import:作成中。
+
+TAG527 2021/08/25
+  IDE:YM2609:MDSound差し替え
+  Core:FDS:KEYOFF/KEYONの処理修正
+
+TAG526 2021/08/24
+  IDE:mucomDotNET:YM2151のパートがmuteできないのを修正
+
+TAG525 2021/08/23 3rd
+  Core:ピッチシフトを利用したベンドが完了した直後、ピッチシフト値がベンド前の値に戻ってしまう現象を修正
+
+TAG524 2021/08/23 2nd
+  Core:ピッチシフトを利用した通常ポルタメント時の計算を修正(ノート変化なし、ピッチシフト変化有りの場合)
+
+TAG523 2021/08/23
+  IDE:mucomDotNET更新
+
+TAG522 2021/08/21
+  Core:パートアルペジオに対応
+
+TAG521 2021/08/19
+  Core:ZGM:NESに対応。
+
+TAG520 2021/08/18
+  Core:ZGM:DMGに対応。
+  IDE:mucomDotNET更新
+
+TAG519 2021/08/17
+  Core:ZGM:AY8910に対応。
+
+TAG518 2021/08/16
+  Core:GWI:ポルタメントのレングスの最小値を変更。
+
+TAG517 2021/08/12
+  IDE:mucomDotNET:パートカウンターにOPMが表示されなかったのを修正
+
+TAG516 2021/08/11 3rd
+  IDE:mucomDotNET:Jコマンド使用時或いはスキップ演奏時にOPMの早送り向けデータをOPNBに送信していたのを修正
+
+TAG515 2021/08/11 2nd
+  IDE:mucomDotNET更新
+
+TAG514 2021/08/11
+  IDE:mucomDotNET更新
+
+TAG513 2021/08/10
+  IDE:mucomDotNET更新&OPM対応
+
+TAG512 2021/08/07
+  Core:ピッチシフトを利用した通常ポルタメント時の計算を修正
+  IDE:scci更新
+
+TAG511 2021/08/06
+  Core:ポルタメントの動作を修正
+  IDE:mucomDotNET更新
+
+TAG510 2021/08/05
+  IDE:VAL-SOUNDさんから音色を取得する機能の初期値を永続的オフラインに修正。
+
+TAG509 2021/07/31 2nd
+  Core:DMG:Sweepに対応。
+
+TAG508 2021/07/31
+  Core:DMG:エンベロープ,サウンドレングス,パン,yコマンドに対応。
+
+TAG507 2021/07/30
+  Core:DMGに対応。
+
+TAG506 2021/07/26
+  Core:NES:三角波のキーオフが効かない場合があったのを修正。
+
+TAG505 2021/07/25 4th
+  Core:パート別リプレースコマンド[|,|,|]を追加
+
+TAG504 2021/07/25 3rd
+  Core:ポルタメントの__を複数回断続的に使用したとき、意図しないノートでポルタメントがかかるバグを修正
+
+TAG503 2021/07/25 2nd
+  Core:ポルタメントの後にxがきたとき、正しくノートが引き継がれないのを修正
+
+TAG502 2021/07/25
+  Core:ポルタメントコマンドPOの修正、POS、__ を追加
+  (testPortament.gwiを参照)
+
+TAG501 2021/07/24
+  Core:ポルタメントコマンドPO,POR,POLを追加
+  (testPortament.gwiを参照)
+
+TAG500 2021/07/18
+  Core:OPL3:4OPモード時のパンニングを切り替えることができなかったのを修正
+  (Thanks djtuBIG-MaliceXさん!)
+
+TAG499 2021/07/17 2nd
+  Core:OPNA2:PCMの定義でエラーが出るようになってしまっていたので修正
+
+TAG498 2021/07/17
+  Core:OPL3:Ch9以降のTL送信時のポートアドレスが間違っていたのを修正
+  IDE:ルーラーを表示するようにしてみた。
+  IDE:フォルダーウィンドウのフィルターに.mucと.mmlを追加
+
+TAG497 2021/07/15
+  Core:OPN/OPNA/OPNB:SSGPCM:音程可変にした。
+
+TAG496 2021/07/14
+  Core:OPNA/OPNB:SSGPCM対応
+
+TAG495 2021/07/13
+  Core:OPN:SSGPCM対応
+
+TAG494 2021/07/10 2nd
+  IDE:mucomDotNET差し替え
+
+TAG493 2021/07/10
+  IDE:パートカウンター,トレース:主にmucomDotNETを使用してトレースを実行した時、データが大きいとテキストとパートカウンターがしばらく硬直するのを修正
+
+TAG492 2021/07/08 2nd
+  IDE:パートカウンター:mucomDotNETが再生できなくなっていたのを修正
+
+TAG491 2021/07/08
+  Core:OPL系/OPN系:オクターブ越えするベンド時にピッチシフト指定があると正しくベンドできないバグを修正
+  (Thanks maroさん!)
+
+TAG490 2021/07/07
+  Core:ノートにピッチシフト指定( \ ￥ )を追加できるように機能追加
+  Core:相対ディチューンコマンド( D> D< )追加
+  Core:相対キーシフトコマンド( KK )の記載漏れ追記
+
+TAG489 2021/07/04
+  Core:QSound:ROMのサイズ指定を0x01000000に固定するようにした。(TAG488の修正では現象が解決できなかったので更に修正。)
+
+TAG488 2021/07/03
+  Core:QSound:使用するPCMのサイズが64k未満の場合は調整を行うよう修正
+
+TAG487 2021/07/02
+  Core:zgm:YM2609:HardwareEnvelope sync modeを追加
+  その他:ドキュメントの修正、追記など。
+
+TAG486 2021/07/01
+  Core:OPN系:xgm以外、効果音モード時のスロット制御がバグっていたのを修正。
+
+TAG485 2021/06/30 2nd
+  IDE:コンパイル結果をMDPlayerに「直接!」渡せるように修正
+
+TAG484 2021/06/30
+  IDE:Export後、MDPlayerに演奏指示を送る機能を追加。F12キー押下又はメニューのエクスポートから選択する
+
+TAG483 2021/06/29 2nd
+  IDE:mucomDotNET差し替え
+  IDE:YM2609:WT/ALLのサンプルをSomeSpoonyBardさんから頂いた(Thanks!)ので追加
+
+TAG482 2021/06/29
+  IDE:mucomDotNET差し替え
+  IDE:ハイライター:muc:yTLコマンドにも反応していたので修正
+
+TAG481 2021/06/25 2nd
+  Core:x(ノート)コマンド修正。+や-も保持するようになりました。
+
+TAG480 2021/06/25
+  Core:x(ノート)コマンド追加。直前と同じノートを発音します。
+
+TAG479 2021/06/25
+  Core:zgm:YM2609:WTの波形が0-4の5つまでしか定義出来なかったバグを修正
+
+TAG478 2021/06/24 3rd
+  Core:zgm:YM2609:WTが4-6、10-12チャンネルで無効になっていたバグを修正
+
+TAG477 2021/06/24 2nd
+  Core:vgm:YM2608:YM2610B:HardwareEnvelope sync modeを追加
+
+TAG476 2021/06/24
+  Core:vgm:YM2203:HardwareEnvelope sync modeを追加
+
+TAG475 2021/06/23
+  IDE:置換機能:幾つかのバグを修正
+
+TAG474 2021/06/22
+  Core:PC(パートカラーコマンド)追加
+  IDE:パートカウンター:PCの色が反映されるようにした
+
+TAG473 2021/06/21 2nd
+  Core:TAG472のコマンドの修正（T_T
+
+TAG472 2021/06/21
+  Core:KK(相対キーシフトコマンド)追加
+  Core:@@(相対音色シフトコマンド)追加
+
+TAG471 2021/06/19
+  IDE:OPN:TOOL>MakeCSM:mucom形式での出力に対応
+
+TAG470 2021/06/17
+  Core:YM2609:Compressorコマンド追加
+
+TAG469 2021/06/16
+  Core:YM2609:LFO(ビブラート)のDelay使用時、左パンの設定が破壊されるのを修正
+
+TAG468 2021/06/15
+  IDE:MDSound差し替え
+
+TAG467 2021/06/14
+  IDE:MDSound差し替え
+
+TAG466 2021/06/12 2nd
+  IDE:MUC:ハイライター:マクロ行の判定が甘かったのを修正。
+  IDE:Mixer:右クリックから表示倍率を変更出来るようにした。
+  (かずあにさま よりご要望Thanks!)
+
+TAG465 2021/06/12
+  IDE:OPN:TOOL>MakeCSM:waveを分析して、CSMっぽい音を出すｙコマンド生成機能を実装
+  サンプルはtestYM2203_CSM.gwiです。
+  (こえやさん様(https://www.koeyasan.com/)のデータを利用しております。ありがとうございます。)
+
+TAG464 2021/06/09
+  Core:NES:FDS:モジュレーション対応(testNES.gwiを参考にしてください)
+  IDE:トレース機能:少し弄った。
+
+TAG463 2021/06/08
+  IDE:置換機能:置換前後のワードのヒストリを取得するように機能追加
+
+TAG462 2021/06/07 2nd
+  Core:YM2609:ADPCM0/1/2がポルタメント出来なかったのを修正orz
+
+TAG461 2021/06/07
+  IDE:置換機能:mml部とpart部を分けて置換できるようにした
+
+TAG460 2021/06/06 3rd
+  IDE:置換機能:大文字小文字区別するように修正
+  IDE:置換機能:文字数が異なるワードに置換した際、範囲の終端まで置換対象にならないことがあるのを修正。
+  IDE:mucomDotNET差し替え
+
+TAG459 2021/06/06 2nd
+  IDE:置換機能実装
+  (一部未実装だけど...)
+
+TAG458 2021/06/06
+  IDE:KBD:Assignが複数できてしまっていたのを修正。
+  IDE:KBD:H/I/Jのfnum値がA/B/Cのものとして送信されていたのを修正。
+
+TAG457 2021/06/05
+  IDE:KBD:限定的ですがそれなりに動作。
+  (README.md参照)
+
+TAG456 2021/06/04
+  IDE:mucomDotNET差し替え
+  IDE:KBD:まだ^3途中です。。。
+
+TAG455 2021/06/03
+  IDE:Script:スクリプトにショートカットキーを割り当てられるようにした。
+  (但し、.pyファイルに直に書く必要あり。)
+
+TAG454 2021/06/01
+  IDE:Script:コメントアウトとアンコメントを追加。
+  IDE:KBD:まだまだ途中です。。。
+
+TAG453 2021/05/31
+  Core:逆位相:PRV(逆位相)コマンドを実装
+  IDE:KBD:まだ途中です。。。
+
+TAG452 2021/05/29
+  IDE:Export:mp3対応時にwav出力ができなくなってしまっていたので修正
+
+TAG451 2021/05/28 3rd
+  IDE:mucomDotNET差し替え
+
+TAG450 2021/05/28 2nd
+  IDE:PartCounter:mucomDotNET:Jコマンドで飛ばしたMMLの値も反映するように修正
+
+TAG449 2021/05/28
+  IDE:mucomDotNET差し替え
+
+TAG448 2021/05/27
+  IDE:mucomDotNET:ハイライターの実装
+
+TAG447 2021/05/26 3rd
+  IDE:Export:mp3出力対応
+  IDE:Sien:ウィンドウの状態を保存するようにした
+
+TAG446 2021/05/26 2nd
+  IDE:Export:wav出力時にフリーズすることがあるのを修正
+
+TAG445 2021/05/26
+  IDE:Export:wav出力時にフリーズすることがあるのを修正
+  IDE:PartCounter:mucomDotNET:LFOのパラメータ表示に対応
+
+TAG444 2021/05/25 2nd
+  IDE:mucomDotNET差し替え
+  IDE:mucomDotNET:コンパイルするとJコマンドがある場合、行頭に矢印アイコンが出るようにした
+
+TAG443 2021/05/25
+  IDE:mucomDotNET差し替え
+
+TAG442 2021/05/23 3rd
+  IDE:Export:周波数変更機能にwav出力を対応。
+
+TAG441 2021/05/23 2nd
+  IDE:mucomDotNET差し替え
+
+TAG440 2021/05/23
+  Core:NES:FDS:波形のみ対応(モジュレーション、エンベロープはまだ。どうmmlの仕様に落とし込むか悩んでます。)
+
+TAG439 2021/05/20
+  IDE:mucomDotNET差し替え
+  Core:NES:HardEnvelope,LengthCounterに対応(したと思う...)
+
+TAG438 2021/05/18
+  Core:NES:Sweep機能対応(HardwareLFOとして使用します)
+
+TAG437 2021/05/17
+  Core:NES:ポルタメントコマンド対応、
+  Core:CARコマンド:@ I コマンド対応
+
+TAG436 2021/05/16 2nd
+  Core:NES:DPCM対応、
+  ループコマンド対応、
+  yコマンド対応(byte)、
+  ソフトエンベロープ切り替え対応、
+  Sweepの初期値設定追加
+
+TAG435 2021/05/16
+  Core:vgm:NESに対応(DPCMまだ)(サンプル:testNES.gwi)
+
+TAG434 2021/05/13 2nd
+  Core:vgm:AY8910:PCMに対応(サンプル:testAY8910PCM.gwi)
+
+TAG433 2021/05/13
+  Core:MDSound差し替え
+  IDE:OPM:未定義の音色を指定したときに例外を出していたバグを修正
+
+TAG432 2021/05/12
+  IDE:sien:rym2612の音色ファイルを取り込めるようにした。(instrumentsフォルダに突っ込んでください。)
+
+TAG431 2021/05/11
+  Core:vgm:AY8910:HardwareEnvelope sync mode:page切り替え向けの処理を追加
+
+TAG430 2021/05/09
+  Core:vgm:AY8913が選ばれていたのでAY8910に変更
+  Core:vgm:AY8910:HardwareEnvelope sync modeを追加
+
+TAG429 2021/05/08 2nd
+  IDE:mucomDotNET差し替え
+
+TAG428 2021/05/08
+  Core:vgm/xgm/zgm:OPN系:キーオンディレイに対応(OPMは未対応)
+
+TAG427 2021/05/07
+  IDE:テキストファイルを開いた時に改行コードをCRLFに変換する機能を追加。
+  (設定画面の「おまけ」で抑制可能)
+
+TAG426 2021/05/06 2nd
+  Core:vgm/xgm/zgm:アルペジオARP/VARコマンド:APOF/VPOFしたときにキーオフを送信するよう修正
+
+TAG425 2021/05/06
+  Core:vgm/xgm/zgm:パート中にコメントのみの行があるとエラーが発生することがあるバグを修正
+  IDE:設定画面:画面を閉じるとデバイスの再初期化を行うように仕様変更。
+
+TAG424 2021/05/05 3rd
+  Core:zgm:C352を追加
+  Core:OPN系:ハードLFOがOPN2しか使用できなかったのを修正
+
+TAG423 2021/05/05 2nd
+  IDE:アルペジオ系コマンド:ウエイト無しのループを作ってしまうとコンパイル処理が終わらないバグを修正
+  IDE:コマンドアルペジオ:空白をデリミタとして使用できるように修正
+
+TAG422 2021/05/05
+  IDE:ステータスバー:経過時間が再生周波数を基準に表示していたのを修正
+
+TAG421 2021/05/04 2nd
+  IDE:ZGM:再生周波数の変更に対応。
+  (但しZGMでDACが使用できるのは今のところ1枚目のみです)
+
+TAG420 2021/05/04
+  IDE:VGM:再生周波数の変更に対応。
+  (44.1kHz以外でZGMは依然としてstream系のPCM再生に問題があります。)
+
+TAG419 2021/05/03
+  IDE:XGM:再生周波数の変更に対応。
+  (44.1kHz以外でXGM以外は依然としてstream系のPCM再生に問題があります。)
+
+TAG418 2021/05/02
+  IDE:再生周波数の変更に対応。設定画面から変更してください。
+  (44.1kHz以外はstream系のPCM再生に問題があります。)
+
+TAG417 2021/05/01
+  IDE:パラメータ表示:mucomDotNET向け処理の修正
+  Core:YM2609:ページに関係なくエフェクトのパラメータを送信するように修正
+  Core:YM2609:HPF/LPFのみ相対指定可能に機能追加
+
+TAG416 2021/04/30
+  IDE:mucomDotNET差し替え
+
+TAG415 2021/04/29 3rd
+  IDE:トレース機能:キューをConcurrentQueueに変更してみた。
+  IDE:トレース機能:mucomDotNET:ちょっとだけ精度を上げた。
+
+TAG414 2021/04/29 2nd
+  IDE:パラメータ表示:mucomDotNET向け処理の追加とバグ修正
+
+TAG413 2021/04/29
+  IDE:mucomDotNET:PMDDotNET:初期データ送信処理の修正
+
+TAG412 2021/04/28 2nd
+  Core:vgm/xgm/zgm:q*,Q*コマンドの追加
+
+TAG411 2021/04/28
+  IDE:停止処理の修正
+
+TAG410 2021/04/25 6th
+  IDE:エクスポート:WAV:ループ回数を設定できるようオプション項目追加
+
+TAG409 2021/04/25 5th
+  Core:MDSound差し替え
+  リズム音源用ファイル(2608_xx.wav)を読み込む前にchipIDを付加したファイルを探すようにしています。
+  具体的なファイル名は1枚目のOPNAの場合は 2608_xx_0.wav 、2枚目のOPNAの場合は 2608_xx_1.wav になります。
+  (ゆきにゃんさん仕様w)
+
+TAG408 2021/04/25 4th
+  IDE:mucomDotNET:mucファイルのあるフォルダのOPNAのリズム音源ファイルを参照するように修正(ゆきにゃんさん仕様w)
+
+TAG407 2021/04/25 3rd
+  IDE:mucomDotNET差し替え
+
+TAG406 2021/04/25 2nd
+  Core:MDSound差し替え
+  IDE:FM:ALGコンストラクションフラグのセットが正しくできていなかったのを修正
+
+TAG405 2021/04/25
+  Core:MDSound差し替え
+  IDE:パラメータ表示:エンベロープ番号列にSSGの音色番号の値が混ざって表示されていたのを修正
+
+TAG404 2021/04/23
+  IDE:mucomDotNET差し替え
+  IDE:mucomDotNET向けパラメータ表示ちょっとだけ対応
+
+TAG403 2021/04/22 3rd
+  IDE:mucomDotNET差し替え
+
+TAG402 2021/04/22 2nd
+  IDE:mucomDotNET差し替え
+
+TAG401 2021/04/22
+  IDE:mucomDotNET:OPNBにPCMデータ以外の初期化向けのデータが送られていなかったのを修正
+  IDE:mucomDotNET:ハイライターのタグ判定を修正
+
+TAG400 2021/04/21
+  IDE:MDSound差し替え(YM2609のヘロヘロ音向けの修正)
+
+TAG399 2021/04/20 2nd
+  IDE:パラメータ表示:範囲チェック強化
+
+TAG398 2021/04/20
+  IDE:mucomDotNET差し替え
+
+TAG397 2021/04/18
+  IDE:mucomDotNET4Chip暫定対応
+
+TAG396 2021/04/11
+  Core:CAR:HuC:音色を切り替えた時、アルペジオの効果を無視した音量値を出力していたのを修正
+
+TAG395 2021/04/11
+  Core:CAR:一度オフにしたCARコマンドは2度目以降からONに出来なくなっていたのを修正
+  Core:DCSG:OPM:HuC:CARコマンド内のw,Pコマンド対応
+  (C352は普通のアルペジオで足りそうなので未対応)
+
+TAG394 2021/04/10
+  Core:OPN:AY:SSG/PSG:CARコマンド内のw,Pコマンド対応
+  DCSG/OPM/HuCは今後対応予定
+
+TAG393 2021/04/09
+  Core:vgm:IDE:OPX:FMだけ大体対応
+
+TAG392 2021/04/04
+  IDE:mucomDotNET:パートカウンターのmute処理の修正
+
+TAG391 2021/04/03
+  IDE:mucomDotNET差し替え
+  IDE:パラメータ、トレース処理コードのなんちゃってリファクタリングその2
+
+TAG390 2021/04/02
+  IDE:パラメータ、トレース処理コードのなんちゃってリファクタリング
+
+TAG389 2021/03/29
+  IDE:mucomDotNET差し替え
+
+TAG388 2021/03/28 2nd
+  IDE:オフラインモードが機能しなくなっていたのを修正
+
+TAG387 2021/03/28
+  Core:)(コマンド使用時に数値0を指定しても1として扱われるのを修正
+
+TAG386 2021/03/27
+  IDE:mucomDotNET差し替え
+  IDE:mucomDotNET:[SHIFT]+[ENTER]と[HOME]キー操作の処理が効かなくなっていたのを修正
+
+TAG385 2021/03/25
+  IDE:mucomDotNET差し替え
+  IDE:mucomDotNET:ページ機能に合わせ、パートのハイライターの判定を修正
+  Sample:mucomDotNET向けのサンプルをいくつか追加
+
+TAG384 2021/03/12
+  Core:YM2413:音色が切り替わらないバグを修正
+  Core:コメント部に'%'があるとエイリアスと勘違いしてバグるのを修正
+
+TAG383 2021/03/11
+  Core:YM2413:VARの値が正しく反映できていなかったのを修正
+
+TAG382 2021/03/10
+  IDE:音色名が表示できないバグを修正。
+  IDE:音色名を表示するか設定できるようにした。
+  IDE:Y8950:YM3526:YM3812:パラメータ表示とトレースのサポート
+
+TAG381 2021/03/09 3rd
+  Core:エイリアス先で&が使えないバグを修正
+
+TAG380 2021/03/09 2nd
+  IDE:トレースのバグを更に修正
+  IDE:C352:パラメータ表示とトレースのサポート
+
+TAG379 2021/03/09
+  Core:音程アルペジオを併用した場合に発生する前回の音量アルペジオ使用時のバグを修正
+  IDE:トレースが出来なくなっていたのを修正
+
+TAG378 2021/03/08
+  Core:音量アルペジオ使用時、キーオフしたときにRRに移行しない場合があるのを修正
+
+TAG377 2021/03/07
+  IDE:支援:テンプレートの修正
+  Core:アルペジオのエラーメッセージの修正
+
+TAG376 2021/03/06 2nd
+  Core:GWI:HuC6280:音程テーブル化
+
+TAG375 2021/03/06
+  IDE:ファイル保存時にアンドゥのヒストリをクリアする・しないオプション設定を追加。
+
+TAG374 2021/03/02 3rd
+  IDE:GWI:TAG368の対応が警告に対して実施されていなかったのを修正
+  SAMPLE:GWI:音色個別管理化に伴う定義エラーを修正
+
+TAG373 2021/03/02 2nd
+  Core:C140のFnum値の計算が間違っていたのを修正。
+  Core:C352のDivider値を設定していなかったのを修正。
+
+TAG372 2021/03/02
+  IDE:インクルードファイルがインクルード先のファイルよりも大きいとコンパイル後の後処理が失敗することがあるのを修正
+
+TAG371 2021/03/01
+  Core:PDON/PDOF(ページダイレクトセンド)コマンド追加
+  有効にすることで、ページに記述されたコマンドが実施されるようになります。
+
+TAG370 2021/02/28 2nd
+  Core:GWI:OPM:音色がOPN/OPL系と別管理になった。
+  OPN系で定義した音色をOPMで使いたい場合に再定義が必要になってしまうので、特別コマンドを用意する予定。
+  また、OPNとOPLも別管理にする予定。
+  sample:OPLの音色サンプルをIDEのフォルダに移動。
+  IDE:支援機能:背景色の反映。説明文の表示。HuC/OPL/OPM音色の対応を追加
+
+TAG369 2021/02/28
+  IDE:支援機能:うざったかったので作り直し...
+
+TAG368 2021/02/27
+  IDE:GWI:コンパイルエラーのリストをクリックした時に該当行へキャレットが移動しなくなっていたのを修正
+  (バグの割に物凄く広範囲に影響がでていますが見た目の変化はこれだけ(T_T))
+
+TAG367 2021/02/24
+  Core:OPLL:リズムチャンネルでso,sfコマンドが反映されていなかったのを修正
+
+TAG366 2021/02/21
+  Core:OPN系:直前の音色チェックをするコードを修正
+
+TAG365 2021/02/19
+  Core:エイリアス先でポルタメントが使用できなくなっていたのを修正
+  (エイリアスでもトレース表示できるようにしたときに仕込まれたものと思われる)
+  
+TAG364 2021/02/18
+  Core:MIDI:スラーしたとき、音が止まらないバグを修正
+  IDE:テンプレートの改行コードがlfに鳴っていたのを修正
+
+TAG363 2021/02/08
+  IDE:NAudio他ライブラリのアップデート
+
+TAG362 2021/02/07
+  IDE:AY8910:GIMIC STICに対応
+  IDE:OPLL:GIMIC STICに対応
+  IDE:DCSG:mame版に対応
+
+TAG361 2021/02/04
+  Core:多数:音程アルペジオのQが効かなくなっていたのを修正
+
+TAG360 2021/01/30
+  Core:OPNB:PCMMAPが動作していなかったのを修正。
+  Core:OPLL:KeyOff時にsusを反映していなかったのを修正。
+  Sample:OPLL他:過去のフォーマットのままだった定義文を修正
+
+TAG359 2021/01/29
+  Sample:全てのgwiファイルの文字コードと改行コードをチェック、修正。
+
+TAG358 2021/01/28 2nd
+  Core:CUI/GUIでJコマンドが無効になっていたのを修正
+  Core:!!コマンド追加
+
+TAG357 2021/01/28
+  Core:ミキサー:マルチ画面関連でウィンドウを置けない時に発生する不具合の修正
+  Core:YM2609:XLp(LPF)/XHp(HPF)/SXE(EQ)コマンド追加
+
+TAG356 2021/01/27
+  Core:多数のチップ:エンベロープのEON無しに@/@Eだけで有効になるよう修正。
+
+TAG355 2021/01/25 2nd
+  Core:AY8910:FNUMテーブルにchiptypeとflagsを指定できるようにした
+
+TAG354 2021/01/25
+  Core:AY8910:FNUMテーブルにmasterclockを指定できるようにした
+
+TAG353 2021/01/22 2nd
+  Core:K053260:音量アルペジオを有効にすると次のノートになってもキーオンしないバグを修正
+  Core:多数:音程アルペジオのタイモードが無効の時、次の音程に遷移するときにエンベロープと音量アルペジオにリセットがかかるように修正
+   + キーオフもするようにした TAG353b
+
+TAG352 2021/01/22
+  Core:YM3812:YMF262:Wah LFOに対応(lfoWahTest.gwi)
+
+TAG351 2021/01/21 2nd
+  Core:YM2609:Wahの処理でOPNA2向け音色を選択したときの不具合を修正
+
+TAG350 2021/01/21
+  Core:AY8910:YM2203:YM2608:YM2610B:Lコマンド時に前回の周波数値をリセットするように変更
+
+TAG349 2021/01/20
+  Core:YM2413:YM3526:Y8950:Wah LFOに対応(lfoWahTest.gwi)
+  Core:YM3526:音色判定処理の強化,LFOが機能していなかったのを修正
+
+TAG348 2021/01/19
+  Core:YM2203:YM2608:YM2610B:YM2151:Wah LFOに対応(lfoWahTest.gwi)
+
+TAG347 2021/01/18 3rd
+  Core:YM2612:Wah LFOに対応(lfoWahTest.gwi)
+
+TAG346 2021/01/18 2nd
+  Core:SN76489:Lコマンド使用時のバグ修正
+
+TAG345 2021/01/18
+  Core:SN76489:PCMモードから通常に戻したときにボリュームを初期化していなかったのを修正。
+
+TAG344 2021/01/17
+  Core:SN76489:PCMの再生に対応
+
+TAG343 2021/01/16
+  Core:連符コマンドの音長分配処理の修正
+
+TAG342 2021/01/15
+  Core:連符中に休符を使用できるよう修正
+
+TAG341 2021/01/13
+  IDE:メッセージの調整
+  IDE:mucomDotNETのdll更新
+
+TAG340 2021/01/12
+  Core:OPN/A/A2:FNUMテーブル修正
+
+TAG339 2021/01/10
+  Core:妄想音源OPNA2:ADPCMA：PCMマッピングモードに対応した。
+
+TAG338 2021/01/09
+  OPN2：mame版OPN2を選択できるようにした。
+  OPN2：Gens版OPN2のオプションを変更できるようにした。
+
+TAG337 2020/01/04 2nd
+  GUIのみ:xgm:UsePcmCacheボタン追加(タグを記述しなくてもキャッシュ機能を使用するようになります)
+
+TAG336 2020/01/04 2nd
+  IDE:xgm:UsePcmCache(PCMファイルをキャッシュする)タグ追加
+
+TAG335 2020/01/04
+  IDE:xgm:ファイル分割スクリプトを調整&修正(GD3部も出力するようにした)
+
+TAG334 2020/01/03
+  IDE:xgm:ファイル分割スクリプトを追加
+
+TAG333 2020/01/02
+  Core:vgm/zgm:OPL/OPL2/OPL3:各モードの音色設定時のエラーチェックを追加。
+  Core:vgm/zgm:OPL3:L4音色が設定できていなかったバグを修正。
+
+TAG332 2020/12/31
+  IDE:vgm/zgm:トータルボリュームコマンドが正しい数値を取得できなくなっていたのを修正。
+
+TAG331 2020/12/30
+  IDE:PMDデータ再生時のパラメータの不具合を修正
+
+TAG330 2020/12/29 2nd
+  IDE:PMDDotNETの差し替え
+
+TAG329 2020/12/29
+  Core:ARP,VAR,CARコマンドバグ修正と調整
+
+TAG328 2020/12/27
+  Core:VARコマンド追加
+
+TAG327 2020/12/26 2nd
+  IDE:.zgm MIDI出力の.midファイルエクスポート機能を追加
+
+TAG326 2020/12/26
+  Sample:MIDI パート名が改修前のままだったので修正
+  IDE:MoonDriverDotNET暫定対応
+
+TAG325 2020/12/16
+  Core:RF5C エンベロープのリリースが効いてる状態だと即音色を切り替えられないバグを修正。
+    QSound 実は一つ当たりの最大PCMサイズが65536/2だったみたいなので修正
+
+TAG324 2020/12/14 3rd
+  IDE:エクスポート
+    wav出力時には、設定画面の「遅延時間」と「遅延演奏」の設定値の影響を受けないように修正(さしゅさん、ありがとうございます！w)
+
+TAG323 2020/12/14 2nd
+  IDE:エクスポート
+    wav出力時に発生する例外を修正(さしゅさん、ありがとうございます！)
+
+TAG322 2020/12/14
+  Core:Y8950 ADPCM
+    リピートに対応(定義時に指定する)
+    PCMデータがbankを跨がないように修正
+
+TAG321 2020/12/13
+  Core/IDE:Y8950対応
+
+TAG320 2020/12/12
+  Core:OPL系のq0時の挙動を変更
+  IDE:トレース時のバグ(q0を指定したとき一つ位置が先にずれる)を修正
+
+TAG319 2020/12/08
+  IDE:.vgm/.xgm/.zgm FMの音色のみとりあえず設定した音色名がでるようにしてみた。
+      template.gwiの改行コードがいつのまにかlfになっていたので修正。
+
+TAG318 2020/12/05
+  Core:エイリアスが多重で呼び出すことができなくなっていたのを修正
+
+TAG317 2020/11/30
+  IDE:フェードアウト機能実装(shift+F9です)(実Chipはできません)
+
+TAG316 2020/11/23
+  Core:TAG309にて 妄想音源YM2609(OPNA2) のパンを逆に設定していたバグを修正
+
+TAG315 2020/11/22
+  Core:音色定義にて名称を指定できるよう機能追加
+  IDE:支援機能: ローカルフォルダを読み込み、そこにある音色データを取り込む機能を追加
+  フォルダはアプリと同じ位置にあるInstrumentsフォルダ以下を読み込みます。
+
+TAG314 2020/11/20
+  各dllの差し替えのみ
+
+TAG313 2020/11/19 2nd
+  Core:K053260 q0などでキーオフ直後にキーオンするとキーオフがキャンセルされるバグを修正(やっぱりややこしい)
+
+TAG312 2020/11/19
+  Core:YM2609 音色定義 Aを指定したとき、音量設定時algを正しく取得できていなかったバグを修正
+       アルペジオ(AP)コマンドのサンプルを修正。
+       また、APnを指定するだけでAPONするように修正。
+
+TAG311 2020/11/18 3rd
+  Core:K053260 キーオン時にキーオフフラグを立てないバグを修正(ややこしい)
+
+TAG310 2020/11/18 2nd
+  IDE:Azukiを差し替え。ブロック選択の状態で入力可能に。
+
+TAG309 2020/11/18
+  Core:コマンドアルペジオにパンコマンドを追加。
+
+TAG308 2020/11/17
+  Core:コマンドアルペジオの定義にSyncパラメータを追加。
+
+TAG307 2020/11/16
+  Core:CAR ARPのエラーチェックの強化。
+
+TAG306 2020/11/15 2nd
+  Core:LFO one shotのDepthを超えてsweepするバグ修正
+
+TAG305 2020/11/15
+  Core:コマンドアルペジヲ機能を追加
+    sampleにHuC6280とk051649向けgwi追加(データ作成&提供: musicalman さん(Thanx!!))
+  IDE:vgmのwaveエクスポートができないバグを修正
+
+TAG304 2020/11/13
+  IDE:PMDDotNET
+    トレースモードで、K/Rパートのマークをするようになりました。
+
+TAG303 2020/11/09 3rd
+  IDE:PMDDotNET
+    Export時にIDEモードは無効にしてコンパイルするようにした。(圧縮処理させるため)
+    通常時はIDEモードを有効にし、トレースの精度を高める...
+
+TAG302 2020/11/09 2nd
+  IDE:Azuki
+    dllの差し替え
+
+TAG301 2020/11/09
+  IDE:PMDDotNET
+    dllの差し替え
+
+TAG300 2020/11/08
+  IDE:PMDDotNET
+    トレースモードで、マクロもマークするようになりました。
+
+TAG299 2020/11/07
+  IDE:vgm/xgm/zgm
+    トレースモードで、エイリアスもマークするようになりました。
+
+TAG298 2020/11/04
+  IDE:mucomDotNET 
+    dllの差し替え
+    エクスポート時の不具合を修正
+
+TAG297 2020/11/01
+  IDE:PMDDotNET スキップ再生対応
+     [Shift]+[f5]でキャレットの位置からの再生(スキップ再生)を行います。読み取れない場合は通常の演奏になります。
+
+TAG296 2020/10/25
+  Core:AY8910/C140/OPL系/OPN系/HuC/K051/K053/MIDI/Qsnd/RF5C/SegaPCM/DCSG/OPM
+    D(ディチューン)コマンドの設定範囲の修正
+
+TAG295 2020/10/19
+  Vsyncタグ追加
+
+TAG294 2020/10/18
+ Core 分散和音(アルペジオ):
+   休符或いはエンベロープのRR完了時に、タイモード関係なしにアルペジオも止まるようにした。
+   アルペジオモードを解除したとき、アルペジオのシフト値が初期化されないバグを修正
+
+TAG293 2020/10/17 2nd
+ IDE
+   支援機能:取得したテキストの改行コードがCRのみの場合に対応できていなかった
+
+TAG292 2020/10/17
+ IDE
+   エクスポート:wav形式で出力できるようにした。(ただし実チップは非対応です)
+
+TAG291 2020/10/14 
+ Core
+   OPN: Fコマンド追加。このモードが有効な間、fnum値を固定し指定した値を送信するようになります。(但しDetuneやLFOはある程度効きますw)
+
+TAG290 2020/10/12 2nd
+ IDE YM2608: サンプリング周波数を55467Hzに変更した。
+
+TAG289 2020/10/12
+ IDE 妄想音源YM2609(FM): パンのパラメータを更新しないケースがあったのを修正
+
+TAG288 2020/10/11
+ IDE
+   Chip初期化処理の修正
+   音色パラメータで16進数を使用したとき小文字が使用できなかったのを修正
+   妄想音源YM2609:
+     FM  音色定義パラメータPR(PhaseReset)追加
+     SSG 波形定義コマンド追加
+     SSG 位相リセットコマンド(PRON/PROF)追加
+
+TAG287 2020/10/10
+ IDE D88エクスポート機能追加:
+
+TAG286 2020/10/01
+ IDE D88インポート機能追加:
+
+TAG285 2020/09/26
+ IDE 入力支援機能:
+ 　メニューが多重階層になり音色が少し選びやすくなりました。
+ 　音色をキャッシュするようになりました。
+ 　mucomDotNET/PMDDotNETでも「'」を打ち込むことにより呼び出せるようになりました。
+
+TAG284 2020/09/25 2nd
+ IDE
+   表示形式の設定が適用されないファンクションキーのボタンがあったのを修正。
+ IDE mucomDotNET/PMDDotNET:
+   [Shift]+[Enter]で行頭にパート名を挿入して改行する機能を追加
+
+TAG283 2020/09/25
+ ・^コマンドの解説追加。
+ ・'@W基本波形定義の解説追加。
+ IDE
+  ・ヘルプから各ドライバのmmlコマンドリファレンスを開けるようにする機能を追加
+  (mucom/pmdの場合、初回はファイルを選択する必要があります。)
+  ・Shiftを押しながらメニューを選択すると再設定可能です。
+  ・テキストファイルの拡張子は予め関連付けが完了している必要があります。
+
+TAG282 2020/09/22
+ IDE
+  MucomDotNET/PMDDotNET: 再生が終了してもレンダリング処理が止まらないのを修正
+  PMDDotNET: パート名に数字が含まれるとハイライトされないのを修正
+  新規作成時、.gwi/.muc/.mmlを選べるように機能追加
+
+TAG281 2020/09/21
+  IDE PMDDotNET: P86対応
+  IDE: ポーズ、ステップ実行機能追加
+
+TAG280 2020/09/10 2nd
+  IDE MucomDotNET:
+  エクスポート対応。
+
+TAG279 2020/09/10
+  IDE PMDDotNET:
+  エクスポート対応。
+
+TAG278 2020/09/05
+  IDE PMDDotNET:
+  パートカウンター対応。(KeyShift,Detune,Pan)
+
+TAG277 2020/09/03
+  IDE PMDDotNET:
+  パートカウンター対応。(@:Instrument)
+  トレース機能でマクロ先に飛ぶように修正。
+
+TAG276 2020/08/31
+  IDE PMDDotNET:
+  パートカウンター対応。(Q,q:GateTime)
+
+TAG275 2020/08/29 2nd
+  IDE PMDDotNET:
+  パートカウンター対応。
+
+TAG274 2020/08/29
+  IDE PMDDotNET:
+  パートカウンター対応。
+  トレース機能と同時進行で進めています。バイナリのほうにコマンドが残らないものが多いので難航してます。
+
+TAG273 2020/08/26
+  IDE PMDDotNET:
+  トレース機能実装。まだダメなところもあります。
+
+TAG272 2020/08/22
+  IDE PMDDotNET:
+  設定項目を参照するようになった。
+  設定項目は残してありますが、PPSDRVの実ChipのSSG演奏はサポートの予定は当分無しです。
+
+TAG271 2020/08/19
+  IDE PMDDotNET:
+  曲再生時の追加ファイル読み込み時に環境変数PMDも参照するよう修正。(見つからない時はエラー表示。)
+  曲停止時にPPZ8,PPSDRVにStopを送るように修正。
+  (注意：settingにPMDDotNETタブを追加しましたが、全く参照しません。)
+
+TAG270 2020/08/18 2nd
+  IDE
+    PMDDotNET:PPSの再生に対応。
+
+TAG269 2020/08/18
+  IDE
+    PMDDotNET:PPZ8の再生に対応。
+
+TAG268 2020/08/17
+  IDE
+    PMDDotNETに少し対応。読み込み、コンパイル、再生(PCM無し)、保存の一部のみ。
+
+TAG267 2020/08/11
+  MDSound差し替え
+
+TAG266 2020/07/20 2nd
+  IDE
+    停止処理のタイミングを再度修正。
+
+TAG265 2020/07/20
+  IDE
+    停止処理のタイミングを修正。
+
+TAG264 2020/07/19
+  Core
+    YM2612/X:Ch6でYコマンドが使用できなかったのを修正
+
+TAG263 2020/07/19
+  Core
+    K053260:ページ機能対応
+
+TAG262 2020/07/18
+  Core
+    エンベロープの効果が、ARPコマンド中のキーオンとキーオフに呼応しないのを修正
+    RF5C164:ARPコマンドを使用すると例外がでるのを修正
+
+TAG261 2020/07/16
+  Core
+    K051649:ページ機能対応
+
+TAG260 2020/07/12
+  Core
+    HuC6280:ページ機能対応
+
+TAG259 2020/07/11
+  Core
+    ARPコマンドの追加
+
+TAG258 2020/07/09
+  全般
+    少しだけソースの見直し。(ほぼ整理しただけ)
+  IDE
+    デバッグが大変な状態になったため、演奏処理を元に戻した。
+    (おまけ設定で有効にすることができるようにした。)
+
+TAG257 2020/07/07
+  Core
+    SN76489(DCSG)のページ機能:ノイズモード、Ch3周波数が上手く引き継がないバグの修正
+
+TAG256 2020/07/06
+  Core
+    SN76489(DCSG)のページ機能:ノイズモードがCh3連動モード時は周波数の再設定を行うようにした
+
+TAG255 2020/07/05
+  IDE
+    カウンターが止まらないバグと演奏終了時トレースモードから元に戻らないバグを修正
+
+TAG254 2020/07/04 3rd
+  Core
+    早速同期コマンドのバグ修正
+
+TAG253 2020/07/04 2nd
+  Core
+    同期コマンド(*S *M)に対応
+
+TAG252 2020/07/04
+  Core
+    C140/C352:ページ機能対応
+
+TAG251 2020/07/02 2nd
+  Core
+    YM2151/SN76489:ページ機能対応
+
+TAG250 2020/07/02
+  IDE
+    先日の演奏処理修正の続きで、リアルタイムにデータ送信していた個所をデバイスからのコールバックをトリガに送信するよう変更
+
+TAG249 2020/07/01 2nd
+  Core
+    YM2413:ページ機能対応
+
+TAG248 2020/07/01
+  Core
+    YM2609:ページ機能対応
+
+TAG247 2020/06/29
+  IDE
+    実チップを使用しない環境の場合は、演奏時にスレッド間相互の待ち合わせをしないように修正
+
+TAG246 2020/06/28 2nd
+  Core
+    YM2609:コーラスコマンド追加
+
+TAG245 2020/06/28
+  Core
+    YM2608/YM2610B:ページ機能対応
+
+TAG244 2020/06/27
+  Core
+    RF5C164他:DACcontrolの計算式が間違っていたのを修正
+
+TAG243 2020/06/26
+  Core
+    YM2612/X:ページ機能対応
+    RF5C164:上記対応による不具合を修正
+
+TAG242 2020/06/25
+  Core
+    YM2203:ページ機能対応
+
+TAG241 2020/06/24
+  Core
+    MidiGM以外:ページ機能対応 第１段階完了
+
+TAG240 2020/06/23
+  Core
+    XGM:OPN2:昨日の対応でFMから音が出ないようになっていたのを修正。
+    VGM:ZGM:DCSG:EnableGGStereoDCSGタグ追加。DCSGのパンを指定します。(注意：今までは暗黙で有効になっていました)
+
+TAG239 2020/06/22
+  Core
+    OPN系:ページ機能対応 第１段階完了
+  IDE
+    about画面からgithubのページを開けるようにした。
+
+TAG238 2020/06/18
+  Core
+    XGM/ZGM: カウンター値の取得方法を変えたのにXGM,ZGMではそれを適用していなかった為、
+    パートカウンターが表示されなくなっていたのを修正。
+    ページ機能: AY8910の一通りの機能に対応
+
+TAG237 2020/06/17
+  Core 
+    ページ機能対応。とりあえずAY8910の一部の機能のみ
+    レイヤー機能は放置。
+
+TAG236 2020/06/15 2nd
+  IDE 妄想音源YM2609
+    ADPCM-Aパートのメーター表示のふり幅を修正
+    ADPCM-Aパートリセット時にキーオフ(ダンプ)と音量0のセットをするように修正
+    Effectをリセットするように修正
+
+TAG235 2020/06/15
+  IDE
+    妄想音源YM2609のADPCM-Aパートのミュートができなかったのを修正
+
+TAG234 2020/06/14
+  Core
+    OPLLの音色定義ができなくなっていたのを修正
+
+TAG233 2020/06/12
+  IDE
+    引数にファイルが指定されていた場合はそれを読み込むように修正
+
+TAG232 2020/06/09
+  Core
+    K053260,OPNA(ADPCM),OPNA2(ADPCM0,1,2) PCM定義文のbaseFreqパラメータが適用されるように修正
+
+TAG231 2020/06/08
+  Core
+    YM2609 FM以外のエフェクトの適用Chが正しく反映されていなかったのを修正
+
+TAG230 2020/06/07 3rd
+  Core
+    定義文でも;のあとコメントをかけるように修正
+
+TAG229 2020/06/07 2nd
+    外部スクリプトを実行後、カレントディレクトリが変わってしまうのを修正。
+    SOXのスクリプト、18.5kHz変換のオプションを調整。
+
+TAG228 2020/06/07
+    C140 fnumの計算が間違っていたので修正(分周期が違っていた)
+
+TAG227 2020/06/04 2nd
+    MDSoundの差し替えのみ
+
+TAG226 2020/06/04
+  Core
+    ・QSound:キーオン、ループ周りの挙動を修正。
+
+TAG225 2020/06/01 2nd
+  Core
+    ・MML Analyzer:Yコマンドを使用するとキャストに失敗するバグを修正。
+    (またしてもさしゅさんからご指摘いただきました。ありがとうございます！(T_T)
+
+TAG224 2020/06/01
+  Core
+    ・YM2151,YM2609,YMF262:Yコマンドを使用するとキャストに失敗するバグを修正。
+    (さしゅさんからご指摘いただきました。ありがとうございます！)
+
+TAG223 2020/05/31 2nd
+  Core
+    ・MDSound適用
+    ・OPL2:初期化時にOPL2モードを有効にするよう修正
+  その他
+    ・ドキュメント修正
+
+TAG222 2020/05/31
+  Core
+    ・OPL/OPL2に対応
+
+TAG221 2020/05/30 3rd
+  Core
+    ・C352:ポルタメントができなかったのを修正
+    ・OPL3:OPLクラス追加(ソース整理)
+
+TAG220 2020/05/30 2nd
+  その他
+    ・ドキュメント修正のみ
+
+TAG219 2020/05/30
+  Core C352
+    ・C352に対応
+
+TAG218 2020/05/29
+  Core OPL3
+    ・音色の送信に一部ミスがあったので修正
+
+TAG217 2020/05/25
+  Core 
+    ・音符にタイ系のコマンドを挿めるように修正
+    ・タイ系のコマンドで数値を省略したとき、内部で0を指定していたのを修正(lコマンドの値を使用する)
+
+TAG216 2020/05/24
+  Core 
+    ・キーオンをまとめて行うチップの場合にトレース、パート情報送信が正しくできないことがあるのを修正
+    (MIDI系含む)
+  IDE PartCounter
+    ・MIDIchとパートナンバーが異なるとき、異なるパートに情報を送信していたのを修正
+    ・MIDIchの列を追加
+
+TAG215 2020/05/23
+  Core ZGM MIDI
+    ・TAG214の修正でqコマンドが無効になってしまっていたのを修正
+    ・TAG214の修正でベンド後のタイが効かなくなっていたのを修正
+    ・和音時、音符に指定するベロシティが効かなくなっていたのを修正
+
+TAG214 2020/05/22
+  Core ZGM MIDI
+    ・和音を指定できるよう音符コマンドに「:」装飾コマンドを追加。
+    ウエイトせずに次のコマンドを解釈します。
+
+TAG213 2020/05/18
+  Core
+    ・コメントアウト「;」コマンドを追加。このコマンド以降行末までを無視します。
+
+TAG212 2020/05/17
+  Core OPL3
+    ・対応
+  IDE OPL3
+    ・まだ
+
+TAG211 2020/05/16
+  Core OPLL
+    ・ポルタメントの処理の不具合を修正
+  IDE
+    ・タブを使用した際のハイライト処理の不具合を修正
+
+TAG210 2020/05/13
+  IDE
+    ・チュートリアル、MMLリファレンスをヘルプから開いた時にエラーがでることがあるのを修正(?)
+    今のところ原因がわかっておりません。それらしいエラーを表示するように変更しただけになります。。。
+
+TAG209 2020/05/10
+  mvc
+    ・ディレクトリを指定せずにコンパイルしたときの動作不具合を修正
+
+TAG208 2020/05/02
+  mucomDotNET差し替えのみ(トレースのバグが修正された)
+
+TAG207 2020/05/01 2nd
+  Script 
+    ・SOXのスクリプト使用時に、ファイル指定に空白が含まれていると変換に失敗するバグを修正
+
+TAG206 2020/05/01
+  Core XGM
+    ・拡張PCMパートでパンを指定するとおかしなレジスタにデータを送っていたバグを修正
+
+TAG205 2020/04/30
+  Core OPNA2
+    ・XDsS , XDsV , XDsG , XDsC コマンド実装
+
+TAG204 2020/04/29
+  Core XGM
+    ・DCSGのみのデータが作成できなかったのを修正
+    ・トレース時にDCSGの同じ音程の音が続くと、２音目以降がトレースされないバグを修正
+
+TAG203 2020/04/23 2nd
+  Core OPNA2
+    ・XRvD , XRvSコマンド実装
+  IDE
+    ・再生ボタンの英語表記追加
+    ・ツリービューの表示バグ修正
+
+TAG202 2020/04/23
+  Core OPNA2
+    ・ADPCM-Aの6チャンネル追加(sample:testADPCM_Pan.gwi)
+
+TAG201 2020/04/21
+  Core OPNA2のみ
+    ・yコマンドでポートも指定できるように修正
+    yn1,n2,n3 (n1:port0-3 n2:adr n3:dat)
+    ・修正中のMDSound.dll入り！(ぉぃ
+
+TAG200 2020/04/19 2nd
+  Core OPN系のみ
+    ・')'や'('を値無しで使用できるように修正(初期値:1)
+    ・@v(相対音量初期値設定)コマンド追加(上記の値変更用コマンドです)
+
+TAG199 2020/04/19
+  Core RF5C164
+    ・ループポイントの微調整を行うよう修正。
+    （RF5C164のワンショットPCMを作る際はショット後に無音空間を少し用意するようにしてください)
+  IDE
+    ・曲を切り替えたりするとmute/soloの表示が復帰できないのを修正。
+
+TAG198 2020/04/16
+  IDE
+    ・mucomDotNET TAG049の取り込みのみ
+
+TAG197 2020/04/15 3rd
+  Core
+    ・vgm/xgm ReleaseとConverted(VGMBy)のタグが逆だったのを修正
+
+TAG196 2020/04/15 2nd
+  IDE
+    ・mucomDotNET TAG048の取り込みのみ
+
+TAG195 2020/04/15
+  IDE
+    vgm/xgm/zgm
+    ・インクルード文がハイライトされないのを修正
+    ・相対オクターブコマンドを使用したときにPartCounterに表示されるオクターブが狂うのを修正
+
+TAG194 2020/04/08
+  IDE
+    ・入力支援機能を使用しないオプションを追加
+    ・入力支援機能でmucの場合はmucom形式の音色を挿入できるようにした
+
+TAG193 2020/04/04 2nd
+  Core
+    ・vgm/xgm/zgm Kコマンドの設定がベンドに反映されないのを修正
+  IDE
+    ・ショートカットキーCommentOnOffがトレース中でもできてしまうのを修正。
+
+TAG192 2020/04/04
+  IDE
+    ・ショートカットキーのカスタマイズ機能を追加。
+
+TAG191 2020/04/02
+  IDE
+    ・ルートにあるファイルを開くとフォルダーツリーが例外を出して落ちるのを修正。
+
+TAG190 2020/03/29 2nd
+  IDE
+    ・mucのみ。いつもJumpSoloが発動するのを修正。
+
+TAG189 2020/03/29
+  IDE
+    ・mucのみ。 JumpSoloModeを廃止。
+    JumpSoloを再生時に指定できるように機能修正。
+    [Alt]を押しながら[F5]でJコマンドのあるパート、或いはキャレットのあるパートがSoloになります。
+    戻したい時はSolo解除([Ctrl]+[￥])をしてください。
+
+TAG188 2020/03/28 3rd
+  IDE
+    ・mucのみ。 JumpSoloModeを実装。
+    メニュー>機能>ジャンプソロモードをチェック。
+    又は[Alt]+[a],[Enter]をキー入力。
+    そのあと、Jコマンド、またはSkip再生させると、選択したパートがソロでその位置から再生開始します。
+
+TAG187 2020/03/28 2nd
+  Core
+    ・vgm/xgm/zgmのスキップ再生後に通常の再生を行ってもスキップされるバグの修正
+
+TAG186 2020/03/28
+  Core
+    ・vgm/xgm/zgmのスキップ再生アルゴリズムを変更
+    ・vgmのクロック計算を修正
+  IDE
+    ・[alt]+[=]を押したとき、システムの警告音がなるのを修正
+
+TAG185 2020/03/27 2nd
+  Core
+    ・xgm/zgmでスキップ再生がバグっていたので修正
+
+TAG184 2020/03/27
+  IDE
+    ・mucでスキップ再生に対応
+
+TAG183 2020/03/26
+  IDE
+    ・mute/soloのショートカットキーを追加。(11chまで)
+
+TAG182 2020/03/25
+  IDE
+    ・検索機能(検索ウィンドウ)
+    　　履歴をつけた。
+    　　１００件覚えます。
+    　　矢印下キーで履歴を開くようにした。
+    　　ESCキーで履歴ウィンドウを閉じるようにした。
+    　　エンターキーで次の検索を行うようにした。
+
+TAG181 2020/03/24
+  Core
+    ・xgmでCnパートが使用できなかったのを修正。(歌詞は未対応)
+    ・xgmでテンポを指定せずにPCMを使用するとテンポが変わるのを修正。(デフォルトの計算が間違っていた。)
+
+TAG180 2020/03/23 2nd
+  IDE
+    ・M98したときに、継承元のファイル名に連番をつけるよう修正。
+    ・mucパートカウンター
+      cの初期値を192に修正。
+      Detuneの表示に対応
+
+TAG179 2020/03/23
+  Core
+    ・volume-revタグを修正orz
+  IDE
+    ・M98すると、カウンター表示がクリアされてしまうのを修正
+
+TAG178 2020/03/22
+  Core
+    ・volume-revタグを実装
+  IDE
+    ・muc保存時にUTFで保存していた為S-JISに修正
+    ・partCounterウィンドウ
+      loopCounterを追加
+      mucの一部のパラメータ表示対応
+        loopCounter,Instrument,Envelope,Volume,Note,Length,KeyOn
+
+TAG177 2020/03/21
+  IDE
+    ・mucでもmute/soloができるようにした
+    ・zgm OPNA2でのmute/soloのバグを修正
+    ・zgm mute/soloの状態復帰しないバグを修正
+
+TAG176 2020/03/19
+  IDE
+    ・Compile,M98る前にlogウィンドウをクリアするようにした。
+    ・logウィンドウの微調整
+    ・各種ウィンドウのダブルバッファ化。
+    ・mucomDotNETはデフォルトではWarningが出ないように変更。
+    ・オプションからmucomDotNETのログレベルを変更可能に。(ほぼDEBUG専用で通常はいじる必要なし)
+
+TAG175 2020/03/18
+  IDE
+    ・M98DotNETを搭載！ひゅーひゅー
+
+TAG174 2020/03/16
+  Core OPLL
+    ・音色定義のタイプをLからLLに変更
+  IDE
+    ・ctrl+w/ctrl+shift+wで現在のタブを閉じれるようにした。
+    ・mucのトレースが機能しなくなっていたのを修正。
+
+TAG173 2020/03/08 2nd
+  IDE
+    ・トレースが機能しなくなっていたのを修正(sgq1205さんより)
+
+TAG172 2020/03/08
+  IDE
+    ・musicDriverInterface差し替えによる調整
+
+TAG171 2020/03/03
+  IDE
+    ・ツリービューからmucを開けるようにした。また、D&Dでも開けるようにした。
+
+TAG170 2020/03/02 2nd
+  IDE
+    ・muc編集中にエクスポートした時、未サポートである事を示すメッセージを表示
+    ・その他
+
+TAG169 2020/03/02
+  ・ソリューションの整理。
+  ・mucomDotNETを同梱。
+
+TAG168 2020/03/01
+  IDE
+    ・mucomDotNETを同梱。
+    ・mucomDotNETのトレース機能を暫定実装。
+     
+TAG167 2020/02/24
+  IDE
+    ・mucomDotNETのdllを使用したコンパイルと再生に暫定対応。
+     
+TAG166 2020/02/21
+  Core OPNA2
+    ・fnumを設定する際にOPN系のメソッドを呼び出していたためパンの値がリセットされてしまうことがあったのを修正
+    >sgq1205さんより指摘を受け修正。いつもありがとうございます！
+  IDE
+    ・mucomDotNETのdllを読み込めるようにした(だけ)。
+     
+TAG165 2020/02/16
+  Core OPN/OPNA2/OPNB
+    ・効果音モード使用時、対象のチャンネルの指定が間違っていたのを修正。
+    ・効果音モード使用時、拡張チャンネルに音色情報が伝播していなかったのを修正。
+    ・OPNA2の２個目の効果音モード使用時のバグ各種修正。
+  IDE OPNB
+    ・初期化時に周波数が間違っていたのを修正。
+    >sgq1205さんより指摘を受け修正。ありがとうございます！
+     
+TAG164 2020/02/13
+  Core OPN系
+    ・効果音モード使用時の新たなバグを更に修正。
+    (音色変更時のTLを破壊しなくはなったものの、他のチャンネルの音量を反映しなくなってしまっていた。)
+     
+TAG163 2020/02/12
+  Core OPN系
+    ・効果音モード使用を終了時にFM5Chの音色を破壊するバグがあったのを修正(OPNA2以外)
+    ・効果音モード使用時にアルゴリズムにそったスロットを指定していないとTLを破壊するバグがあったのを修正
+     
+TAG162 2020/01/18
+  Core 妄想音源YM2609
+    ・Lコマンド時のpanの初期化の値が他のOPN系と同じになってしまっていた
+  IDE
+    ・曲停止中にmute soloの列をクリックするとハングするのを修正
+     
+TAG161 2020/01/17
+  IDE
+    ・SoXが自分と同じ場所にない場合は環境変数pathとPATHの値を参照し探すように機能追加
+    (PATHを見る場合は":"でスプリットします。)
+
+TAG160 2020/01/15
+  IDE
+    ・SoXが不要な場合でもSoXの存在が確認できないとエラーになってしまっていたのを修正。
+    ・全体ループしないデータにてエンベロープ機能を使用すると、そのパートのデータが演奏完了しても音が鳴りっぱなしになるバグを修正。
+
+TAG159 2019/12/22
+  IDE
+    ・ZGMを再生した直後、XGMを再生しようとすると落ちるのを修正
+
+TAG158 2019/12/20
+  IDE
+    ・TAG157のo(オクターブ)コマンドを使用するとパラメータ表示ができず落ちるのを修正
+
+TAG157 2019/12/18
+  Core
+    ・o(オクターブ)、v(ボリューム)コマンドの拡張
+    mucom88と同じように、コマンドのみ記述したとき、前回使用した値が使用するようにした。
+    相対移動が続いた後に一気に戻したい場合などに便利です。
+    例)
+    　o4[c>]4oc  ->  o4[c>]4o4cと同じ
+
+TAG156 2019/12/15
+  IDE
+    ・再生時、ステータスバーに時間を出すように機能追加
+
+TAG155 2019/12/11
+  IDE
+    ・最後に開いた/保存したファイルひとつだけ、起動時に読み込むように機能追加
+    ・動作しなくなっていた鍵盤機能を封印（いるいらないを含めてもう少し設計を考える必要がありそう)
+    ・入力支援機能にPCMマップ定義のテンプレート追加
+
+TAG154 2019/12/10
+  IDE
+    ・ファンクションキー　表示設定が適用されない項目があったのを修正
+    ・Ctrl+PgUp/PgDnキー　行頭の//をタグとして順番に移動できるように機能追加
+
+TAG153 2019/12/07 2nd
+  Core
+    ・YM2612X PCMチャンネル(オーバーレイ)12chを追加
+    後勝ちで発音するPCMチャンネルになってます。
+
+TAG152 2019/12/07
+  IDE
+    ・スクリプトの機能が使用できなくなってしまっていたため修正
+    ・スクリプトからコンパイルを行えるようにメソッド追加
+  sample
+    ・LFO向けサンプル(テスト)データ追加
+
+TAG151 2019/12/03
+  コマンドメモ
+    ・soxのurlが間違っていたので修正。
+  Core
+    ・OPN2X 起動時にsoxを見つけたらバージョン番号を表示させるよう修正。
+	sox起動時にフォーカスが切り替わらないように設定を調整。
+
+TAG150 2019/12/01 2nd
+  Core
+    ・OPN2X soxを利用したピッチ変換定義機能実装したつもりが動いていなかったので修正。
+
+TAG149 2019/12/01
+  Core
+    ・pcm soxを利用したピッチ変換定義機能実装。
+    ・lfo 振幅を変化できるようになった。
+    ・wfコマンド(SN76489(DCSG)Ch3周波数直接指定)追加。
+
+TAG148 2019/11/26
+  Core
+    ・Lコマンドの不具合の代わりに発生したLFOとエンベロープの不具合を修正。
+
+TAG147 2019/11/23
+  Core
+    ・Lコマンド通常モード時の不具合を修正。
+
+TAG146 2019/11/13
+  IDE
+    ・Mute/Solo機能の実装(SEGAPcm,SN76489,MIDI)
+
+TAG145 2019/11/12
+  IDE
+    ・Mute/Solo機能の実装(AY8910,C140,HuC6280,K051649,K053260,RF5C164)
+
+TAG144 2019/11/11
+  IDE
+    ・Mute/Solo機能の実装(OPM,OPN,OPN2,OPNA,OPNB,OPLL)
+
+TAG143 2019/11/9 2nd
+  IDE
+    ・Mute/Solo機能の実装(OPNA2のみ)
+    ・トーンタブラーを更に修正(OPMの対策が抜けていた為)。
+
+TAG142 2019/11/9
+  Core
+    ・トーンタブラー使用時にoコマンドで直接オクターブを指定したときo1を指定したことになってしまうバグを修正。
+
+TAG141 2019/11/4 2nd
+  Core
+    ・OPN2 OPNA OPNB OPNA2 HardwareLFOを更に動作修正。
+
+TAG140 2019/11/4
+  Core
+    ・YM2610B YM2610Bフラグをセットしていなかった(YM2610状態)のを修正。
+
+TAG139 2019/11/1
+  IDE
+    ・YM2612 Hard LFOの不具合修正
+
+TAG138 2019/10/30
+  IDE
+    ・zgm K053260 QSound RF5C164 対応
+
+TAG137 2019/10/28 2nd
+  IDE
+    ・zgm YM2609を2こまでしか正常に鳴らせなかったのを修正
+
+TAG136 2019/10/28
+  IDE
+    ・zgm 複数のYM2609を正常に鳴らせなかったのを修正
+
+TAG135 2019/10/27 3rd
+  Core
+    ・zgm YM2609が鳴らなくなってしまってたのを修正
+
+TAG134 2019/10/27 2nd
+  Core
+    ・zgm C140 HuC6280 K051649 SEGAPCM YM2151 YM2413 YM2608 YM2610 対応
+
+TAG133 2019/10/27
+  Core
+    ・zgm SN76489 YM2203 対応
+  IDE
+    ・MIDIを未接続でデータを再生するとアプリがハングするのを修正
+
+TAG132 2019/10/26 2nd
+  Core
+    ・Conductor の対応
+  IDE
+    ・Conductor の対応
+
+TAG131 2019/10/26
+  Core
+    ・変数名など調整。参照先にも影響あり。
+    ・LFOのパラメーターに文字列が含まれるようになったため型をチェックするようにした。
+  IDE
+    ・TAG129からxgmが再生できないケースが発生していたのを修正。
+    ・PartCounterで内部処理用の隠し列が表示されるケースがあるのを修正
+    ・Auto skip frame時に演奏が終了しても、一部の処理が終了しないのを修正
+
+TAG130 2019/10/25
+  IDE
+    ・PartCounter MIDIの各種情報表示、Expression、Velocityの追加
+
+TAG129 2019/10/23
+  Core
+    ・MIDI:CCコマンド(コントロールチェンジ)を追加
+	・MIDI:Lコマンド対応
+	・zgm:Conductorパートを認識するように修正
+  IDE
+    ・Mixerのウィンドウ表示位置を保存、復帰可能に。
+	・オプション画面をOKで閉じた場合は、再生停止を行うように修正。
+	・再生を開始する前に再生停止を行うように修正。
+
+TAG128 2019/10/22
+  Core
+    ・vgm:allChip:Secondaryが鳴らないケースがあるのを修正
+  IDE
+    ・タイマを３種類から選択可能になった。おまけタブに設定項目有り。
+    ・Auto skip frameに対応(演奏処理が遅延してもそれを自動的に補完します)
+	・デバッグウィンドウ:×ボタンで閉じることができないようにした。
+	(表示したくない場合はおまけタブから該当項目のチェックオフを行うこと。)
+	・エラーリストから選択を行った際、アプリが落ちることがあるのを修正。(例外をキャッチするようにしただけ)
+
+TAG127 2019/10/19 2nd
+  Core
+    ・効果音モード解除直後の１つ目の発音時、キーオフを送信するように変更。
+	（次の音が正しい音量で発音されないことがあるため)
+	・rf5c164のFnum設定時、wav定義の周波数設定を参照するように変更。
+    ・zgm GeneralMIDI対応中
+	  yコマンド実装(MIDIに直接データを送信する。列挙可能)
+	  @Sコマンド実装(SysEX)
+  mml2vgmIDE
+    ・zgm GeneralMIDI対応中
+	  停止時にオールサウンドオフを送るようにした
+
+TAG126 2019/10/19
+  Core
+    ・エンベロープ効果持続中に、次のキーオンが発生するときは直前にキーオフを送信するように変更。
+    ・エンベロープ効果が持続するままループ無しの曲が終了した場合は、キーオフを送信するように変更。
+
+TAG125 2019/10/16
+  Core / mml2vgmIDE
+    ・zgm GeneralMIDI対応中
+	  LFO機能対応
+	  パンポット対応
+	  エンベロープ対応
+
+TAG124 2019/10/15
+  Core / mml2vgmIDE
+    ・zgm GeneralMIDI対応中
+	  チャンネル設定コマンド(CH)追加
+	  ベロシティ設定コマンド(U)追加
+	  ノートの書式にベロシティ設定追加
+
+TAG123 2019/10/14
+  Core / mml2vgmIDE
+    ・zgm GeneralMIDI対応中
+	  ダイレクトモード実装
+	  ポルタメント実装
+	  ディチューン実装
+	  タイ(スラー)実装
+
+TAG117 2019/09/18 2nd
+  Core / mml2vgmIDE
+    ・zgm 妄想音源YM2609対応中
+	  ADPCM 5段階Panpotに対応
+  mml2vgmIDE
+    ・zgmファイルエクスポートができなかったのを修正
+
+TAG116 2019/09/18
+  Core / mml2vgmIDE
+    ・zgm 妄想音源YM2609対応中
+	  SSG Panpot,DutyCycleの切り替えに対応
+
+TAG115 2019/09/17
+  Core / mml2vgmIDE
+    ・zgm 妄想音源YM2609対応中
+	(FMex、特殊機能まだ)
+
+TAG114 2019/09/16 2nd
+  Core
+    ・K053260 サイズを指定するところに終了アドレスを指定していたのを修正。
+    ・C140 / K053260 / QSound 空きバッファにデータを入れる処理で、
+	位置指定がヘッダー分ずれていた。その為プチノイズが出ていたのを修正。
+  Core / mml2vgmIDE
+    ・zgm 妄想音源YM2609対応中(FMとSSGとRhythmのみ)
+  mml2vgmIDE
+    ・キャレット位置に括弧がある時の色が明るくて見にくいので色を変更。
+
+TAG113 2019/09/16
+  Core
+    ・IDEを使用すると、mucom88,TFIの音色ファイル、PCMファイルを読み込めなかったのを修正
+    ・TFIが読み込めなかった場合にmucomのエラーメッセージを表示していたのを修正
+    ・デバッグ情報がそのまま標準出力に出力されていたのを修正
+  mvc
+    ・コンパイル後にpcmの使用量を表示する際に例外が出ていたのを修正。
+
+TAG112 2019/09/14
+  Core
+    ・QSound / K053260 エンベロープ処理にバグがあり使用すると常に最大音量で鳴っていたのを修正
+  Core / mml2vgmIDE
+    ・zgm 妄想音源YM2609対応中(FMとSSGのみ)
+
+TAG111 2019/09/10
+  Core / mml2vgmIDE
+    ・zgmに対応(但しYM2612のみ)
+  全般
+    ・サンプルのパート定義が間違っているものがあったので修正
+
+TAG110 2019/08/29
+  Core
+    ・segapcm のループアドレスを指定していなくてもループしてしまうバグを修正。
+  全般
+    ・ビルド後のファイルコピーをやめてバッチファイルにした。
+
+TAG109 2019/08/25
+  Core
+    ・wavファイルの読み込み制限を少し緩めた。
+	(ヘッダーのサイズ情報が実際のサイズよりも大きいときにエラーが出ないようにした。)
+
+TAG108 2019/08/24 2nd
+  Core
+    ・tonedoubler動作しなかったのを修正。(TAG010から鳴らなくなっていたorz)
+  mml2vgmIDE
+	conductor パラメータを表示できるようになった。(メーターはLyricに反応します)
+  全般
+    ・ビルド後のファイルコピー実施。
+
+TAG107 2019/08/24
+  Core
+    ・パート名再定義が動作しないバグを修正。
+  mvc
+    ・コンパイルが動作しないバグの修正。
+  mml2vgm
+    ・2回目以降のコンパイルのログが残らないバグを修正。
+
+TAG106 2019/08/23
+  Core
+    ・エンベロープの警告メッセージの修正。
+	・HuC6280 PCMマッピングモードのバグを修正。
+	・Secondaryのみ使用したときコンパイル失敗するバグを修正。
+  mml2vgm
+    ・サンプルデータの修正。(主にエンベロープの音源指定。)
+  mml2vgmIDE
+	・dcsgSecondary パラメータ表示不具合の修正
+    ・form1 タスクマネージャに出てこないようにした。
+
+TAG105 2019/08/22
+  Core
+    ・YM2151/K051649/HuC6280のベンド処理修正。
+	・実データのないXGMを作成しようとすると失敗するバグを修正。
+
+  mml2vgmIDE
+    ・F5を連打するとクラッシュするバグを修正。
+	・設定から実チップを使用しないことができるようにした。
+	・コンパイルエラーが１行目で発生した時、そこにキャレットを移動しようとするとクラッシュするバグを修正。
+
+TAG104 2019/08/21 2nd
+  Core
+    ・ぬるぽ対策。
+	・QSoundのBankに-1したChを指定するところを+1した値を設定していたバグを修正。
+	・C140のSystem2判定にミスがあったのを修正。
+	・主にPCM音源系のFNUM計算にミスがあったのを修正。
+  mml2vgmIDE
+    ・存在しない音源が指定された場合に発生するように設定した例外が、
+	ダミーコマンド発行時にも発生する状態になっていたのを修正。
+    ・歌詞ウィンドウを閉じてもメニュー項目にチェックが入ったままだったバグを修正
+
+TAG103 2019/08/21
+  Core
+	・XGM出力時のFrame数チェック時にダミーコマンドもカウントされていたのを修正。
+	・使用している音源のみインスタンスを生成し処理するように修正。(微妙にコンパイル速度アップ)
+	・パース処理を２つに分割し、早めにファイルフォーマットが取得できるよう修正。
+	・ZGMの仕様調整、対応。
+	　　SN76489のポート数を修正(GameGear向けに2とした。)
+  mml2vgmIDE
+    ・ZGMのプレイバックにほんの一部対応。
+	    YM2612の一部のみプレイバック可能になった。
+
+TAG102 2019/08/17
+  Core
+	・ZGMファイル出力に対応。
+
+TAG101 2019/08/16 2nd
+  Core
+    ・QSoundのFNum計算処理のバグを修正
+    ・QSoundのループアドレス設定処理のバグを修正
+    ・ダミーコマンド除去処理中のスキップ量計算時にある、PCMDataBlockのサイズ指定のバグを修正
+
+TAG100 2019/08/16
+  Core
+    ・K053260のSecondaryにデータを送れなかったバグを修正。
+    ・HuC6280のSecondary指定簡略化。
+    ・segaPCM/OPNAのデータサイズ指定が間違っていたのを修正。(動作はほぼ変わりないと思う。)
+	・ZGM向けコード追加
+
+TAG099 2019/08/14
+  mml2vgmIDE
+    ・OPN2実音源使用時
+	  PCMだけエミュレーションする状態
+	    Ch6のFMも実チップで鳴らなくなるバグを修正。
+        Ch6のPCMのパンニングが反映されないバグを修正。
+	  XGMの再生ができなかったバグを修正。
+	  トレースができなかったバグを修正。
+
+TAG098 2019/08/13
+  mml2vgmIDE
+    ・K053260/QSoundのプレイバック、パートカウンターに対応
+  全般
+    ・コマンドメモ、テーブルにK053260/QSoundを追加
+
+TAG097 2019/08/12 2nd
+  Core/mml2vgm/mvc
+    ・K053260に暫定対応(IDEはまだ)。
+
+TAG096 2019/08/12
+  Core/mml2vgm/mvc
+    ・QSoundに暫定対応(IDEはまだ)。
+
+TAG095 2019/08/11
+  mml2vgmIDE
+	・エディターに検索機能追加
+	・手動音源選択
+	　Silenceを選んでいると演奏時ハングするバグを修正。
+    ・パートカウンター
+      HuC6280の表示するとハングするバグを修正。
+
+TAG094 2019/08/10
+  mml2vgmIDE
+    ・リングバッファのバッファがオーバーし音抜けが発生するプレイバック時のバグ修正
+    ・パートカウンター
+	  エンベロープSw、LFOSw、Detune、KeyShiftの表示追加
+
+TAG093 2019/08/09
+  Core
+    ・PCMマップ定義コマンドの書式変更
+    ・PCMマッピングモードを追加( YM2612 / YM2608B / HuC6280 )
+	・vgmを出力時にダミーコマンドを除去しきれていなかったのを修正。
+  mml2vgmIDE
+    ・Azuki
+	  beep音を消音するプロパティを追加し、IDEでは常に消音に設定。
+
+TAG092 2019/08/07
+  mml2vgmIDE
+    ・パートカウンター
+	  列表示/非表示　切り替え・記憶・復帰　可能(列名の位置で右クリックするとメニューを表示します)
+
+TAG091 2019/08/06
+  Core
+    ・PCMマッピングモードを追加
+  mml2vgmIDE
+    ・パートカウンター
+	  列並び替え・並び順記憶・復帰、列幅変更・記憶・復帰　可能
+
+TAG090 2019/08/05 2nd
+  mml2vgmIDE
+    ・パートカウンター
+	  AY8910 / HuC6280 / K051649 / YM2413　に対応
+
+TAG089 2019/08/05
+  mml2vgmIDE
+    ・パートカウンター
+	  YM2151 / SegaPCM / C140　に対応
+
+TAG088 2019/08/04
+  Core
+    ・いつからかDualChip使用フラグが立っていなかったバグを修正。
+  mml2vgm
+  　・サンプルを更新
+  mml2vgmIDE
+    ・パートカウンター
+	  YM2203 / YM2608 / YM2610(B)　に対応
+
+TAG087 2019/08/03
+  Core
+    ・ボリューム相対アップの挙動修正
+  mml2vgmIDE
+    ・多言語対応
+    ・パートカウンター
+	  YM2612XのPCMの音色番号が反映されないのを修正
+	  パラメータの取得、保持用にクラスを作成
+	・トレースモード時にノート情報を取りこぼすことがあったのでバッファをキューに変更
+	・ダミーのパラメーターをチップに流してしまっていたのを修正
+  その他
+    ・アイコンのファイル名修正(カナを使用するとダウンロードしたソースのファイル名が化けるため)
+
+TAG086 2019/08/02
+  mml2vgmIDE
+    ・多言語対応
+	  規定の言語を英語として作成開始
+	  メインメニューのごく一部に適用
+    ・パートカウンター
+      YM2612Xの表示ができなくなっていたのを修正
+
+TAG085 2019/08/01
+  mml2vgmIDE
+    ・パートカウンター
+      DCSG,RF5C164に対応
+      タイの指定によってLengthを表示しないことがあったのを修正。
+
+TAG084 2019/07/31
+  mml2vgmIDE
+	・パートカウンターウィンドウの機能強化
+	(今のところOPN2/OPN2Xのみ)
+
+TAG083 2019/07/26
+  mml2vgmIDE
+	・歌詞ウィンドウの追加
+	・入力支援ウィンドウの項目をクリックしたときに内容が挿入されるよう修正
+	・トレース再生時にリードオンリー属性が無効になっていたのを修正
+
+TAG082 2019/07/23
+  Core
+	・xgmの音長最適化処理を暫定的にスキップするようにしています。
+	・xgmの4ChPCMのキーオフコマンドに対応しました。(出来ないと思い込んでました。申し訳ありません。)
+
+TAG081 2019/07/21
+  Core
+	・xgm出力時のGD3オフセットのバグを修正
+	・IDEからvgm出力した時のファイル名のバグを修正
+
+TAG080 2019/07/20
+  Core
+	・xgm出力時のループオフセットのバグを修正
+
+TAG079 2019/07/20
+  mml2vgmIDE
+	・vgmの演奏ドライバ、DAC処理にて配列の範囲チェックの追加
+	・ステータスバーの背景色がトレースモード時に変わるようにした
+	・トレースモード開始時の初期化処理追加
+	・トレースモード終了時のカラー復帰処理修正
+	・ステータスバーのエラーアイコン、ワーニングアイコンをクリック時にエラーリストウィンドウがアクティブになるようにした。(ドッキングしている時のみ)
+
+TAG078 2019/07/18
+  mml2vgmIDE
+	・ファイルツリービューに、再読み込み(リロード)とフィルターの機能を追加
+	・入力支援フォームのカラースキームを調整
+
+TAG077 2019/07/17
+  Core
+    ・無駄なインクルードコマンドの警告が出ていたのを修正
+  mml2vgmIDE
+	・XGMの再生に対応
+
+TAG076 2019/07/15
+  mml2vgmIDE
+	・OPNA/OPNBのADPCMが再生できていなかったのを修正
+	・実音源使用時にRF5C164,DCSGが演奏できない場合があったのを修正
+
+TAG075 2019/07/14
+  mml2vgmIDE
+	・あずきウィンドウを分離しているときに、そのドキュメントのコンパイルができなかった不具合を修正
+	・ファイルツリービューから削除を選んだ時、「削除」せずに「開いて」いたのを修正
+	・スクリプト
+	    メニューからスクリプトを実行することができなくなっていたのを修正。
+	    SOX  
+		  OPNA/OPNB向けに、16kと18.5kに変換するメニューを追加。
+
+TAG074 2019/07/13
+  mml2vgmIDE
+	・ツリービュー中のフォルダーへのDragAndDropした時に、ツリーをソートするようにした
+	・あずきにファイルをCtrlかShiftを押しながらDragAndDropした時、以下のファイルはテキスト中にコマンドを埋め込むようにした。
+        .gwi      + (インクルードコマンド)
+        .wav      @ P    
+        .bin      @ MUCOM88ADPCM 
+        .dat      @ MUCOM88
+        .tfi      @ TFI
+
+TAG073 2019/07/11
+  mml2vgmIDE
+	・ツリービュー中のフォルダーへのDragAndDropに対応
+	    ファイルのコピーや移動が可能です
+	・メインウィンドウへのDragAndDropに対応
+	    gwiはエディタに読み込み。
+		wavは再生。
+		そのほかは関連付けられたアプリケーションが起動します。
+	・ログウィンドウのログクリアボタンを追加
+
+TAG072 2019/07/09
+  mml2vgmIDE
+	・DockPanelSuiteのテーマをVS2015Darkに変更
+	・ツリービューの複数選択関連の各種修正
+      ・複数選択可能なTreeViewを作成
+      ・Script GitとSoxも複数選択に対応
+
+TAG071 2019/07/06
+  Script.txt
+    ・メモ作成
+  mml2vgmIDE
+    ・ツリービュー
+	  コンテキストメニューからスクリプトを起動可能に。
+	  ファイルの削除処理追加。
+	・スクリプト
+	　インプットボックスの呼び出し可能。
+	　Gitのスクリプト追加。(indexの追加とコミットが可能)
+	  SOXのスクリプト追加。(wavファイルの情報表示、8k変換、14k変換が可能)
+	・鍵盤表示
+	　パラメーターの編集向けウィンドウの追加。
+
+
+TAG070 2019/06/30
+  コマンドメモ
+    ・LFOの説明を強化。
+  Core
+    ・LFOの設定値のリミットチェック時の値が間違っていたため修正。
+	・xgmのコンパイル時のPCM IDチェックの厳密化。
+  mml2vgmIDE
+    ・鍵盤表示
+	  パラメータ表示のレイアウト修正。
+	  パラメータの値表示の追加と修正。
+	  鍵盤のマウスによる操作実装。
+	  マウスのクリックイベントから位置情報を取得ところまで実装。
+	  ノートログ関連のコードをいったん削除。
+	  設定に鍵盤を常に手前に表示する項目を追加。
+	  符号付き5桁10進数値表示機能追加
+	・演奏時のmdsoundインスタンスチェックを追加。
+
+TAG069 2019/06/22
+  Core
+    ・リアルタイム演奏モード向けにLコマンドの値をダミーとして送信するよう修正。
+  mml2vgmIDE
+    ・鍵盤表示に音長(L)、クオンタイズSwitch(QSW)、クオンタイズ長(QL)、レコーディング(REC)の表示を追加
+    ・リアルタイム演奏モード時のレコーディングモード実装。
+	鍵盤をアクティブにした後、スペースキーを押すことでモードを切り替えます。
+    ・リアルタイム演奏モード、レコーディング時のクオンタイズ処理実装。
+
+TAG068 2019/06/19
+  Core
+    ・リアルタイム演奏モード向けに処理を調整。
+  mml2vgmIDE
+    ・リアルタイム演奏モード時のLFO処理実装。
+	・ファンクションキーから鍵盤を表示/非表示できるよう機能追加。
+	・フォルダーツリーから.gwiファイルを開けるよう機能追加。
+	・フォルダーツリーでエンターキーを押してもファイルを開けるように機能追加。
+	・フォルダーツリーで右クリックするとコンテキストメニューを開くよう機能追加。
+
+TAG067 2019/06/15
+  Core
+    ・テンポ情報を(ダミーとして)出力するように修正
+	・スキップ再生又はJコマンド使用時にはLコマンドによるループをしないよう修正
+	・スキップ再生又はJコマンド使用時には頭出し位置までキーオンをしないように修正
+  mml2vgmIDE
+    ・鍵盤を表示時ファイルを編集中であれば、そのファイルをコンパイルしキャレット位置までスキップ再生と停止を行い情報を取得する
+	・鍵盤を表示するまでにファイルをひとつもひらいていない＆コンパイルしていない場合は、Setup.gwiをコンパイルしスキップ再生と停止を行い情報を取得する
+	・鍵盤を表示した場合はリアルタイム演奏モードに移行する。通常演奏時はその演奏が完了後移行する。
+	・鍵盤を閉じるとリアルタイム演奏モードを終了する。通常演奏時もその演奏が完了後移行しない。
+	・鍵盤を叩いた時、2度以上キーオンしていたのを修正。
+	・鍵盤にテンポと分解能を表示するよう修正。
+	・鍵盤がアクティブでもファンクションキーなどの操作が可能。
+	・リアルタイム演奏モード専用ドライバを実装。通常のドライバーとは別に動作する。現時点ではOPN2にデータを送信するのみ。
+	・ファイル使用履歴に空欄が追加されることがあったのを修正。
+	・パートカウンター画面のセルをリードオンリーに修正。
+	・DataSenderクラス内の44.1KHzコールバックをイベント化。
+	・その他、上記機能を実現するための細かい調整多数。
+
+TAG066以前
+　　まぁ色々。

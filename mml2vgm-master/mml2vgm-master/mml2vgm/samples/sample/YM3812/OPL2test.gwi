@@ -1,0 +1,57 @@
+﻿'{
+
+	TitleName   = YM3812(OPL2) test
+	TitleNameJ  =
+	GameName    =
+	GameNameJ   =
+	SystemName  =
+	SystemNameJ =
+	Composer    =
+	ComposerJ   =
+	ReleaseDate =
+	Converted   =
+	Notes       =
+
+}
+
+
+'@ L 1
+   AR  DR  SL  RR  KSL TL  MT  AM  VIB EGT KSR WS
+'@ 015 005 006 002 000 010 001 000 001 000 000 000
+'@ 015 000 015 006 000 000 003 000 000 000 000 000
+   CNT FB
+'@ 000 006
+
+'@ L 2
+   AR  DR  SL  RR  KSL TL  MT  AM  VIB EGT KSR WS BD
+'@ 014 010 014 010 000 000 000 000 000 000 000 000
+'@ 015 004 001 007 000 000 000 000 000 000 000 000
+   CNT FB
+'@ 000 000
+
+'@ L 3
+   AR  DR  SL  RR  KSL TL  MT  AM  VIB EGT KSR WS  HH
+'@ 015 014 001 008 000 014 000 000 000 000 000 000
+   AR  DR  SL  RR  KSL TL  MT  AM  VIB EGT KSR WS  SD
+'@ 015 007 015 006 000 000 003 000 000 001 000 000
+   CNT FB
+'@ 000 000
+
+'@ L 4
+   AR  DR  SL  RR  KSL TL  MT  AM  VIB EGT KSR WS TOM
+'@ 015 006 010 006 000 000 001 000 000 000 000 000
+   AR  DR  SL  RR  KSL TL  MT  AM  VIB EGT KSR WS CYM
+'@ 015 003 000 006 000 022 011 000 000 000 000 000
+@ 000 000 000 000 000 063 000 000 000 000 000 000
+   CNT FB
+'@ 001 000
+
+
+
+'Cn1 T120
+Cn1 L
+
+
+'J01 @1v63l8o4q1
+'J01 cdefedcr efgagfer crcrcrcr l16ccddeeff l8edcr
+

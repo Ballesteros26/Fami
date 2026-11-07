@@ -1,0 +1,768 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{43C6D6AE-BB1E-4D20-98F4-E52C5D1EF568}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>mml2vgmIDE</RootNamespace>
+    <AssemblyName>mml2vgmIDE</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>none</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Feli48.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Azuki, Version=1.7.10.27908, Culture=neutral, PublicKeyToken=46b77eb7f2d82aba, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Azuki.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.46.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.46\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython, Version=3.4.0.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronPython.3.4.0\lib\net462\IronPython.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython.Modules, Version=3.4.0.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronPython.3.4.0\lib\net462\IronPython.Modules.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython.SQLite, Version=3.4.0.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronPython.3.4.0\lib\net462\IronPython.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython.Wpf, Version=3.4.0.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronPython.3.4.0\lib\net462\IronPython.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MDSound">
+      <HintPath>..\Core\MDSound.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dynamic, Version=1.3.3.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicLanguageRuntime.1.3.3\lib\net452\Microsoft.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting, Version=1.3.3.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicLanguageRuntime.1.3.3\lib\net452\Microsoft.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting.Metadata, Version=1.3.3.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicLanguageRuntime.1.3.3\lib\net452\Microsoft.Scripting.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="musicDriverInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\musicDriverInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.2.1.0\lib\net472\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Asio, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Asio.2.1.0\lib\netstandard2.0\NAudio.Asio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Core.2.1.0\lib\netstandard2.0\NAudio.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Lame, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Lame.2.0.1\lib\netstandard2.0\NAudio.Lame.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Midi, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Midi.2.1.0\lib\netstandard2.0\NAudio.Midi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Wasapi, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Wasapi.2.1.0\lib\netstandard2.0\NAudio.Wasapi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinForms, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.WinForms.2.1.0\lib\net472\NAudio.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinMM, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.WinMM.2.1.0\lib\netstandard2.0\NAudio.WinMM.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RealChipCtlWrap, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\RealChipCtlWrap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.3.1.0\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking.ThemeVS2015, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.ThemeVS2015.3.1.0\lib\net40\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio.cs" />
+    <Compile Include="ChipLEDs.cs" />
+    <Compile Include="ChipRegister.cs" />
+    <Compile Include="CompileManager.cs" />
+    <Compile Include="D88N88\D88.cs" />
+    <Compile Include="D88N88\N88Disk.cs" />
+    <Compile Include="D88N88\N88FileAtr.cs" />
+    <Compile Include="Driver\moonDriverM.cs" />
+    <Compile Include="Driver\mucomMub.cs" />
+    <Compile Include="Driver\pmdM.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\C352.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\C140.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\AY8910.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\HuC6280.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\K051649.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\K053260.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\QSound.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\DMG.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\NES.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\RF5C164.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\SEGAPCM.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\Gigatron.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\VRC6.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\VRC7.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YM2151.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\Y8950.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YMF271.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YMF278B.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YMF262.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YM3812.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YM3526.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YM2413.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YM2608.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YM2610.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\Conductor.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\MidiGM.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\SN76489.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YM2203.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YM2609.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\ZgmChip.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\ChipFactory.cs" />
+    <Compile Include="Driver\ZGM\ZgmChip\YM2612.cs" />
+    <Compile Include="ColorScheme.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="dacControl.cs" />
+    <Compile Include="Document.cs" />
+    <Compile Include="DrawBuff.cs" />
+    <Compile Include="Driver\baseDriver.cs" />
+    <Compile Include="Driver\vgm.cs" />
+    <Compile Include="Driver\xgm.cs" />
+    <Compile Include="Driver\ZGM\zgm.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Environment.cs" />
+    <Compile Include="fileCom.cs" />
+    <Compile Include="form\ChannelInfo.cs" />
+    <Compile Include="form\DataGridViewImageCellEx.cs" />
+    <Compile Include="form\FormN88Files.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FormN88Files.Designer.cs">
+      <DependentUpon>FormN88Files.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmCSM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmCSM.Designer.cs">
+      <DependentUpon>FrmCSM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\frmDebug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmDebug.Designer.cs">
+      <DependentUpon>frmDebug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmInputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmInputBox.Designer.cs">
+      <DependentUpon>FrmInputBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmLoopTimes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmLoopTimes.Designer.cs">
+      <DependentUpon>FrmLoopTimes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmLyrics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmLyrics.Designer.cs">
+      <DependentUpon>FrmLyrics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmMIDIKbd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmMIDIKbd.Designer.cs">
+      <DependentUpon>FrmMIDIKbd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmMIDIKbd_prm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmMIDIKbd_prm.Designer.cs">
+      <DependentUpon>FrmMIDIKbd_prm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmMixer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmMixer.Designer.cs">
+      <DependentUpon>FrmMixer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmProgress.Designer.cs">
+      <DependentUpon>FrmProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmReplaceBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmReplaceBox.Designer.cs">
+      <DependentUpon>FrmReplaceBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmSearchBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmSearchBox.Designer.cs">
+      <DependentUpon>FrmSearchBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmSetting.Designer.cs">
+      <DependentUpon>FrmSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmSien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmSien.Designer.cs">
+      <DependentUpon>FrmSien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmAbout.Designer.cs">
+      <DependentUpon>FrmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmErrorList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmErrorList.Designer.cs">
+      <DependentUpon>FrmErrorList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmFolderTree.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmFolderTree.Designer.cs">
+      <DependentUpon>FrmFolderTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmPartCounter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmPartCounter.Designer.cs">
+      <DependentUpon>FrmPartCounter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmEditor.Designer.cs">
+      <DependentUpon>FrmEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\FrmLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\FrmLog.Designer.cs">
+      <DependentUpon>FrmLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\IForm.cs" />
+    <Compile Include="form\MUCHighlighter.cs" />
+    <Compile Include="form\ucSettingInstruments.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="form\ucSettingInstruments.Designer.cs">
+      <DependentUpon>ucSettingInstruments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameBuffer.cs" />
+    <Compile Include="iEncoding.cs" />
+    <Compile Include="InstrumentAtLocal.cs" />
+    <Compile Include="InstrumentAtValSound.cs" />
+    <Compile Include="KumaCom.cs" />
+    <Compile Include="log.cs" />
+    <Compile Include="MDChipParams.cs" />
+    <Compile Include="MIDIImporter.cs" />
+    <Compile Include="MIDIKbd.cs" />
+    <Compile Include="midiOutInfo.cs" />
+    <Compile Include="MIDIParam.cs" />
+    <Compile Include="MMLParameter\Gigatron.cs" />
+    <Compile Include="VGMWriter.cs" />
+    <Compile Include="MidWriter.cs" />
+    <Compile Include="mmfControl.cs" />
+    <Compile Include="MMLParameter\DMG.cs" />
+    <Compile Include="MMLParameter\NES.cs" />
+    <Compile Include="MMLParameter\AY8910.cs" />
+    <Compile Include="MMLParameter\C140.cs" />
+    <Compile Include="MMLParameter\C352.cs" />
+    <Compile Include="MMLParameter\Conductor.cs" />
+    <Compile Include="MMLParameter\GeneralMIDI.cs" />
+    <Compile Include="MMLParameter\HuC6280.cs" />
+    <Compile Include="MMLParameter\Instrument.cs" />
+    <Compile Include="MMLParameter\InstrumentFactory.cs" />
+    <Compile Include="MMLParameter\K051649.cs" />
+    <Compile Include="MMLParameter\K053260.cs" />
+    <Compile Include="MMLParameter\Manager.cs" />
+    <Compile Include="MMLParameter\PPZ8.cs" />
+    <Compile Include="MMLParameter\QSound.cs" />
+    <Compile Include="MMLParameter\RF5C164.cs" />
+    <Compile Include="MMLParameter\SegaPCM.cs" />
+    <Compile Include="MMLParameter\SN76489.cs" />
+    <Compile Include="MMLParameter\VRC6.cs" />
+    <Compile Include="MMLParameter\YM2151_mucom.cs" />
+    <Compile Include="MMLParameter\YM2151.cs" />
+    <Compile Include="MMLParameter\YM2203.cs" />
+    <Compile Include="MMLParameter\YM2413.cs" />
+    <Compile Include="MMLParameter\YM2608.cs" />
+    <Compile Include="MMLParameter\YM2608_mucom.cs" />
+    <Compile Include="MMLParameter\YM2608_PMD.cs" />
+    <Compile Include="MMLParameter\YM2609.cs" />
+    <Compile Include="MMLParameter\YM2610B_mucom.cs" />
+    <Compile Include="MMLParameter\YM2610B.cs" />
+    <Compile Include="MMLParameter\YM2612.cs" />
+    <Compile Include="MMLParameter\YM2612X.cs" />
+    <Compile Include="MMLParameter\Y8950.cs" />
+    <Compile Include="MMLParameter\YM3526.cs" />
+    <Compile Include="MMLParameter\YM3812.cs" />
+    <Compile Include="MMLParameter\YMF271.cs" />
+    <Compile Include="MMLParameter\YMF278B.cs" />
+    <Compile Include="MMLParameter\YMF262.cs" />
+    <Compile Include="MoonDriverManager.cs" />
+    <Compile Include="mucomManager.cs" />
+    <Compile Include="muteManager.cs" />
+    <Compile Include="muteStatus.cs" />
+    <Compile Include="myEncoding.cs" />
+    <Compile Include="NAudioWrap.cs" />
+    <Compile Include="NullOut.cs" />
+    <Compile Include="PMDManager.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RealChip.cs" />
+    <Compile Include="RealTimeMML.cs" />
+    <Compile Include="ScriptInterface.cs" />
+    <Compile Include="Setting.cs" />
+    <Compile Include="Sien.cs" />
+    <Compile Include="SienSearch.cs" />
+    <Compile Include="SoundManager\BaseMakerSender.cs" />
+    <Compile Include="SoundManager\BaseSender.cs" />
+    <Compile Include="SoundManager\Chip.cs" />
+    <Compile Include="SoundManager\ChipSender.cs" />
+    <Compile Include="SoundManager\DataMaker.cs" />
+    <Compile Include="SoundManager\DataSender.cs" />
+    <Compile Include="SoundManager\DriverAction.cs" />
+    <Compile Include="SoundManager\EmuChipSender.cs" />
+    <Compile Include="SoundManager\Pack.cs" />
+    <Compile Include="SoundManager\RealChipSender.cs" />
+    <Compile Include="SoundManager\RingBuffer.cs" />
+    <Compile Include="SoundManager\SoundManager.cs" />
+    <Compile Include="Tables.cs" />
+    <Compile Include="Tool\CSM\FFT.cs" />
+    <Compile Include="VisVolume.cs" />
+    <Compile Include="WaveWriter.cs" />
+    <Compile Include="WindowPosition.cs" />
+    <EmbeddedResource Include="form\FormN88Files.resx">
+      <DependentUpon>FormN88Files.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmCSM.resx">
+      <DependentUpon>FrmCSM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmDebug.resx">
+      <DependentUpon>frmDebug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmInputBox.resx">
+      <DependentUpon>FrmInputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmLoopTimes.resx">
+      <DependentUpon>FrmLoopTimes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmLyrics.resx">
+      <DependentUpon>FrmLyrics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmMain.ja-JP.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmMain.ja.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmMIDIKbd.resx">
+      <DependentUpon>FrmMIDIKbd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmMIDIKbd_prm.resx">
+      <DependentUpon>FrmMIDIKbd_prm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmMixer.resx">
+      <DependentUpon>FrmMixer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmProgress.resx">
+      <DependentUpon>FrmProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmReplaceBox.ja-JP.resx">
+      <DependentUpon>FrmReplaceBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmReplaceBox.resx">
+      <DependentUpon>FrmReplaceBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmSearchBox.ja-JP.resx">
+      <DependentUpon>FrmSearchBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmSearchBox.resx">
+      <DependentUpon>FrmSearchBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmSetting.resx">
+      <DependentUpon>FrmSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmSien.resx">
+      <DependentUpon>FrmSien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmAbout.resx">
+      <DependentUpon>FrmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmErrorList.resx">
+      <DependentUpon>FrmErrorList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmFolderTree.resx">
+      <DependentUpon>FrmFolderTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmPartCounter.resx">
+      <DependentUpon>FrmPartCounter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmEditor.resx">
+      <DependentUpon>FrmEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\FrmLog.resx">
+      <DependentUpon>FrmLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\ucSettingInstruments.resx">
+      <DependentUpon>ucSettingInstruments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="azukiColorScheme.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="c86ctl.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Instruments\HuC\testHuC6280.gwi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Instruments\Instrument.gwi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Instruments\OPL\OPL3_Bass.gwi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Instruments\OPL\OPL3_BELL.gwi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Instruments\OPL\OPL3_ElecDrumSet.gwi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Instruments\OPL\OPL3_鈴.gwi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Instruments\OPM\testYM2151.gwi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="mmlSien.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Template.mml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Template.muc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Template.gwi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{f2a97e95-2dbf-4975-9898-c45bb2bc2010}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomControl\CustomControl.csproj">
+      <Project>{de6679f5-4d0f-40ff-934f-cdf9bd260698}</Project>
+      <Name>CustomControl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Azuki.dll" />
+    <Content Include="Azuki.xml" />
+    <Content Include="c86ctl.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lang\MoonDriverDotNETmessage.ja-JP.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lang\MoonDriverDotNETmessage.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lang\mucomDotNETmessage.ja-JP.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lang\mucomDotNETmessage.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lang\PMDDotNETmessage.ja-JP.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lang\PMDDotNETmessage.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="M98DotNETcore.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MoonDriverDotNETCommon.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MoonDriverDotNETCompiler.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MoonDriverDotNETDriver.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mucomDotNETCommon.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mucomDotNETCompiler.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mucomDotNETDriver.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="musicDriverInterface.dll" />
+    <Content Include="PMDDotNETCommon.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PMDDotNETCompiler.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PMDDotNETDriver.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RealChipCtlWrap.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\ClearLog.png" />
+    <Content Include="VolumeBarColorScheme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resource\Comp48.ico" />
+    <Content Include="Resource\Filter.png" />
+    <Content Include="Resource\planeMIDIKB.png" />
+    <Content Include="Resource\planeMixer.png" />
+    <None Include="Resource\rFader.png" />
+    <None Include="Resource\rFont_03.png" />
+    <None Include="Resource\rFont_04.png" />
+    <None Include="Resource\rMIDILCD_Font_04.png" />
+    <None Include="Resource\rMIDILCD_Font_05.png" />
+    <None Include="Resource\rMIDILCD_Font_06.png" />
+    <Content Include="Resource\rec.png" />
+    <Content Include="Resource\Reload.png" />
+    <Content Include="Resource\rMIDILCD_KBD_01.png" />
+    <Content Include="Resource\Feli.mdp" />
+    <Content Include="Resource\Feli.png" />
+    <Content Include="Resource\Feli48.ico" />
+    <Content Include="Resource\BreakPoint.png" />
+    <Content Include="Resource\BreakPointMute.png" />
+    <Content Include="Resource\ccFadeout.png" />
+    <Content Include="Resource\ccFast.png" />
+    <Content Include="Resource\ccNext.png" />
+    <Content Include="Resource\ccPause.png" />
+    <Content Include="Resource\ccPlay.png" />
+    <Content Include="Resource\ccPrevious.png" />
+    <Content Include="Resource\ccSlow.png" />
+    <Content Include="Resource\ccStop.png" />
+    <Content Include="Resource\Error.png" />
+    <Content Include="Resource\F01.png" />
+    <Content Include="Resource\F02.png" />
+    <Content Include="Resource\F03.png" />
+    <Content Include="Resource\F04.png" />
+    <Content Include="Resource\F05.png" />
+    <Content Include="Resource\F06.png" />
+    <Content Include="Resource\F07.png" />
+    <Content Include="Resource\F08.png" />
+    <Content Include="Resource\F09.png" />
+    <Content Include="Resource\F10.png" />
+    <Content Include="Resource\F11.png" />
+    <Content Include="Resource\F12.png" />
+    <Content Include="Resource\File.png" />
+    <Content Include="Resource\Folder.png" />
+    <Content Include="Resource\LineCursor.png" />
+    <Content Include="Resource\Warning.png" />
+    <Content Include="Script\compileMuc.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\Document\uncomment.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\Document\commentOut.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\Git\git.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\Sample\test2.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\Sample\testMenuItem.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\Sample\test.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Setup.gwi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Script\Sample\testCompile.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\SOX\sox.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\XGM\Slasher.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tutorial.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Feli48.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 および x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ProjectExtensions />
+  <Import Project="..\packages\NAudio.Lame.2.0.1\build\NAudio.Lame.targets" Condition="Exists('..\packages\NAudio.Lame.2.0.1\build\NAudio.Lame.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NAudio.Lame.2.0.1\build\NAudio.Lame.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NAudio.Lame.2.0.1\build\NAudio.Lame.targets'))" />
+  </Target>
+</Project>

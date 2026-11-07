@@ -1,0 +1,37 @@
+﻿'{
+
+	TitleName   =OPN series Hard LFO TEST
+	TitleNameJ  =OPN系 ハードLFO テスト
+	GameName    =
+	GameNameJ   =
+	SystemName  =
+	SystemNameJ =
+	Composer    =
+	ComposerJ   =
+	ReleaseDate =2015/12/26
+	Converted   =kuma
+	Notes       =2026/03/07 動作確認
+
+	Notes       =YM2203(OPN)はハードLFOを持っていないので動作しません。
+
+}
+
+'F1 T120
+
+'@ N 0 "x_x_8_x.muc_0"
+   AR  DR  SR  RR  SL  TL  KS  ML  DT  AM  SSGEG
+'@ 025 000 000 014 000 023 000 004 001 001 000
+'@ 029 000 000 014 000 015 000 008 007 001 000
+'@ 025 000 000 014 000 025 000 008 003 001 000
+'@ 031 000 000 015 000 000 000 008 005 001 000
+   AL  FB
+'@ 001 007
+
+
+
+'F1 @0D0K0v113o3l1q0r4
+'F1 MPH0,2,7,3,0
+'F1 SP1a1 r1 SP0a1
+
+
+

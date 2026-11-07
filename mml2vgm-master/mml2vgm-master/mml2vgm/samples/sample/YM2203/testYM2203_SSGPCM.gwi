@@ -1,0 +1,29 @@
+﻿'{
+
+	TitleName   =YM2203(OPN) SSGPCM Test
+	TitleNameJ  =YM2203(OPN) SSGPCM テスト
+	GameName    =
+	GameNameJ   =
+	SystemName  =
+	SystemNameJ =
+	Composer    =
+	ComposerJ   =
+	ReleaseDate =2021/07/13
+	Converted   =
+	Notes       =
+
+	ClockCount  =192
+
+}
+
+
+
+'@ P 0,"..\wav\SD.wav",8000,100,YM2203
+'@ P 1,"..\wav\HC.wav",8000,100,OPN
+
+'N9 T160 v8 [c1d1]10
+N7 m0v10cdef m1q0 @0 c_>>>>b<<<< cdef @1cccc m0v10cdef
+'N7 m1q0 @0 [c1r1]10
+'N8 m1q0 @0 [r1c1]10
+
+
